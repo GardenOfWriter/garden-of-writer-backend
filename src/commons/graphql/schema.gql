@@ -1,0 +1,138 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: String!
+  name: String!
+  nickname: String!
+  email: String!
+  phone_number: String!
+  grade: String!
+  profileImage: String!
+  mbti: String!
+  intro: String!
+}
+
+type Board {
+  id: String!
+  title: String!
+  content: String!
+  like: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  tag: String!
+  image: String
+  user: User!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Tag {
+  id: String!
+  name: String!
+  fictionBoards: [FictionBoard!]!
+}
+
+type FictionBoard {
+  id: String!
+  title: String!
+  content: String!
+  like: Int!
+  thumbnail: String!
+  mark: Int!
+  genre: String!
+  attend_count: Int!
+  notice: String!
+  deadline: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  user: User!
+  users: [Tag!]!
+}
+
+type Comment {
+  id: String!
+  content: String!
+  createdAt: DateTime!
+  updateAt: DateTime!
+  user: User!
+  board: Board!
+  fictionBoard: FictionBoard!
+}
+
+type NestedComment {
+  id: String!
+  content: String!
+  createdAt: DateTime!
+  updateAt: DateTime!
+  user: User!
+  comment: Comment!
+}
+
+type Query {
+  fetchBoard(boardId: String!): Board!
+  fetchMyBoard(boardId: String!): Board!
+  fetchMyAllBoards(page: Int): [Board!]!
+  fetchAllBoards(page: Int): [Board!]!
+  fetchAllBoardWithLikeCount(page: Int): [Board!]!
+  searchBoards(word: String!, page: Int! = 1): [Board!]!
+  fetchComments(boardId: String!, fictionBoardId: String!, page: Int): [Comment!]!
+  fetchNestedComments(commentId: String!, page: Int): [NestedComment!]!
+  fetchUsers: [User!]!
+  fetchUser: User!
+}
+
+type Mutation {
+  createBoard(createBoardInput: CreateBoardInput!): Board!
+  updateBoard(boardId: String!, updateBoardInput: UpdateBoardInput!): Board!
+  deleteBoard(boardId: String!): Boolean!
+  createComment(boardId: String!, fictionBoardId: String!, comment: String!): Comment!
+  updateComment(commentId: String!, updateComment: String!): Comment!
+  deleteComment(commentId: String!): Boolean!
+  createNestedComment(commentId: String!, nestedComment: String!): NestedComment!
+  deleteNestedComment(nestedCommentId: String!): Boolean!
+  updateNestedComment(nestedCommentId: String!, updateNestedComment: String!): NestedComment!
+  createUser(createUserInput: CreateUserInput!): User!
+  emailVerify(email: String!): String!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  deleteUser: Boolean!
+  findUserPwd(email: String!): String!
+}
+
+input CreateBoardInput {
+  title: String!
+  content: String!
+  image: String
+  tag: [String!]!
+}
+
+input UpdateBoardInput {
+  title: String
+  content: String
+  image: String
+  tag: [String!]
+}
+
+input CreateUserInput {
+  name: String!
+  nickname: String!
+  email: String!
+  phone_number: String!
+  grade: String!
+  mbti: String!
+  intro: String!
+  password: String!
+  profileImage: String
+}
+
+input UpdateUserInput {
+  nickname: String
+  email: String
+  password: String
+  phone_number: String
+  profileImage: String
+}
