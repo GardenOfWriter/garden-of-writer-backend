@@ -1,4 +1,5 @@
-import { CACHE_MANAGER, Inject, NotFoundException } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Inject, NotFoundException } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { Cache } from 'cache-manager';
 import { userService } from 'src/apis/user/user.service';
