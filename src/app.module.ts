@@ -16,12 +16,14 @@ import { JwtAccessStrategy } from './commons/auth/jwt-access.strategy';
 import { JwtRefreshStrategy } from './commons/auth/jwt-refresh.strategy';
 import { EmailModule } from './commons/mail/mail.module';
 import * as redisStore from 'cache-manager-redis-store';
+import { FollowModule } from './apis/follow/follow.module';
 
 @Module({
   imports: [
     BoardModule,
     CommentModule,
     FictionBoardModule,
+    FollowModule,
     EmailModule,
     NestedCommentModule,
     UserModule,
