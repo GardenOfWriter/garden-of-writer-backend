@@ -18,9 +18,11 @@ import { EmailModule } from './commons/mail/mail.module';
 import * as redisStore from 'cache-manager-redis-store';
 import { FollowModule } from './apis/follow/follow.module';
 import { TagModule } from './apis/tag/tag.module';
+import { AttendListModule } from './apis/attend_list/attend_list.module';
 
 @Module({
   imports: [
+    AttendListModule,
     BoardModule,
     CommentModule,
     FictionBoardModule,
