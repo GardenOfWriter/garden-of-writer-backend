@@ -17,6 +17,7 @@ import { JwtRefreshStrategy } from './commons/auth/jwt-refresh.strategy';
 import { EmailModule } from './commons/mail/mail.module';
 import * as redisStore from 'cache-manager-redis-store';
 import { FollowModule } from './apis/follow/follow.module';
+import { TagModule } from './apis/tag/tag.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { FollowModule } from './apis/follow/follow.module';
     FollowModule,
     EmailModule,
     NestedCommentModule,
+    TagModule,
     UserModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,

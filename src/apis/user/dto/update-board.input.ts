@@ -18,8 +18,5 @@ export class UpdateUserInput {
   image: string;
 
   @Field({ nullable: true })
-  mbti: string;
-
-  @Field({ nullable: true })
   phone_number: string;
 }
