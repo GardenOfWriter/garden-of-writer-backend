@@ -1,5 +1,4 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Follow } from 'src/apis/follow/entities/follow.entity';
 import { Image } from 'src/apis/Image/entities/image.entity';
 import {
   Column,
@@ -7,8 +6,6 @@ import {
   DeleteDateColumn,
   Entity,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -52,10 +49,6 @@ export class User {
   @Field(() => String)
   grade: string;
 
-  @Column()
-  @Field(() => String, { nullable: true })
-  mbti: string;
-
   @CreateDateColumn()
   createdAt: Date;
 
@@ -69,9 +62,4 @@ export class User {
   @Field(() => Image, { nullable: true })
   @OneToOne(() => Image, { nullable: true })
   image: Image;
-
-  @JoinTable()
-  @Field()
-  @ManyToMany(() => Follow)
-  follow: Follow[];
 }

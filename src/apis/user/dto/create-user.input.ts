@@ -27,8 +27,5 @@ export class CreateUserInput {
   phone_number: string;
 
   @Field(() => String, { nullable: true })
-  mbti: string;
-
-  @Field(() => String, { nullable: true })
   image: string;
 }
