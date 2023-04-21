@@ -45,10 +45,6 @@ export class User {
   @Field(() => String)
   phone_number: string;
 
-  @Column()
-  @Field(() => String)
-  grade: string;
-
   @CreateDateColumn()
   createdAt: Date;
 
