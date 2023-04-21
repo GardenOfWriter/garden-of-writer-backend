@@ -12,10 +12,10 @@ import { Repository } from 'typeorm';
 import { Image } from '../Image/entities/image.entity';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
-import { MailService } from 'src/commons/mail/mail.service';
+import { MailService } from 'src/apis/mail/mail.service';
 
 @Injectable()
-export class userService {
+export class UserService {
   constructor(
     private readonly mailService: MailService,
 

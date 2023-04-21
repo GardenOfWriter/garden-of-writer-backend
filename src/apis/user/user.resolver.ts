@@ -1,17 +1,17 @@
 import { BadRequestException, UseGuards } from '@nestjs/common';
 import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { GqlAuthAccessGuard } from 'src/commons/auth/gql-auth.guard';
-import { MailService } from 'src/commons/mail/mail.service';
+import { MailService } from 'src/apis/mail/mail.service';
 import { IContext } from 'src/commons/types/context';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-board.input';
 import { User } from './entities/user.entity';
-import { userService } from './user.service';
+import { UserService } from './user.service';
 
 @Resolver()
 export class UserResolver {
   constructor(
-    private readonly userService: userService, //
+    private readonly userService: UserService, //
     private readonly mailService: MailService,
   ) {}
 
