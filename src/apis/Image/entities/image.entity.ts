@@ -1,4 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
+import { FictionBoard } from 'src/apis/fiction_board/entities/fiction_board.entity';
 import { User } from 'src/apis/user/entities/user.entity';
 // import { Board } from 'src/apis/boards/entities/board.entity';
 import {
@@ -22,6 +23,10 @@ export class Image {
 
   @DeleteDateColumn()
   deletedAt: Date;
+
+  @OneToOne(() => FictionBoard)
+  @Field(() => FictionBoard)
+  fictionBoard: FictionBoard;
 
   // @OneToOne(() => Board)
   // @Field(() => Board)

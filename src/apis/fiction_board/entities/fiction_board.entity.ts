@@ -1,12 +1,15 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Image } from 'src/apis/Image/entities/image.entity';
 import { Tag } from 'src/apis/tag/entities/tag.entity';
 import { User } from 'src/apis/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToMany,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -69,4 +72,9 @@ export class FictionBoard {
   @Field(() => [Tag])
   @ManyToMany(() => Tag, (tag) => tag.fictionBoards)
   users: User[];
+
+  @JoinColumn()
+  @Field(() => Image, { nullable: true })
+  @OneToOne(() => Image, { nullable: true })
+  image: Image;
 }
