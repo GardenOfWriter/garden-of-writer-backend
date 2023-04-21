@@ -2,14 +2,14 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Inject, NotFoundException } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { Cache } from 'cache-manager';
-import { userService } from 'src/apis/user/user.service';
+import { UserService } from 'src/apis/user/user.service';
 import { MailService } from './mail.service';
 
 @Resolver()
 export class MailResolver {
   constructor(
     private readonly mailsService: MailService, //
-    private readonly usersService: userService,
+    private readonly usersService: UserService,
 
     @Inject(CACHE_MANAGER)
     private readonly cacheManager: Cache,

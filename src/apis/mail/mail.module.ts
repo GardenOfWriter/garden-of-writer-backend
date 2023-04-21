@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Image } from 'src/apis/Image/entities/image.entity';
 import { User } from 'src/apis/user/entities/user.entity';
-import { userService } from 'src/apis/user/user.service';
+import { UserService } from 'src/apis/user/user.service';
 import { MailResolver } from './mail.resolver';
 import { MailService } from './mail.service';
 
@@ -16,7 +16,7 @@ import { MailService } from './mail.service';
   providers: [
     MailResolver, //
     MailService,
-    userService,
+    UserService,
   ],
 })
 export class EmailModule {}

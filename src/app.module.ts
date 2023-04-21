@@ -14,7 +14,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { JwtAccessStrategy } from './commons/auth/jwt-access.strategy';
 import { JwtRefreshStrategy } from './commons/auth/jwt-refresh.strategy';
-import { EmailModule } from './commons/mail/mail.module';
+import { EmailModule } from './apis/mail/mail.module';
 import * as redisStore from 'cache-manager-redis-store';
 import { FollowModule } from './apis/follow/follow.module';
 import { TagModule } from './apis/tag/tag.module';
