@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { MailService } from 'src/commons/mail/mail.service';
+import { MailService } from 'src/apis/mail/mail.service';
 import { Board } from '../board/entities/board.entity';
 import { FollowCount } from '../followCounts/followCount.entity';
 import { Image } from '../Image/entities/image.entity';
 import { User } from './entities/user.entity';
 import { UserResolver } from './user.resolver';
-import { userService } from './user.service';
+import { UserService } from './user.service';
 
 @Module({
   imports: [
@@ -20,7 +20,7 @@ import { userService } from './user.service';
 
   providers: [
     UserResolver, //
-    userService,
+    UserService,
     MailService,
   ],
 })
