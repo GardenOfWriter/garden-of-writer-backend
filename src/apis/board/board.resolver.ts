@@ -10,14 +10,14 @@ import { Board } from './entities/board.entity';
 @Resolver()
 export class BoardResolver {
   constructor(
-    private readonly boardservice: BoardService, //
+    private readonly boardService: BoardService, //
   ) {}
 
   @Query(() => Board)
   fetchBoard(
     @Args('boardId') boardId: string, //
   ) {
-    return this.boardservice.findOneById({ boardId });
+    return this.boardService.findOneById({ boardId });
   }
 
   @UseGuards(GqlAuthAccessGuard)
@@ -27,7 +27,7 @@ export class BoardResolver {
     @Args('boardId') boardId: string,
   ) {
     const userId = context.req.user.id;
-    return this.boardservice.findByMyUserId({ userId, boardId });
+    return this.boardService.findByMyUserId({ userId, boardId });
   }
 
   @UseGuards(GqlAuthAccessGuard)
@@ -37,21 +37,21 @@ export class BoardResolver {
     @Args('page', { nullable: true, type: () => Int }) page: number,
   ) {
     const userId = context.req.user.id;
-    return this.boardservice.findAllByMyUserId({ userId, page });
+    return this.boardService.findAllByMyUserId({ userId, page });
   }
 
   @Query(() => [Board])
   fetchAllBoards(
     @Args('page', { nullable: true, type: () => Int }) page: number,
   ) {
-    return this.boardservice.findAll({ page });
+    return this.boardService.findAll({ page });
   }
 
   @Query(() => [Board])
   fetchAllBoardWithLikeCount(
     @Args('page', { nullable: true, type: () => Int }) page: number,
   ) {
-    return this.boardservice.findAllWithLikeCount({ page });
+    return this.boardService.findAllWithLikeCount({ page });
   }
 
   @Query(() => [Board])
@@ -59,7 +59,7 @@ export class BoardResolver {
     @Args('word') word: string, //
     @Args({ name: 'page', type: () => Int, defaultValue: 1 }) page: number,
   ) {
-    return this.boardservice.searchAllBoards({ word, page });
+    return this.boardService.searchAllBoards({ word, page });
   }
 
   @UseGuards(GqlAuthAccessGuard)
@@ -70,7 +70,7 @@ export class BoardResolver {
   ) {
     const userId = context.req.user.id;
 
-    const result = await this.boardservice.create({
+    const result = await this.boardService.create({
       userId,
       createBoardInput,
     });
@@ -86,7 +86,7 @@ export class BoardResolver {
   ) {
     const userId = context.req.user.id;
 
-    const result = await this.boardservice.update({
+    const result = await this.boardService.update({
       boardId,
       userId,
       updateBoardInput,
@@ -101,6 +101,6 @@ export class BoardResolver {
     @Args('boardId') boardId: string,
   ) {
     const userId = context.req.user.id;
-    return this.boardservice.delete({ userId, boardId });
+    return this.boardService.delete({ userId, boardId });
   }
 }

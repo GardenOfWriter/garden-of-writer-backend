@@ -1,10 +1,12 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Pick } from 'src/apis/pick/entities/pick.entity';
 import { User } from 'src/apis/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -28,6 +30,10 @@ export class Board {
   @Field(() => Int)
   like: number;
 
+  @Column({ default: 0 })
+  @Field(() => Int)
+  pickCount: number;
+
   @CreateDateColumn()
   @Field(() => Date)
   createdAt: Date;
@@ -47,4 +53,8 @@ export class Board {
   @ManyToOne(() => User)
   @Field(() => User)
   user: User;
+
+  @OneToMany(() => Pick, (pick) => pick.board, { cascade: true })
+  @Field(() => [Pick])
+  pick: Pick[];
 }
