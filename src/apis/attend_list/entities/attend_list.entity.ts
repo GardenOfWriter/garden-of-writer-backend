@@ -7,6 +7,7 @@ import {
   JoinTable,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -19,6 +20,10 @@ export class AttendList {
   @CreateDateColumn()
   @Field(() => Date)
   created_at: Date;
+
+  @UpdateDateColumn()
+  @Field(() => Date)
+  updatedAt: Date;
 
   @ManyToOne(() => FictionBoard, { onDelete: 'CASCADE' })
   @Field(() => FictionBoard)
