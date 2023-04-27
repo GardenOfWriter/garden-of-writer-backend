@@ -32,4 +32,4 @@ import { FictionBoard } from '../fiction_board/entities/fiction_board.entity';
     FictionBoardService,
   ],
 })
-export class PicksModule {}
+export class PickModule {}
