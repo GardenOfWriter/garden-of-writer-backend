@@ -74,7 +74,7 @@ export class PicksService {
 
       await this.boardsRepository.update(
         { id: boardId },
-        { pickCount: board.pickCount - 1 },
+        { pickCount: Math.max(board.pickCount - 1, 0) }, //구독수가 0과 -1중에 큰것을 고르게 해서 음수를 방지하는 로직
       );
 
       return '찜 취소';
@@ -122,7 +122,7 @@ export class PicksService {
 
       await this.fictionBoardRepository.update(
         { id: fictionBoardId },
-        { pickCount: fictionBoard.pickCount - 1 },
+        { pickCount: Math.max(fictionBoard.pickCount - 1, 0) }, //구독수가 0과 -1중에 큰것을 고르게 해서 음수를 방지하는 로직
       );
 
       return '찜 취소';
