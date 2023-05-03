@@ -8,6 +8,12 @@ export class CreateFictionBoardInput {
   @Field(() => String)
   content: string;
 
+  @Field(() => String)
+  notice: string;
+
+  @Field(() => String)
+  deadline: string;
+
   @Field(() => String, { nullable: true })
   image: string;
 
