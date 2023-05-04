@@ -64,12 +64,22 @@ export class UserService {
   }
 
   async createUser({ createUserInput }) {
-    const { email, password, cPassword, nickname, image, ...user } =
-      createUserInput;
+    const {
+      email,
+      password,
+      cPassword,
+      phone_number,
+      nickname,
+      image,
+      ...user
+    } = createUserInput;
 
     const isValid = await this.cacheManager.get(createUserInput.email);
     const checkNickName = await this.userRepository.findOne({
       where: { nickname },
+    });
+    const checkPhone = await this.userRepository.findOne({
+      where: { phone_number },
     });
     const checkEmail = await this.userRepository.findOne({
       where: { email },
@@ -78,6 +88,10 @@ export class UserService {
       throw new NotFoundException('이미 사용 중인 닉네임 입니다.');
     } else if (checkEmail)
       throw new NotFoundException('이미 사용 중인 이메일 입니다.');
+
+    if (checkPhone) {
+      throw new NotFoundException('이미 사용 중인 휴대폰 번호입니다.');
+    }
 
     if (isValid !== true || !isValid)
       throw new BadRequestException('인증이 완료되지 않았습니다.');

@@ -22,11 +22,11 @@ export class User {
   @Field(() => String)
   name: string;
 
-  @Column()
+  @Column({ unique: true }) // 중복해제(2단계 인증 느낌?)
   @Field(() => String)
   nickname: string;
 
-  @Column()
+  @Column({ unique: true }) // 중복해제(2단계 인증 느낌?)
   @Field(() => String)
   email: string;
 
