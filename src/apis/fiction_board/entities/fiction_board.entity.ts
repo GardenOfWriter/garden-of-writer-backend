@@ -41,13 +41,13 @@ export class FictionBoard {
   @Field(() => Int)
   pickCount: number;
 
-  @Column()
+  @Column({ nullable: true })
   @Field(() => String)
   thumbnail: string;
 
-  @Column()
-  @Field(() => Int)
-  rating: number;
+  // @Column()
+  // @Field(() => Int)
+  // rating: number;
 
   @Column()
   @Field(() => String)
@@ -57,7 +57,7 @@ export class FictionBoard {
   @Field(() => Int)
   attend_count: number;
 
-  @Column()
+  @Column({ nullable: true })
   @Field(() => String)
   notice: string;
 
@@ -78,7 +78,7 @@ export class FictionBoard {
   user: User;
 
   @JoinTable()
-  @Field(() => [Tag])
+  @Field(() => [Tag], { nullable: true })
   @ManyToMany(() => Tag, (tag) => tag.fictionBoards)
   tags: Tag[];
 
@@ -88,10 +88,9 @@ export class FictionBoard {
   @Field(() => [AttendList])
   attendList: AttendList[];
 
-  @JoinColumn()
-  @Field(() => Image, { nullable: true })
-  @OneToOne(() => Image, { nullable: true })
-  image: Image;
+  @OneToMany(() => Image, (Image) => Image.fictionBoard, { cascade: true })
+  @Field(() => [Image])
+  image: Image[];
 
   @OneToMany(() => Pick, (pick) => pick.board, { cascade: true })
   @Field(() => [Pick])

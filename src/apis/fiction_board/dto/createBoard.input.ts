@@ -9,6 +9,9 @@ export class CreateFictionBoardInput {
   content: string;
 
   @Field(() => String)
+  genre: string;
+
+  @Field(() => String, { nullable: true })
   notice: string;
 
   @Field(() => String)
@@ -17,6 +20,6 @@ export class CreateFictionBoardInput {
   @Field(() => String, { nullable: true })
   image: string;
 
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   tag: string[];
 }
