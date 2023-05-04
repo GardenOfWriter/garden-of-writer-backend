@@ -6,6 +6,7 @@ import {
   Column,
   DeleteDateColumn,
   Entity,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -24,7 +25,7 @@ export class Image {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @OneToOne(() => FictionBoard)
+  @ManyToOne(() => FictionBoard, { onDelete: 'CASCADE' })
   @Field(() => FictionBoard)
   fictionBoard: FictionBoard;
 

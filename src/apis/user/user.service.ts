@@ -144,31 +144,10 @@ export class UserService {
   }
 
   async delete({ userId }) {
-    const user = await this.userRepository.findOne({
-      where: { id: userId },
-      relations: ['image'],
-    });
-
-    if (!user)
-      throw new UnprocessableEntityException(
-        '해당 유저 정보를 찾을 수 없습니다.',
-      );
-
-    const userInfo = await this.userRepository.save({
+    const user = await this.userRepository.delete({
       id: userId,
-      password: null,
-      email: user.email + '(탈퇴)',
-      nickname: user.nickname + '(탈퇴)',
-      age: null,
-      gender: null,
-      mbti: null,
-      image: null,
     });
-
-    await this.imageRepository.delete({ id: user.image.id });
-
-    if (userInfo) return true;
-    else return false;
+    return user.affected ? true : false;
   }
 
   async findUserPassword({ email }) {
