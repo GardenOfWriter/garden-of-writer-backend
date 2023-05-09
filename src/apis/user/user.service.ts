@@ -42,6 +42,14 @@ export class UserService {
     });
   }
 
+  async findUserByEmail({ email }) {
+    const result = await this.userRepository.findOne({
+      where: { email: email },
+    });
+
+    return result;
+  }
+
   //나 찾기
   async findMe({ userId }) {
     const user = await this.userRepository.findOne({

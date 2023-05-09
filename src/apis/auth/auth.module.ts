@@ -8,6 +8,7 @@ import { UserService } from '../user/user.service';
 import { Image } from '../Image/entities/image.entity';
 import { FollowCount } from '../followCounts/followCount.entity';
 import { MailService } from '../mail/mail.service';
+import { AuthController } from './auth.controller';
 
 @Module({
   imports: [
@@ -24,5 +25,6 @@ import { MailService } from '../mail/mail.service';
     UserService,
     MailService,
   ],
+  controllers: [AuthController],
 })
 export class AuthModule {}

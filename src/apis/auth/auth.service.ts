@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { UserService } from '../user/user.service';
 import {
   IAuthServiceGetAccessToken,
   IAuthServiceSetRefreshToken,
@@ -9,6 +10,7 @@ import {
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService, //
+    private readonly userService: UserService,
   ) {}
 
   getAccessToken({ user }: IAuthServiceGetAccessToken): string {
@@ -54,5 +56,15 @@ export class AuthService {
     //   `refreshToken=${refreshToken}; path=/; Secure; httpOnly;`
     // );
     return refreshToken;
+  }
+
+  async OAuthLogin({ req, res }) {
+    let user = await this.userService.findUserByEmail({
+      email: req.user.email,
+    });
+    if (!user) user = await this.userService.createUser({ ...req.user });
+
+    this.setRefreshToken({ user, req, res });
+    res.redirection('');
   }
 }

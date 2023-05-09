@@ -21,6 +21,7 @@ import { TagModule } from './apis/tag/tag.module';
 import { AttendListModule } from './apis/attend_list/attend_list.module';
 import { AuthModule } from './apis/auth/auth.module';
 import { PickModule } from './apis/pick/picks.module';
+import { JwtGoogleStrategy } from './commons/auth/jwt-social-google.strategy';
 
 @Module({
   imports: [
@@ -60,6 +61,12 @@ import { PickModule } from './apis/pick/picks.module';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, JwtAccessStrategy, JwtRefreshStrategy],
+  providers: [
+    //
+    AppService,
+    JwtAccessStrategy,
+    JwtRefreshStrategy,
+    JwtGoogleStrategy,
+  ],
 })
 export class AppModule {}
