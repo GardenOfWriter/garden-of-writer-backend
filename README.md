@@ -12,6 +12,7 @@
 ## **Branch Naming Convention**
 
 **이슈 생성 시 자동으로 브랜치가 생성됩니다.**
+**이슈 생성 시 Assignees, Labels, Project 꼭 설정해주세요**
 <img width="908" alt="image" src="https://github.com/rrgks6221/template-test/assets/46591459/3271b87e-237f-4612-9198-e5315bc007d1">
 
 - #{label}/issue-{issueNumber}/{featureName}
