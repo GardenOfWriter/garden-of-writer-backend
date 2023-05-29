@@ -34,8 +34,8 @@
 
 ## **Commit Convention**
 
-- #{issue number}/{types}/작업한 사항(띄어쓰기 허용)
-- ex ```[#1]/feat/게시판 조회 기능 추가```
+- [#{issue number}]/{types}: 작업한 사항(띄어쓰기 허용)
+- ex ```[#1]/feat: 게시판 조회 기능 추가```
 
 ### types
 
