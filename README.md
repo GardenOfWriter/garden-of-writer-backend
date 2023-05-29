@@ -15,8 +15,9 @@
 **이슈 생성 시 Assignees, Labels, Project 꼭 설정해주세요**
 <img width="908" alt="image" src="https://github.com/rrgks6221/template-test/assets/46591459/3271b87e-237f-4612-9198-e5315bc007d1">
 
-- #{label}/issue-{issueNumber}/{featureName}
-- ex ```doc/issue-1/github_template```
+- #{label}/issue-{issueNumber}/{issueTitle}
+  - Branch 명으로 적절하지 않은 문자(공백)는 ```_```로 처리됩니다.
+  - ex ```doc/issue-1/github_template```
 
 ### label
 |label|description|
