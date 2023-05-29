@@ -14,7 +14,7 @@ setMessage() {
   ISSUE=($(echo ${BRANCH_SPLIT[1]} | tr "-" "\n"))
   ISSUE_NUMBER=${ISSUE[1]}
   DESCRIPTION=$(git config branch."$BRANCH".description)
-  echo "[#$ISSUE_NUMBER]/$TITLE/ $(cat $COMMIT_EDITMSG)" > $COMMIT_EDITMSG
+  echo "[#$ISSUE_NUMBER]/$TITLE: $(cat $COMMIT_EDITMSG)" > $COMMIT_EDITMSG
   if [ -n "$DESCRIPTION" ] 
   then
      echo "" >> $COMMIT_EDITMSG
