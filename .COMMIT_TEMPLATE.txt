@@ -1,0 +1,16 @@
+
+################
+# [${issueNumber}]/{commitType}: <제목> 의 형식으로 위에 작성
+# 최상단의 기본 template 은 [${issueNumber}]/${branchType}: 
+# 예) [#1]/feat: prepare-commit-msg
+
+# type
+################
+# feat: 새로운 기능 추가
+# modify: 코드 수정 => 기능상의 수정이 있는 경우
+# refactor: 기능상의 수정 없이 코드 품질만 올렸을 경우
+# delete: 코드 삭제
+# test: 테스트 코드 생성, 수정, 등 모든 테스트코드 관련
+# doc: 문서 수정에 대한 작업
+# fix: 버그 수정
+################
