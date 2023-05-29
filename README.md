@@ -52,7 +52,7 @@
 
 <br>
 
-## **Commit Prepare**
+### **Commit Prepare**
 
 ```bash
 cp ./scripts/prepare-commit-msg.sh ./.git/hooks/prepare-commit-msg
@@ -60,3 +60,12 @@ cp ./scripts/prepare-commit-msg.sh ./.git/hooks/prepare-commit-msg
 chmod ug+x ./.git/hooks/prepare-commit-msg
 ```
 
+### **Commit Template**
+```bash
+# 커밋 템플릿 적용
+git config --local commit.template .COMMIT_TEMPLATE.txt
+
+# 전역으로 설정하려면 --local 을 --global 로 적용하면 됩니다.
+# 커밋 에디터 vscode 로 적용
+git config --local core.editor "code --wait"
+```
