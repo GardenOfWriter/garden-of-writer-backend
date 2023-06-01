@@ -8,7 +8,11 @@ assignees: ''
 
 ## Summary
 
-> 이슈 요악
+> 이슈 요악 (필수)
+
+## description
+
+> 내용 (필수)
 
 ## To-Do
 
@@ -17,8 +21,8 @@ assignees: ''
 
 ## Reference Link
 
-> 관련된 이슈 링크 (선택)
+> 참고한 레퍼런스 (선택)
 
 ## Related Link
 
-> 참고한 레퍼런스 (선택)
+> 관련된 이슈 링크 (선택)
