@@ -4,24 +4,25 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import * as redisStore from 'cache-manager-redis-store';
 import { RedisClientOptions } from 'redis';
+import { AttendListModule } from './apis/attend_list/attend_list.module';
+import { AuthModule } from './apis/auth/auth.module';
 import { BoardModule } from './apis/board/board.module';
 import { CommentModule } from './apis/comment/comment.module';
 import { FictionBoardModule } from './apis/fiction_board/fiction_board.module';
+import { FollowModule } from './apis/follow/follow.module';
+import { EmailModule } from './apis/mail/mail.module';
 import { NestedCommentModule } from './apis/nested_comment/nested_comment.module';
+import { PickModule } from './apis/pick/picks.module';
+import { TagModule } from './apis/tag/tag.module';
 import { UserModule } from './apis/user/user.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { JwtAccessStrategy } from './commons/auth/jwt-access.strategy';
 import { JwtRefreshStrategy } from './commons/auth/jwt-refresh.strategy';
-import { EmailModule } from './apis/mail/mail.module';
-import * as redisStore from 'cache-manager-redis-store';
-import { FollowModule } from './apis/follow/follow.module';
-import { TagModule } from './apis/tag/tag.module';
-import { AttendListModule } from './apis/attend_list/attend_list.module';
-import { AuthModule } from './apis/auth/auth.module';
-import { PickModule } from './apis/pick/picks.module';
 import { JwtGoogleStrategy } from './commons/auth/jwt-social-google.strategy';
+import { AppConfigModule } from './commons/config/app-config.module';
 
 @Module({
   imports: [
@@ -59,6 +60,7 @@ import { JwtGoogleStrategy } from './commons/auth/jwt-social-google.strategy';
       url: 'redis://my-redis:6379',
       isGlobal: true,
     }),
+    AppConfigModule,
   ],
   controllers: [AppController],
   providers: [
