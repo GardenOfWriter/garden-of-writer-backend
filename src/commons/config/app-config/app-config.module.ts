@@ -10,6 +10,7 @@ import { AppConfigService } from './app-config.service';
       envFilePath: ['.env.local', '.env'],
       validationSchema: Joi.object({
         PORT: Joi.number().default(3000),
+
         NODE_ENV: Joi.string().required(),
 
         DATABASE_TYPE: Joi.string().required(),
