@@ -2,20 +2,20 @@ import { ApolloDriver } from '@nestjs/apollo';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as redisStore from 'cache-manager-redis-store';
 import { AppConfigService } from '../app-config/app-config.service';
-import { ExternalConfigServiceService } from './external-config-service.service';
+import { ExternalConfigService } from './external-config.service';
 
 class MockAppConfigService {
   get = jest.fn();
 }
 
-describe('ExternalConfigServiceService', () => {
-  let service: ExternalConfigServiceService;
+describe('ExternalConfigService', () => {
+  let service: ExternalConfigService;
   let appConfigService: MockAppConfigService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        ExternalConfigServiceService,
+        ExternalConfigService,
         {
           provide: AppConfigService,
           useClass: MockAppConfigService,
@@ -23,9 +23,7 @@ describe('ExternalConfigServiceService', () => {
       ],
     }).compile();
 
-    service = module.get<ExternalConfigServiceService>(
-      ExternalConfigServiceService,
-    );
+    service = module.get<ExternalConfigService>(ExternalConfigService);
     appConfigService = module.get<MockAppConfigService>(AppConfigService);
   });
 

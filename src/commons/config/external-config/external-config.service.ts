@@ -12,7 +12,7 @@ import { ENV_KEY } from '../app-config/app-config.constant';
 import { AppConfigService } from '../app-config/app-config.service';
 
 @Injectable()
-export class ExternalConfigServiceService
+export class ExternalConfigService
   implements TypeOrmOptionsFactory, CacheOptionsFactory, GqlOptionsFactory
 {
   constructor(private readonly appConfigService: AppConfigService) {}

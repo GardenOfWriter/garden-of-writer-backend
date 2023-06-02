@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { ExternalConfigServiceService } from './external-config-service.service';
+import { ExternalConfigService } from './external-config.service';
 
 @Module({
-  providers: [ExternalConfigServiceService],
-  exports: [ExternalConfigServiceService],
+  providers: [ExternalConfigService],
+  exports: [ExternalConfigService],
 })
 export class ExternalConfigModule {}
