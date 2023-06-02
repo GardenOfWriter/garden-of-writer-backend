@@ -6,18 +6,15 @@ type Key = keyof typeof ENV_KEY;
 
 @Injectable()
 export class AppConfigService {
-  private readonly NODE_ENV: string;
   private readonly PRODUCTION: string = 'production';
   private readonly DEVELOPMENT: string = 'development';
   private readonly LOCAL: string = 'local';
 
   constructor(
     private readonly configService: ConfigService<typeof ENV_KEY, true>,
-  ) {
-    this.NODE_ENV = this.configService.get<string>(ENV_KEY.NODE_ENV);
-  }
+  ) {}
 
-  get<T>(key: Key): T {
+  get<T extends string | number>(key: Key): T {
     return this.configService.get<T>(key);
   }
 
@@ -45,14 +42,14 @@ export class AppConfigService {
   }
 
   isLocal(): boolean {
-    return this.NODE_ENV === this.LOCAL;
+    return this.get<string>(ENV_KEY.NODE_ENV) === this.LOCAL;
   }
 
   isDevelopment(): boolean {
-    return this.NODE_ENV === this.DEVELOPMENT;
+    return this.get<string>(ENV_KEY.NODE_ENV) === this.DEVELOPMENT;
   }
 
   isProduction(): boolean {
-    return this.NODE_ENV === this.PRODUCTION;
+    return this.get<string>(ENV_KEY.NODE_ENV) === this.PRODUCTION;
   }
 }
