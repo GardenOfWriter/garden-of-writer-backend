@@ -57,9 +57,9 @@ describe('ExternalConfigServiceService', () => {
     });
   });
 
-  describe('createRedisClientOptions', () => {
-    it('return RedisClientOptions', () => {
-      expect(service.createRedisClientOptions()).toStrictEqual({
+  describe('createCacheOptions', () => {
+    it('return cacheOptions', () => {
+      expect(service.createCacheOptions()).toStrictEqual({
         store: redisStore,
         url: 'redis://my-redis:6379',
         isGlobal: true,
@@ -67,9 +67,9 @@ describe('ExternalConfigServiceService', () => {
     });
   });
 
-  describe('createApolloDriverConfig', () => {
-    it('return ApolloDriverConfig', () => {
-      expect(JSON.stringify(service.createApolloDriverConfig())).toEqual(
+  describe('createGqlOptions', () => {
+    it('return GqlOptions', () => {
+      expect(JSON.stringify(service.createGqlOptions())).toEqual(
         JSON.stringify({
           driver: ApolloDriver,
           autoSchemaFile: 'src/common/graphql/schema.gql',

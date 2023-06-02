@@ -1,5 +1,10 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { CacheModuleOptions, Injectable } from '@nestjs/common';
+import {
+  CacheModuleOptions,
+  CacheOptionsFactory,
+  Injectable,
+} from '@nestjs/common';
+import { GqlOptionsFactory } from '@nestjs/graphql';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 import * as redisStore from 'cache-manager-redis-store';
 import { RedisClientOptions } from 'redis';
@@ -7,7 +12,9 @@ import { ENV_KEY } from '../app-config/app-config.constant';
 import { AppConfigService } from '../app-config/app-config.service';
 
 @Injectable()
-export class ExternalConfigServiceService implements TypeOrmOptionsFactory {
+export class ExternalConfigServiceService
+  implements TypeOrmOptionsFactory, CacheOptionsFactory, GqlOptionsFactory
+{
   constructor(private readonly appConfigService: AppConfigService) {}
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
@@ -24,7 +31,7 @@ export class ExternalConfigServiceService implements TypeOrmOptionsFactory {
     };
   }
 
-  createRedisClientOptions(): CacheModuleOptions<RedisClientOptions> {
+  createCacheOptions(): CacheModuleOptions<RedisClientOptions> {
     return {
       store: redisStore,
       url: 'redis://my-redis:6379',
@@ -32,7 +39,7 @@ export class ExternalConfigServiceService implements TypeOrmOptionsFactory {
     };
   }
 
-  createApolloDriverConfig(): ApolloDriverConfig {
+  createGqlOptions(): ApolloDriverConfig {
     return {
       driver: ApolloDriver,
       autoSchemaFile: 'src/common/graphql/schema.gql',
