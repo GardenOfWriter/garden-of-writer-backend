@@ -22,7 +22,8 @@ import { AppService } from './app.service';
 import { JwtAccessStrategy } from './commons/auth/jwt-access.strategy';
 import { JwtRefreshStrategy } from './commons/auth/jwt-refresh.strategy';
 import { JwtGoogleStrategy } from './commons/auth/jwt-social-google.strategy';
-import { AppConfigModule } from './commons/config/app-config.module';
+import { AppConfigModule } from './commons/config/app-config/app-config.module';
+import { ExternalConfigModule } from './commons/config/external-config/external-config.module';
 
 @Module({
   imports: [
@@ -61,6 +62,7 @@ import { AppConfigModule } from './commons/config/app-config.module';
       isGlobal: true,
     }),
     AppConfigModule,
+    ExternalConfigModule,
   ],
   controllers: [AppController],
   providers: [

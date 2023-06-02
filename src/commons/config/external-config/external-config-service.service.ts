@@ -3,8 +3,8 @@ import { CacheModuleOptions, Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 import * as redisStore from 'cache-manager-redis-store';
 import { RedisClientOptions } from 'redis';
-import { ENV_KEY } from './app-config.constant';
-import { AppConfigService } from './app-config.service';
+import { ENV_KEY } from '../app-config/app-config.constant';
+import { AppConfigService } from '../app-config/app-config.service';
 
 @Injectable()
 export class ExternalConfigServiceService implements TypeOrmOptionsFactory {

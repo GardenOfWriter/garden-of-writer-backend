@@ -1,7 +1,7 @@
 import { ApolloDriver } from '@nestjs/apollo';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as redisStore from 'cache-manager-redis-store';
-import { AppConfigService } from './app-config.service';
+import { AppConfigService } from '../app-config/app-config.service';
 import { ExternalConfigServiceService } from './external-config-service.service';
 
 class MockAppConfigService {
