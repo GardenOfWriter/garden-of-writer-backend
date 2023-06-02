@@ -10,6 +10,7 @@
 | feat/{feature-name} | 기능 브랜치                |
 
 <br>
+
 ## **Branch Naming Convention**
 
 **이슈 생성 시 자동으로 브랜치가 생성됩니다.**
