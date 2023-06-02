@@ -1,10 +1,8 @@
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ApolloDriverConfig } from '@nestjs/apollo';
 import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import * as redisStore from 'cache-manager-redis-store';
 import { RedisClientOptions } from 'redis';
 import { AttendListModule } from './apis/attend_list/attend_list.module';
 import { AuthModule } from './apis/auth/auth.module';
@@ -24,6 +22,7 @@ import { JwtRefreshStrategy } from './commons/auth/jwt-refresh.strategy';
 import { JwtGoogleStrategy } from './commons/auth/jwt-social-google.strategy';
 import { AppConfigModule } from './commons/config/app-config/app-config.module';
 import { ExternalConfigModule } from './commons/config/external-config/external-config.module';
+import { ExternalConfigService } from './commons/config/external-config/external-config.service';
 
 @Module({
   imports: [
@@ -38,35 +37,32 @@ import { ExternalConfigModule } from './commons/config/external-config/external-
     PickModule,
     TagModule,
     UserModule,
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
-      autoSchemaFile: 'src/common/graphql/schema.gql',
-      context: ({ req, res }) => ({ req, res }),
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
+      imports: [ExternalConfigModule],
+      useFactory: (externalConfigService: ExternalConfigService) => {
+        return externalConfigService.createGqlOptions();
+      },
+      inject: [ExternalConfigService],
     }),
-    ConfigModule.forRoot(),
-    TypeOrmModule.forRoot({
-      type: process.env.DATABASE_TYPE as 'mysql',
-      host: process.env.DATABASE_HOST,
-      port: Number(process.env.DATABASE_PORT),
-      username: process.env.DATABASE_USERNAME,
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_DATABASE,
-      entities: [__dirname + '/apis/**/*.entity.*'],
-      timezone: '-09:00',
-      synchronize: true,
-      logging: true,
+    TypeOrmModule.forRootAsync({
+      imports: [ExternalConfigModule],
+      useFactory: (externalConfigService: ExternalConfigService) => {
+        return externalConfigService.createTypeOrmOptions();
+      },
+      inject: [ExternalConfigService],
     }),
-    CacheModule.register<RedisClientOptions>({
-      store: redisStore,
-      url: 'redis://my-redis:6379',
-      isGlobal: true,
+    CacheModule.registerAsync<RedisClientOptions>({
+      imports: [ExternalConfigModule],
+      useFactory: (externalConfigService: ExternalConfigService) => {
+        return externalConfigService.createCacheOptions();
+      },
+      inject: [ExternalConfigService],
     }),
     AppConfigModule,
     ExternalConfigModule,
   ],
   controllers: [AppController],
   providers: [
-    //
     AppService,
     JwtAccessStrategy,
     JwtRefreshStrategy,
