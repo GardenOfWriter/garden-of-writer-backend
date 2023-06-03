@@ -1,4 +1,4 @@
-import { ApolloDriverConfig } from '@nestjs/apollo';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -38,7 +38,7 @@ import { ExternalConfigService } from './commons/config/external-config/external
     TagModule,
     UserModule,
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
-      imports: [ExternalConfigModule],
+      driver: ApolloDriver,
       useFactory: (externalConfigService: ExternalConfigService) => {
         return externalConfigService.createGqlOptions();
       },

@@ -1,4 +1,4 @@
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ApolloDriverConfig } from '@nestjs/apollo';
 import {
   CacheModuleOptions,
   CacheOptionsFactory,
@@ -41,7 +41,6 @@ export class ExternalConfigService
 
   createGqlOptions(): ApolloDriverConfig {
     return {
-      driver: ApolloDriver,
       autoSchemaFile: 'src/common/graphql/schema.gql',
       context: ({ req, res }) => ({ req, res }),
     };

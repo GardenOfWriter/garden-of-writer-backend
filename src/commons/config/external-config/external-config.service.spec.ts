@@ -1,4 +1,3 @@
-import { ApolloDriver } from '@nestjs/apollo';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as redisStore from 'cache-manager-redis-store';
 import { AppConfigService } from '../app-config/app-config.service';
@@ -69,7 +68,6 @@ describe('ExternalConfigService', () => {
     it('return GqlOptions', () => {
       expect(JSON.stringify(service.createGqlOptions())).toEqual(
         JSON.stringify({
-          driver: ApolloDriver,
           autoSchemaFile: 'src/common/graphql/schema.gql',
           context: ({ req, res }) => ({ req, res }),
         }),

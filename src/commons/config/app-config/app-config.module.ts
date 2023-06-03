@@ -1,4 +1,4 @@
-import { Global, Module } from '@nestjs/common';
+import { Global, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
 import { AppConfigService } from './app-config.service';
@@ -31,4 +31,10 @@ import { AppConfigService } from './app-config.service';
   providers: [ConfigService, AppConfigService],
   exports: [ConfigService, AppConfigService],
 })
-export class AppConfigModule {}
+export class AppConfigModule implements OnApplicationBootstrap {
+  constructor(private readonly appConfigService: AppConfigService) {}
+
+  onApplicationBootstrap() {
+    console.log(this.appConfigService.getAllMap());
+  }
+}
