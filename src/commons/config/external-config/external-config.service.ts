@@ -34,8 +34,8 @@ export class ExternalConfigService
   createCacheOptions(): CacheModuleOptions {
     return {
       store: redisStore,
-      host: 'localhost',
-      port: 6379,
+      host: this.appConfigService.get<string>(ENV_KEY.CACHE_STORE_HOST),
+      port: this.appConfigService.get<number>(ENV_KEY.CACHE_STORE_PORT),
       isGlobal: true,
     };
   }

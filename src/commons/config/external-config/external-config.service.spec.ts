@@ -44,9 +44,7 @@ describe('ExternalConfigService', () => {
         password: 'value',
         database: 'value',
         entities: expect.arrayContaining([
-          expect.stringContaining(
-            'src/commons/config/../../apis/**/*.entity.*',
-          ),
+          expect.stringContaining('dist/**/*.entity{.ts,.js}'),
         ]),
         synchronize: false,
         logging: true,
@@ -55,23 +53,18 @@ describe('ExternalConfigService', () => {
   });
 
   describe('createCacheOptions', () => {
+    beforeEach(() => {
+      appConfigService.get.mockReturnValueOnce('localhost');
+      appConfigService.get.mockReturnValueOnce(6379);
+    });
+
     it('return cacheOptions', () => {
       expect(service.createCacheOptions()).toStrictEqual({
         store: redisStore,
-        url: 'redis://my-redis:6379',
+        host: 'localhost',
+        port: 6379,
         isGlobal: true,
       });
-    });
-  });
-
-  describe('createGqlOptions', () => {
-    it('return GqlOptions', () => {
-      expect(JSON.stringify(service.createGqlOptions())).toEqual(
-        JSON.stringify({
-          autoSchemaFile: 'src/common/graphql/schema.gql',
-          context: ({ req, res }) => ({ req, res }),
-        }),
-      );
     });
   });
 });
