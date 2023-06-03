@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { ENV_KEY } from 'src/commons/config/app-config/app-config.constant';
+import { AppConfigService } from 'src/commons/config/app-config/app-config.service';
 import { UserService } from '../user/user.service';
 import {
   IAuthServiceGetAccessToken,
@@ -9,6 +11,7 @@ import {
 @Injectable()
 export class AuthService {
   constructor(
+    private readonly appConfigService: AppConfigService,
     private readonly jwtService: JwtService, //
     private readonly userService: UserService,
   ) {}
@@ -16,14 +19,20 @@ export class AuthService {
   getAccessToken({ user }: IAuthServiceGetAccessToken): string {
     return this.jwtService.sign(
       { email: user.email, sub: user.id }, //
-      { secret: process.env.JWT_ACCESS_KEY, expiresIn: '2h' },
+      {
+        secret: this.appConfigService.get<string>(ENV_KEY.JWT_ACCESS_KEY),
+        expiresIn: '2h',
+      },
     );
   }
 
   setRefreshToken({ user, res, req }: IAuthServiceSetRefreshToken): string {
     const refreshToken = this.jwtService.sign(
       { email: user.email, sub: user.id }, //
-      { secret: process.env.JWT_REFRESH_KEY, expiresIn: '2w' },
+      {
+        secret: this.appConfigService.get<string>(ENV_KEY.JWT_REFRESH_KEY),
+        expiresIn: '2w',
+      },
     );
 
     const permittedOrigins = [

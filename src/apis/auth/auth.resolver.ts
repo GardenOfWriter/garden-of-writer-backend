@@ -1,3 +1,4 @@
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import {
   Inject,
   UnauthorizedException,
@@ -5,21 +6,23 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
-import { IContext } from 'src/commons/types/context';
-import { AuthService } from './auth.service';
 import * as bcrypt from 'bcrypt';
+import { Cache } from 'cache-manager';
 import * as jwt from 'jsonwebtoken';
 import {
   GqlAuthAccessGuard,
   GqlAuthRefreshGuard,
 } from 'src/commons/auth/gql-auth.guard';
-import { Cache } from 'cache-manager';
+import { ENV_KEY } from 'src/commons/config/app-config/app-config.constant';
+import { AppConfigService } from 'src/commons/config/app-config/app-config.service';
+import { IContext } from 'src/commons/types/context';
 import { UserService } from '../user/user.service';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { AuthService } from './auth.service';
 
 @Resolver()
 export class AuthResolver {
   constructor(
+    private readonly appConfigService: AppConfigService,
     private readonly authService: AuthService,
     private readonly userService: UserService,
 
@@ -74,8 +77,14 @@ export class AuthResolver {
       ttl: 1209600,
     });
     try {
-      const checkAccess = jwt.verify(access, process.env.JWT_ACCESS_KEY);
-      const checkRefresh = jwt.verify(refresh, process.env.JWT_REFRESH_KEY);
+      const checkAccess = jwt.verify(
+        access,
+        this.appConfigService.get<string>(ENV_KEY.JWT_ACCESS_KEY),
+      );
+      const checkRefresh = jwt.verify(
+        refresh,
+        this.appConfigService.get<string>(ENV_KEY.JWT_REFRESH_KEY),
+      );
       if (!checkAccess)
         throw new UnauthorizedException('유효하지 않은 토큰 입니다.');
       if (!checkRefresh)

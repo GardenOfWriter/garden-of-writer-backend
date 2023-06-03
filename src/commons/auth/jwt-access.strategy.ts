@@ -3,15 +3,18 @@ import { Inject, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Cache } from 'cache-manager';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { ENV_KEY } from '../config/app-config/app-config.constant';
+import { AppConfigService } from '../config/app-config/app-config.service';
 
 export class JwtAccessStrategy extends PassportStrategy(Strategy, 'access') {
   constructor(
+    private readonly appConfigService: AppConfigService,
     @Inject(CACHE_MANAGER)
     private readonly cacheManager: Cache,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.JWT_ACCESS_KEY,
+      secretOrKey: appConfigService.get<string>(ENV_KEY.JWT_ACCESS_KEY),
       passReqToCallback: true,
     });
   }
