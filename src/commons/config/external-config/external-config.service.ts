@@ -7,7 +7,7 @@ import {
 import { GqlOptionsFactory } from '@nestjs/graphql';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 import * as redisStore from 'cache-manager-redis-store';
-import { RedisClientOptions } from 'redis';
+import { join } from 'path';
 import { ENV_KEY } from '../app-config/app-config.constant';
 import { AppConfigService } from '../app-config/app-config.service';
 
@@ -25,23 +25,25 @@ export class ExternalConfigService
       username: this.appConfigService.get<string>(ENV_KEY.DATABASE_USERNAME),
       password: this.appConfigService.get<string>(ENV_KEY.DATABASE_PASSWORD),
       database: this.appConfigService.get<string>(ENV_KEY.DATABASE_DATABASE),
-      entities: [__dirname + '/../../' + 'apis/**/*.entity.*'],
+      entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: false,
       logging: true,
     };
   }
 
-  createCacheOptions(): CacheModuleOptions<RedisClientOptions> {
+  createCacheOptions(): CacheModuleOptions {
     return {
       store: redisStore,
-      url: 'redis://my-redis:6379',
+      host: 'localhost',
+      port: 6379,
       isGlobal: true,
     };
   }
 
   createGqlOptions(): ApolloDriverConfig {
     return {
-      autoSchemaFile: 'src/common/graphql/schema.gql',
+      autoSchemaFile: join(process.cwd(), 'schema.gql'),
+      sortSchema: true,
       context: ({ req, res }) => ({ req, res }),
     };
   }

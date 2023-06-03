@@ -37,29 +37,18 @@ import { ExternalConfigService } from './commons/config/external-config/external
     PickModule,
     TagModule,
     UserModule,
-    GraphQLModule.forRootAsync<ApolloDriverConfig>({
-      driver: ApolloDriver,
-      useFactory: (externalConfigService: ExternalConfigService) => {
-        return externalConfigService.createGqlOptions();
-      },
-      inject: [ExternalConfigService],
-    }),
-    TypeOrmModule.forRootAsync({
-      imports: [ExternalConfigModule],
-      useFactory: (externalConfigService: ExternalConfigService) => {
-        return externalConfigService.createTypeOrmOptions();
-      },
-      inject: [ExternalConfigService],
-    }),
-    CacheModule.registerAsync<RedisClientOptions>({
-      imports: [ExternalConfigModule],
-      useFactory: (externalConfigService: ExternalConfigService) => {
-        return externalConfigService.createCacheOptions();
-      },
-      inject: [ExternalConfigService],
-    }),
     AppConfigModule,
     ExternalConfigModule,
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      useClass: ExternalConfigService,
+    }),
+    TypeOrmModule.forRootAsync({
+      useClass: ExternalConfigService,
+    }),
+    CacheModule.registerAsync<RedisClientOptions>({
+      useClass: ExternalConfigService,
+    }),
   ],
   controllers: [AppController],
   providers: [
