@@ -95,12 +95,12 @@ type FollowCountEntity {
   user: UserEntity!
 }
 
-type FollowerList {
+type FollowerListOutput {
   id: String!
   user1: UserEntity!
 }
 
-type FollowingList {
+type FollowingListOutput {
   id: String!
   user2: UserEntity!
 }
@@ -165,8 +165,8 @@ type Query {
   fetchBoard(fictionBoardId: String!): FictionBoardEntity!
   fetchComments(boardId: String!, fictionBoardId: String!, page: Int): [CommentEntity!]!
   fetchFollowCount(userId: String!): FollowCountEntity!
-  fetchFollower(page: Int! = 1, userId: String!): [FollowerList!]!
-  fetchFollowing(page: Int! = 1, userId: String!): [FollowingList!]!
+  fetchFollower(page: Int! = 1, userId: String!): [FollowerListOutput!]!
+  fetchFollowing(page: Int! = 1, userId: String!): [FollowingListOutput!]!
   fetchMyAllBoards(page: Int): [BoardEntity!]!
   fetchMyAllFictionBoards(page: Int): [FictionBoardEntity!]!
   fetchMyBoard(boardId: String!): BoardEntity!
