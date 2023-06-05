@@ -1,0 +1,225 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AttendList {
+  created_at: DateTime!
+  fictionBoard: FictionBoard!
+  id: String!
+  updatedAt: DateTime!
+  user: User!
+}
+
+type Board {
+  content: String!
+  createdAt: DateTime!
+  id: String!
+  image: String
+  like: Int!
+  pick: [Pick!]!
+  pickCount: Int!
+  tag: String!
+  title: String!
+  updatedAt: DateTime!
+  user: User!
+}
+
+type Comment {
+  board: Board!
+  content: String!
+  createdAt: DateTime!
+  fictionBoard: FictionBoard!
+  id: String!
+  updateAt: DateTime!
+  user: User!
+}
+
+input CreateBoardInput {
+  content: String!
+  image: String
+  tag: [String!]!
+  title: String!
+}
+
+input CreateFictionBoardInput {
+  content: String!
+  deadline: String!
+  genre: String!
+  image: String
+  notice: String
+  tag: [String!]
+  title: String!
+}
+
+input CreateUserInput {
+  age: String!
+  cPassword: String!
+  email: String!
+  gender: String!
+  image: String
+  name: String!
+  nickname: String!
+  password: String!
+  phone_number: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type FictionBoard {
+  attendList: [AttendList!]!
+  attend_count: Int!
+  content: String!
+  createdAt: DateTime!
+  deadline: String!
+  genre: String!
+  id: String!
+  image: [Image!]!
+  like: Int!
+  notice: String!
+  pick: [Pick!]!
+  pickCount: Int!
+  tags: [Tag!]
+  thumbnail: String!
+  title: String!
+  updatedAt: DateTime!
+  user: User!
+}
+
+type FollowCount {
+  followCount: Int!
+  followerCount: Int!
+  id: String!
+  user: User!
+}
+
+type FollowerList {
+  id: String!
+  user1: User!
+}
+
+type FollowingList {
+  id: String!
+  user2: User!
+}
+
+type Image {
+  fictionBoard: FictionBoard!
+  id: String!
+  imgUrl: String!
+  user: User!
+}
+
+type Mutation {
+  checkNickName(nickname: String!): String!
+  checkTokenEmail(email: String!, token: String!): String!
+  createBoard(createBoardInput: CreateBoardInput!): Board!
+  createComment(boardId: String!, comment: String!, fictionBoardId: String!): Comment!
+  createFictionBoard(createFictionBoardInput: CreateFictionBoardInput!): FictionBoard!
+  createNestedComment(commentId: String!, nestedComment: String!): NestedComment!
+  createUser(createUserInput: CreateUserInput!): User!
+  deleteBoard(boardId: String!): Boolean!
+  deleteComment(commentId: String!): Boolean!
+  deleteFictionBoard(fictionBoardId: String!): Boolean!
+  deleteNestedComment(nestedCommentId: String!): Boolean!
+  deleteUser: Boolean!
+  findUserPassword(email: String!): String!
+  follow(followingId: String!): String!
+  login(email: String!, password: String!): String!
+  logout: String!
+  pickBoard(boardId: String!): String!
+  pickFictionBoard(fictionBoardId: String!): String!
+  restoreAccessToken: String!
+  sendTokenToEmail(email: String!): String!
+  updateBoard(boardId: String!, updateBoardInput: UpdateBoardInput!): Board!
+  updateComment(commentId: String!, updateComment: String!): Comment!
+  updateFictionBoard(fictionBoardId: String!, updateFictionBoardInput: UpdateFictionBoardInput!): FictionBoard!
+  updateNestedComment(nestedCommentId: String!, updateNestedComment: String!): NestedComment!
+  updatePassword(password: String!, rePassword: String!): String!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+}
+
+type NestedComment {
+  comment: Comment!
+  content: String!
+  createdAt: DateTime!
+  id: String!
+  updateAt: DateTime!
+  user: User!
+}
+
+type Pick {
+  board: Board!
+  fictionBoard: FictionBoard!
+  id: String!
+  user: User!
+}
+
+type Query {
+  fetchAllBoardWithLikeCount(page: Int): [Board!]!
+  fetchAllBoards(page: Int): [Board!]!
+  fetchAllFictionBoard(page: Int): [FictionBoard!]!
+  fetchAllFictionBoardWithLikeCount(page: Int): [FictionBoard!]!
+  fetchBoard(fictionBoardId: String!): FictionBoard!
+  fetchComments(boardId: String!, fictionBoardId: String!, page: Int): [Comment!]!
+  fetchFollowCount(userId: String!): FollowCount!
+  fetchFollower(page: Int! = 1, userId: String!): [FollowerList!]!
+  fetchFollowing(page: Int! = 1, userId: String!): [FollowingList!]!
+  fetchMyAllBoards(page: Int): [Board!]!
+  fetchMyAllFictionBoards(page: Int): [FictionBoard!]!
+  fetchMyBoard(boardId: String!): Board!
+  fetchMyFictionBoard(fictionBoardId: String!): FictionBoard!
+  fetchMyFollowCount: FollowCount!
+  fetchMyPickBoards(page: Int): [Pick!]!
+  fetchMyPickFictionBoard(page: Int): [Pick!]!
+  fetchNestedComments(commentId: String!, page: Int): [NestedComment!]!
+  fetchUser(userId: String!): User!
+  fetchUserLoggedIn: User!
+  fetchUsers(page: Int! = 1): [User!]!
+  searchBoards(page: Int! = 1, word: String!): [FictionBoard!]!
+}
+
+type Tag {
+  fictionBoards: [FictionBoard!]!
+  id: String!
+  name: String!
+}
+
+input UpdateBoardInput {
+  content: String
+  image: String
+  tag: [String!]
+  title: String
+}
+
+input UpdateFictionBoardInput {
+  content: String
+  deadline: String
+  genre: String
+  image: String
+  notice: String
+  tag: [String!]
+  title: String
+}
+
+input UpdateUserInput {
+  age: String
+  gender: String
+  image: String
+  name: String
+  nickname: String
+  phone_number: String
+}
+
+type User {
+  age: String!
+  email: String!
+  gender: String!
+  id: String!
+  image: Image
+  name: String!
+  nickname: String!
+  phone_number: String!
+}
