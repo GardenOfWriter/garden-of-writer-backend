@@ -2,6 +2,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ImageEntity } from '@src/apis/Image/entities/image.entity';
 import { AuthController } from '@src/apis/auth/auth.controller';
 import { AuthResolver } from '@src/apis/auth/auth.resolver';
 import { AuthService } from '@src/apis/auth/auth.service';
@@ -16,7 +17,7 @@ import { UserService } from '@src/apis/user/user.service';
     JwtModule.register({}), //
     TypeOrmModule.forFeature([
       UserEntity, //
-      Image,
+      ImageEntity,
       FollowCountEntity,
     ]),
   ],
