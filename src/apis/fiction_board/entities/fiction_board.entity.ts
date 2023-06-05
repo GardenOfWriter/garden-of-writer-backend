@@ -1,19 +1,17 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { AttendList } from 'src/apis/attend_list/entities/attend_list.entity';
-import { Image } from 'src/apis/Image/entities/image.entity';
-import { Pick } from 'src/apis/pick/entities/pick.entity';
-import { Tag } from 'src/apis/tag/entities/tag.entity';
-import { User } from 'src/apis/user/entities/user.entity';
+import { Image } from '@src/apis/Image/entities/image.entity';
+import { AttendList } from '@src/apis/attend_list/entities/attend_list.entity';
+import { Pick } from '@src/apis/pick/entities/pick.entity';
+import { Tag } from '@src/apis/tag/entities/tag.entity';
+import { User } from '@src/apis/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';

@@ -1,9 +1,9 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { GqlAuthAccessGuard } from 'src/commons/auth/gql-auth.guard';
-import { IContext } from 'src/commons/types/context';
-import { Pick } from './entities/pick.entity';
-import { PicksService } from './picks.service';
+import { Pick } from '@src/apis/pick/entities/pick.entity';
+import { PicksService } from '@src/apis/pick/picks.service';
+import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
+import { IContext } from '@src/commons/types/context';
 
 @Resolver()
 export class PicksResolver {

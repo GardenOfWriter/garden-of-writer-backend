@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Comment } from '../comment/entities/comment.entity';
-import { User } from '../user/entities/user.entity';
-import { BoardResolver } from './board.resolver';
-import { BoardService } from './board.service';
-import { Board } from './entities/board.entity';
+import { BoardResolver } from '@src/apis/board/board.resolver';
+import { BoardService } from '@src/apis/board/board.service';
+import { Board } from '@src/apis/board/entities/board.entity';
+import { User } from '@src/apis/user/entities/user.entity';
 
 @Module({
   imports: [

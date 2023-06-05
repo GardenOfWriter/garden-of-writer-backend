@@ -1,11 +1,11 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { IContext } from 'src/commons/types/context';
-import { GqlAuthAccessGuard } from 'src/commons/auth/gql-auth.guard';
-import { BoardService } from './board.service';
-import { CreateBoardInput } from './dto/createBoard.input';
-import { UpdateBoardInput } from './dto/updateBoard.input';
-import { Board } from './entities/board.entity';
+import { BoardService } from '@src/apis/board/board.service';
+import { CreateBoardInput } from '@src/apis/board/dto/createBoard.input';
+import { UpdateBoardInput } from '@src/apis/board/dto/updateBoard.input';
+import { Board } from '@src/apis/board/entities/board.entity';
+import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
+import { IContext } from '@src/commons/types/context';
 
 @Resolver()
 export class BoardResolver {

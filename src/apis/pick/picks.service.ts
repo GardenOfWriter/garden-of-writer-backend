@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Board } from 'src/apis/board/entities/board.entity';
-import { User } from 'src/apis/user/entities/user.entity';
+import { Board } from '@src/apis/board/entities/board.entity';
+import { FictionBoard } from '@src/apis/fiction_board/entities/fiction_board.entity';
+import { Pick } from '@src/apis/pick/entities/pick.entity';
+import { User } from '@src/apis/user/entities/user.entity';
 import { Repository } from 'typeorm';
-import { FictionBoard } from '../fiction_board/entities/fiction_board.entity';
-import { Pick } from './entities/pick.entity';
 
 @Injectable()
 export class PicksService {

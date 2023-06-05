@@ -5,9 +5,9 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { FictionBoard } from '@src/apis/fiction_board/entities/fiction_board.entity';
+import { User } from '@src/apis/user/entities/user.entity';
 import { Like, Repository } from 'typeorm';
-import { User } from '../user/entities/user.entity';
-import { FictionBoard } from './entities/fiction_board.entity';
 
 @Injectable()
 export class FictionBoardService {

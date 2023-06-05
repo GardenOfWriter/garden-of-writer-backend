@@ -1,11 +1,11 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { GqlAuthAccessGuard } from 'src/commons/auth/gql-auth.guard';
-import { IContext } from 'src/commons/types/context';
-import { FollowCount } from '../followCounts/followCount.entity';
-import { FollowerList } from './dto/followerList.output';
-import { FollowingList } from './dto/followingList.output';
-import { FollowService } from './follow.service';
+import { FollowerList } from '@src/apis/follow/dto/followerList.output';
+import { FollowingList } from '@src/apis/follow/dto/followingList.output';
+import { FollowService } from '@src/apis/follow/follow.service';
+import { FollowCount } from '@src/apis/followCounts/followCount.entity';
+import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
+import { IContext } from '@src/commons/types/context';
 
 @Resolver()
 export class FollowResolver {

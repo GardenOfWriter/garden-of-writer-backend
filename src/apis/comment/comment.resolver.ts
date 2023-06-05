@@ -1,9 +1,8 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { IContext } from 'src/commons/types/context';
-import { GqlAuthAccessGuard } from 'src/commons/auth/gql-auth.guard';
-import { CommentService } from './comment.service';
-import { Comment } from './entities/comment.entity';
+import { CommentService } from '@src/apis/comment/comment.service';
+import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
+import { IContext } from '@src/commons/types/context';
 
 @Resolver()
 export class CommentResolver {

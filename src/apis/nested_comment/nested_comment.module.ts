@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Comment } from '../comment/entities/comment.entity';
-import { User } from '../user/entities/user.entity';
-import { NestedComment } from './entities/nested_comment.entity';
-import { NestedCommentResolver } from './nested_comment.resolver';
-import { NestedCommentService } from './nested_comment.service';
+import { Comment } from '@src/apis/Comment/entities/comment.entity';
+import { NestedComment } from '@src/apis/nested_comment/entities/nested_comment.entity';
+import { NestedCommentResolver } from '@src/apis/nested_comment/nested_comment.resolver';
+import { NestedCommentService } from '@src/apis/nested_comment/nested_comment.service';
+import { User } from '@src/apis/user/entities/user.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([NestedComment, User, Comment])],

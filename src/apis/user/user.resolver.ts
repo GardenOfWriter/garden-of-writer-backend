@@ -1,12 +1,12 @@
 import { BadRequestException, UseGuards } from '@nestjs/common';
 import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { GqlAuthAccessGuard } from 'src/commons/auth/gql-auth.guard';
-import { MailService } from 'src/apis/mail/mail.service';
-import { IContext } from 'src/commons/types/context';
-import { CreateUserInput } from './dto/create-user.input';
-import { UpdateUserInput } from './dto/update-board.input';
-import { User } from './entities/user.entity';
-import { UserService } from './user.service';
+import { MailService } from '@src/apis/mail/mail.service';
+import { CreateUserInput } from '@src/apis/user/dto/create-user.input';
+import { UpdateUserInput } from '@src/apis/user/dto/update-board.input';
+import { User } from '@src/apis/user/entities/user.entity';
+import { UserService } from '@src/apis/user/user.service';
+import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
+import { IContext } from '@src/commons/types/context';
 
 @Resolver()
 export class UserResolver {

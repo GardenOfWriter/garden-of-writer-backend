@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Comment } from '../comment/entities/comment.entity';
-import { User } from '../user/entities/user.entity';
-import { FictionBoard } from './entities/fiction_board.entity';
-import { FictionBoardResolver } from './fiction_board.resolver';
-import { FictionBoardService } from './fiction_board.service';
+import { Comment } from '@src/apis/comment/entities/comment.entity';
+import { FictionBoard } from '@src/apis/fiction_board/entities/fiction_board.entity';
+import { FictionBoardResolver } from '@src/apis/fiction_board/fiction_board.resolver';
+import { FictionBoardService } from '@src/apis/fiction_board/fiction_board.service';
+import { User } from '@src/apis/user/entities/user.entity';
 
 @Module({
   imports: [

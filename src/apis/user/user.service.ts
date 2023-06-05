@@ -6,12 +6,12 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Image } from '@src/apis/Image/entities/image.entity';
+import { MailService } from '@src/apis/mail/mail.service';
+import { User } from '@src/apis/user/entities/user.entity';
 import bcrypt from 'bcrypt';
 import { Cache } from 'cache-manager';
-import { MailService } from 'src/apis/mail/mail.service';
 import { Repository } from 'typeorm';
-import { Image } from '../Image/entities/image.entity';
-import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService {

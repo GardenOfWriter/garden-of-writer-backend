@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { FictionBoard } from 'src/apis/fiction_board/entities/fiction_board.entity';
+import { FictionBoard } from '@src/apis/fiction_board/entities/fiction_board.entity';
 import {
   Column,
   Entity,

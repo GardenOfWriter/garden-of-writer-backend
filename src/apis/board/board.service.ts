@@ -1,8 +1,8 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Board } from '@src/apis/board/entities/board.entity';
+import { User } from '@src/apis/user/entities/user.entity';
 import { Like, Repository } from 'typeorm';
-import { User } from '../user/entities/user.entity';
-import { Board } from './entities/board.entity';
 
 @Injectable()
 export class BoardService {

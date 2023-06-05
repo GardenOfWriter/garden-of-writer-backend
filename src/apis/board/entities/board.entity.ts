@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Pick } from 'src/apis/pick/entities/pick.entity';
-import { User } from 'src/apis/user/entities/user.entity';
+import { Pick } from '@src/apis/pick/entities/pick.entity';
+import { User } from '@src/apis/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,

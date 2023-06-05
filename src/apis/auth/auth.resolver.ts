@@ -6,18 +6,18 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
-import bcrypt from 'bcrypt';
-import { Cache } from 'cache-manager';
-import jwt from 'jsonwebtoken';
+import { AuthService } from '@src/apis/auth/auth.service';
+import { UserService } from '@src/apis/user/user.service';
 import {
   GqlAuthAccessGuard,
   GqlAuthRefreshGuard,
-} from 'src/commons/auth/gql-auth.guard';
-import { ENV_KEY } from 'src/commons/config/app-config/app-config.constant';
-import { AppConfigService } from 'src/commons/config/app-config/app-config.service';
-import { IContext } from 'src/commons/types/context';
-import { UserService } from '../user/user.service';
-import { AuthService } from './auth.service';
+} from '@src/commons/auth/gql-auth.guard';
+import { ENV_KEY } from '@src/commons/config/app-config/app-config.constant';
+import { AppConfigService } from '@src/commons/config/app-config/app-config.service';
+import { IContext } from '@src/commons/types/context';
+import bcrypt from 'bcrypt';
+import { Cache } from 'cache-manager';
+import jwt from 'jsonwebtoken';
 
 @Resolver()
 export class AuthResolver {

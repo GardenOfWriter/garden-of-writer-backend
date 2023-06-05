@@ -1,6 +1,6 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { Image } from './entities/image.entity';
-import { ImagesService } from './images.service';
+import { Image } from '@src/apis/Image/entities/image.entity';
+import { ImagesService } from '@src/apis/Image/images.service';
 
 @Resolver()
 export class ImagesResolver {

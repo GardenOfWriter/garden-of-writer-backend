@@ -1,10 +1,10 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Board } from '@src/apis/board/entities/board.entity';
+import { Comment } from '@src/apis/comment/entities/comment.entity';
+import { FictionBoard } from '@src/apis/fiction_board/entities/fiction_board.entity';
+import { User } from '@src/apis/user/entities/user.entity';
 import { Repository } from 'typeorm';
-import { Board } from '../board/entities/board.entity';
-import { FictionBoard } from '../fiction_board/entities/fiction_board.entity';
-import { User } from '../user/entities/user.entity';
-import { Comment } from './entities/comment.entity';
 
 @Injectable()
 export class CommentService {
