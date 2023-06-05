@@ -1,6 +1,6 @@
 import { Global, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import * as Joi from 'joi';
+import Joi from 'joi';
 import { AppConfigService } from './app-config.service';
 
 @Global()

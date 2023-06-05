@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import * as redisStore from 'cache-manager-redis-store';
+import redisStore from 'cache-manager-redis-store';
 import { AppConfigService } from '../app-config/app-config.service';
 import { ExternalConfigService } from './external-config.service';
 

@@ -6,9 +6,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
-import * as bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import { Cache } from 'cache-manager';
-import * as jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import {
   GqlAuthAccessGuard,
   GqlAuthRefreshGuard,

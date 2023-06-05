@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { GqlOptionsFactory } from '@nestjs/graphql';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
-import * as redisStore from 'cache-manager-redis-store';
+import redisStore from 'cache-manager-redis-store';
 import { join } from 'path';
 import { ENV_KEY } from '../app-config/app-config.constant';
 import { AppConfigService } from '../app-config/app-config.service';
