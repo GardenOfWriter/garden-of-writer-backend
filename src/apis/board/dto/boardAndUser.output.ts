@@ -2,7 +2,7 @@ import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { UserEntity } from '@src/apis/user/entities/user.entity';
 
 @ObjectType()
-export class BoardAndUser {
+export class BoardAndUserOutput {
   @Field(() => String)
   title: string;
 
