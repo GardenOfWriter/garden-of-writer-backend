@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { FictionBoard } from '@src/apis/fiction_board/entities/fiction_board.entity';
+import { FictionBoardEntity } from '@src/apis/fiction_board/entities/fiction_board.entity';
 import {
   Column,
   Entity,
@@ -10,7 +10,7 @@ import {
 
 @Entity()
 @ObjectType()
-export class Tag {
+export class TagEntity {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => String)
   id: string;
@@ -20,7 +20,7 @@ export class Tag {
   name: string;
 
   @JoinTable()
-  @ManyToMany(() => FictionBoard)
-  @Field(() => [FictionBoard])
-  fictionBoards: FictionBoard[];
+  @ManyToMany(() => FictionBoardEntity)
+  @Field(() => [FictionBoardEntity])
+  fictionBoards: FictionBoardEntity[];
 }

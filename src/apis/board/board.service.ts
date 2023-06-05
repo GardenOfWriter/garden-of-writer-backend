@@ -1,17 +1,17 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Board } from '@src/apis/board/entities/board.entity';
-import { User } from '@src/apis/user/entities/user.entity';
+import { BoardEntity } from '@src/apis/board/entities/board.entity';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 import { Like, Repository } from 'typeorm';
 
 @Injectable()
 export class BoardService {
   constructor(
-    @InjectRepository(Board)
-    private readonly boardRepository: Repository<Board>,
+    @InjectRepository(BoardEntity)
+    private readonly boardRepository: Repository<BoardEntity>,
 
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
   ) {}
 
   async findOneById({ boardId }) {

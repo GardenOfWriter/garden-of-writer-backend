@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Pick } from '@src/apis/pick/entities/pick.entity';
-import { User } from '@src/apis/user/entities/user.entity';
+import { PickEntity } from '@src/apis/pick/entities/pick.entity';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
@@ -13,7 +13,7 @@ import {
 
 @Entity()
 @ObjectType()
-export class Board {
+export class BoardEntity {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => String)
   id: string;
@@ -50,11 +50,11 @@ export class Board {
   @Field(() => String, { nullable: true })
   image: string;
 
-  @ManyToOne(() => User)
-  @Field(() => User)
-  user: User;
+  @ManyToOne(() => UserEntity)
+  @Field(() => UserEntity)
+  user: UserEntity;
 
-  @OneToMany(() => Pick, (pick) => pick.board, { cascade: true })
-  @Field(() => [Pick])
-  pick: Pick[];
+  @OneToMany(() => PickEntity, (pick) => pick.board, { cascade: true })
+  @Field(() => [PickEntity])
+  pick: PickEntity[];
 }

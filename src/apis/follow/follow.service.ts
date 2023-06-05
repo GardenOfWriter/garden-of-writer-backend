@@ -1,22 +1,22 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Follow } from '@src/apis/follow/entities/follow.entity';
-import { FollowCount } from '@src/apis/followCounts/followCount.entity';
-import { User } from '@src/apis/user/entities/user.entity';
+import { FollowEntity } from '@src/apis/follow/entities/follow.entity';
+import { FollowCountEntity } from '@src/apis/followCounts/followCount.entity';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class FollowService {
   constructor(
-    @InjectRepository(Follow)
-    private readonly followRepository: Repository<Follow>,
+    @InjectRepository(FollowEntity)
+    private readonly followRepository: Repository<FollowEntity>,
 
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
 
-    @InjectRepository(FollowCount)
-    private readonly followCountRepository: Repository<FollowCount>,
+    @InjectRepository(FollowCountEntity)
+    private readonly followCountRepository: Repository<FollowCountEntity>,
   ) {}
 
   async follow({ followerId, followingId }) {

@@ -1,5 +1,5 @@
 import { ObjectType } from '@nestjs/graphql';
-import { User } from '@src/apis/user/entities/user.entity';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 import { Entity } from 'typeorm';
 
 @Entity()
@@ -7,5 +7,5 @@ import { Entity } from 'typeorm';
 export class AttendListAndUser {
   id: string;
 
-  user: User;
+  user: UserEntity;
 }

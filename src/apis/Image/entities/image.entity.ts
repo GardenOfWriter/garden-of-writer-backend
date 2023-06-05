@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 // import { Board } from '@src/apis/board/entities/board.entity';
-import { FictionBoard } from '@src/apis/fiction_board/entities/fiction_board.entity';
-import { User } from '@src/apis/user/entities/user.entity';
+import { FictionBoardEntity } from '@src/apis/fiction_board/entities/fiction_board.entity';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 import {
   Column,
   DeleteDateColumn,
@@ -13,7 +13,7 @@ import {
 
 @Entity()
 @ObjectType()
-export class Image {
+export class ImageEntity {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => String)
   id: string;
@@ -25,15 +25,15 @@ export class Image {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @ManyToOne(() => FictionBoard, { onDelete: 'CASCADE' })
-  @Field(() => FictionBoard)
-  fictionBoard: FictionBoard;
+  @ManyToOne(() => FictionBoardEntity, { onDelete: 'CASCADE' })
+  @Field(() => FictionBoardEntity)
+  fictionBoard: FictionBoardEntity;
 
   // @OneToOne(() => Board)
   // @Field(() => Board)
   // board: Board;
 
-  @OneToOne(() => User)
-  @Field(() => User)
-  user: User;
+  @OneToOne(() => UserEntity)
+  @Field(() => UserEntity)
+  user: UserEntity;
 }

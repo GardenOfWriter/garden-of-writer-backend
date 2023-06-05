@@ -1,5 +1,5 @@
 import { InputType, OmitType } from '@nestjs/graphql';
-import { Image } from '@src/apis/Image/entities/image.entity';
+import { ImageEntity } from '@src/apis/Image/entities/image.entity';
 
 @InputType()
-export class ImageInput extends OmitType(Image, ['id'], InputType) {}
+export class ImageInput extends OmitType(ImageEntity, ['id'], InputType) {}

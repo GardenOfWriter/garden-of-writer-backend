@@ -2,7 +2,7 @@ import { UseGuards } from '@nestjs/common';
 import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateFictionBoardInput } from '@src/apis/fiction_board/dto/createBoard.input';
 import { UpdateFictionBoardInput } from '@src/apis/fiction_board/dto/updateBoard.input';
-import { FictionBoard } from '@src/apis/fiction_board/entities/fiction_board.entity';
+import { FictionBoardEntity } from '@src/apis/fiction_board/entities/fiction_board.entity';
 import { FictionBoardService } from '@src/apis/fiction_board/fiction_board.service';
 import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
 import { IContext } from '@src/commons/types/context';
@@ -13,7 +13,7 @@ export class FictionBoardResolver {
     private readonly fictionBoardService: FictionBoardService, //
   ) {}
 
-  @Query(() => FictionBoard)
+  @Query(() => FictionBoardEntity)
   fetchBoard(
     @Args('fictionBoardId') fictionBoardId: string, //
   ) {
@@ -21,7 +21,7 @@ export class FictionBoardResolver {
   }
 
   @UseGuards(GqlAuthAccessGuard)
-  @Query(() => FictionBoard)
+  @Query(() => FictionBoardEntity)
   fetchMyFictionBoard(
     @Context() context: IContext, //
     @Args('fictionBoardId') fictionBoardId: string,
@@ -31,7 +31,7 @@ export class FictionBoardResolver {
   }
 
   @UseGuards(GqlAuthAccessGuard)
-  @Query(() => [FictionBoard])
+  @Query(() => [FictionBoardEntity])
   fetchMyAllFictionBoards(
     @Context() context: IContext,
     @Args('page', { nullable: true, type: () => Int }) page: number,
@@ -40,20 +40,20 @@ export class FictionBoardResolver {
     return this.fictionBoardService.findAllByMyUserId({ userId, page });
   }
 
-  @Query(() => [FictionBoard])
+  @Query(() => [FictionBoardEntity])
   fetchAllFictionBoard(
     @Args('page', { nullable: true, type: () => Int }) page: number,
   ) {
     return this.fictionBoardService.findAll({ page });
   }
 
-  @Query(() => [FictionBoard])
+  @Query(() => [FictionBoardEntity])
   fetchAllFictionBoardWithLikeCount(
     @Args('page', { nullable: true, type: () => Int }) page: number,
   ) {
     return this.fictionBoardService.findAllWithLikeCount({ page });
   }
-  @Query(() => [FictionBoard])
+  @Query(() => [FictionBoardEntity])
   searchBoards(
     @Args('word') word: string, //
     @Args({ name: 'page', type: () => Int, defaultValue: 1 }) page: number,
@@ -62,7 +62,7 @@ export class FictionBoardResolver {
   }
 
   @UseGuards(GqlAuthAccessGuard)
-  @Mutation(() => FictionBoard)
+  @Mutation(() => FictionBoardEntity)
   async createFictionBoard(
     @Context() context: IContext,
     @Args('createFictionBoardInput')
@@ -78,7 +78,7 @@ export class FictionBoardResolver {
   }
 
   @UseGuards(GqlAuthAccessGuard)
-  @Mutation(() => FictionBoard)
+  @Mutation(() => FictionBoardEntity)
   async updateFictionBoard(
     @Context() context: IContext,
     @Args('fictionBoardId') fictionBoardId: string,

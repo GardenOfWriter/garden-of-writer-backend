@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Image } from '@src/apis/Image/entities/image.entity';
+import { ImageEntity } from '@src/apis/Image/entities/image.entity';
 import {
   Column,
   CreateDateColumn,
@@ -13,7 +13,7 @@ import {
 
 @Entity()
 @ObjectType()
-export class User {
+export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => String)
   id: string;
@@ -55,7 +55,7 @@ export class User {
   deletedAt: Date;
 
   @JoinColumn()
-  @Field(() => Image, { nullable: true })
-  @OneToOne(() => Image, { nullable: true })
-  image: Image;
+  @Field(() => ImageEntity, { nullable: true })
+  @OneToOne(() => ImageEntity, { nullable: true })
+  image: ImageEntity;
 }

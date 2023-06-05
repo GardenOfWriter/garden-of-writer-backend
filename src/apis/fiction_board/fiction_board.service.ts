@@ -5,18 +5,18 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FictionBoard } from '@src/apis/fiction_board/entities/fiction_board.entity';
-import { User } from '@src/apis/user/entities/user.entity';
+import { FictionBoardEntity } from '@src/apis/fiction_board/entities/fiction_board.entity';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 import { Like, Repository } from 'typeorm';
 
 @Injectable()
 export class FictionBoardService {
   constructor(
-    @InjectRepository(FictionBoard)
-    private readonly fictionBoardRepository: Repository<FictionBoard>,
+    @InjectRepository(FictionBoardEntity)
+    private readonly fictionBoardRepository: Repository<FictionBoardEntity>,
 
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
   ) {}
 
   async findOneById({ fictionBoardId }) {

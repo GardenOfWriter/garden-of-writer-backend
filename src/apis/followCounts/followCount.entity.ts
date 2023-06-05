@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { User } from '@src/apis/user/entities/user.entity';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 import {
   Column,
   Entity,
@@ -10,7 +10,7 @@ import {
 
 @Entity()
 @ObjectType()
-export class FollowCount {
+export class FollowCountEntity {
   @PrimaryGeneratedColumn('uuid')
   @Field()
   id: string;
@@ -24,7 +24,7 @@ export class FollowCount {
   followerCount: number;
 
   @JoinColumn()
-  @OneToOne(() => User)
-  @Field(() => User)
-  user: User;
+  @OneToOne(() => UserEntity)
+  @Field(() => UserEntity)
+  user: UserEntity;
 }

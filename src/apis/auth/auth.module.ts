@@ -5,9 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthController } from '@src/apis/auth/auth.controller';
 import { AuthResolver } from '@src/apis/auth/auth.resolver';
 import { AuthService } from '@src/apis/auth/auth.service';
-import { FollowCount } from '@src/apis/followCounts/followCount.entity';
+import { FollowCountEntity } from '@src/apis/followCounts/followCount.entity';
 import { MailService } from '@src/apis/mail/mail.service';
-import { User } from '@src/apis/user/entities/user.entity';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 import { UserService } from '@src/apis/user/user.service';
 
 @Module({
@@ -15,9 +15,9 @@ import { UserService } from '@src/apis/user/user.service';
     CacheModule.register(),
     JwtModule.register({}), //
     TypeOrmModule.forFeature([
-      User, //
+      UserEntity, //
       Image,
-      FollowCount,
+      FollowCountEntity,
     ]),
   ],
   providers: [

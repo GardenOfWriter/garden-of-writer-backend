@@ -1,5 +1,5 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { Image } from '@src/apis/Image/entities/image.entity';
+import { ImageEntity } from '@src/apis/Image/entities/image.entity';
 import { ImagesService } from '@src/apis/Image/images.service';
 
 @Resolver()
@@ -8,7 +8,7 @@ export class ImagesResolver {
     private readonly imagesService: ImagesService, //
   ) {}
 
-  @Mutation(() => Image)
+  @Mutation(() => ImageEntity)
   uploadImageUrl(
     @Args('imgUrl') imgUrl: string, //
   ) {

@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Comment } from '@src/apis/comment/entities/comment.entity';
-import { User } from '@src/apis/user/entities/user.entity';
+import { CommentEntity } from '@src/apis/comment/entities/comment.entity';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
@@ -12,7 +12,7 @@ import {
 
 @Entity()
 @ObjectType()
-export class NestedComment {
+export class NestedCommentEntity {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => String)
   id: string;
@@ -29,11 +29,11 @@ export class NestedComment {
   @Field(() => Date)
   updateAt: Date;
 
-  @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  @Field(() => User)
-  user: User;
+  @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
+  @Field(() => UserEntity)
+  user: UserEntity;
 
-  @ManyToOne(() => Comment, { onDelete: 'CASCADE' })
-  @Field(() => Comment)
-  comment: Comment;
+  @ManyToOne(() => CommentEntity, { onDelete: 'CASCADE' })
+  @Field(() => CommentEntity)
+  comment: CommentEntity;
 }
