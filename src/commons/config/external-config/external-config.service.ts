@@ -19,7 +19,8 @@ export class ExternalConfigService
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
     return {
-      type: this.appConfigService.get<'mysql'>(ENV_KEY.DATABASE_TYPE),
+      type: this.appConfigService.get<'postgres'>(ENV_KEY.DATABASE_TYPE),
+      schema: this.appConfigService.get(ENV_KEY.DATABASE_SCHEMA),
       host: this.appConfigService.get<string>(ENV_KEY.DATABASE_HOST),
       port: this.appConfigService.get<number>(ENV_KEY.DATABASE_PORT),
       username: this.appConfigService.get<string>(ENV_KEY.DATABASE_USERNAME),

@@ -15,6 +15,7 @@ import Joi from 'joi';
         DATABASE_TYPE: Joi.string().required(),
         DATABASE_HOST: Joi.string().required(),
         DATABASE_PORT: Joi.number().required(),
+        DATABASE_SCHEMA: Joi.string().required(),
         DATABASE_USERNAME: Joi.string().required(),
         DATABASE_PASSWORD: Joi.string().required(),
         DATABASE_DATABASE: Joi.string().required(),
