@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ENV_KEY } from './app-config.constant';
+import { ENV_KEY } from '@src/commons/config/app-config/app-config.constant';
 
 type Key = keyof typeof ENV_KEY;
 

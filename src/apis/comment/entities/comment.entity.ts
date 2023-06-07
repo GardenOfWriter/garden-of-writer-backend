@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Board } from 'src/apis/board/entities/board.entity';
-import { FictionBoard } from 'src/apis/fiction_board/entities/fiction_board.entity';
-import { User } from 'src/apis/user/entities/user.entity';
+import { BoardEntity } from '@src/apis/board/entities/board.entity';
+import { FictionBoardEntity } from '@src/apis/fiction_board/entities/fiction_board.entity';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
@@ -13,7 +13,7 @@ import {
 
 @Entity()
 @ObjectType()
-export class Comment {
+export class CommentEntity {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => String)
   id: string;
@@ -30,15 +30,15 @@ export class Comment {
   @Field(() => Date)
   updateAt: Date;
 
-  @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  @Field(() => User)
-  user: User;
+  @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
+  @Field(() => UserEntity)
+  user: UserEntity;
 
-  @ManyToOne(() => Board)
-  @Field(() => Board)
-  board: Board;
+  @ManyToOne(() => BoardEntity)
+  @Field(() => BoardEntity)
+  board: BoardEntity;
 
-  @ManyToOne(() => FictionBoard)
-  @Field(() => FictionBoard)
-  fictionBoard: FictionBoard;
+  @ManyToOne(() => FictionBoardEntity)
+  @Field(() => FictionBoardEntity)
+  fictionBoard: FictionBoardEntity;
 }

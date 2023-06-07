@@ -1,8 +1,8 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { User } from 'src/apis/user/entities/user.entity';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 
 @ObjectType()
-export class BoardAndUser {
+export class BoardAndUserOutput {
   @Field(() => String)
   title: string;
 
@@ -18,14 +18,14 @@ export class BoardAndUser {
   @Field(() => String)
   thumbnail: string;
 
-  @Field(() => User)
-  user: User;
+  @Field(() => UserEntity)
+  user: UserEntity;
 
   @Field(() => Int, { nullable: true })
   pickCount: number;
 
-  @Field(() => [User])
-  pickUsers: User[];
+  @Field(() => [UserEntity])
+  pickUsers: UserEntity[];
 
   @Field(() => Date)
   createdAt: Date;

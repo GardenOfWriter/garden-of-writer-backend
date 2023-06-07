@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import * as nodemailer from 'nodemailer';
-import { ENV_KEY } from 'src/commons/config/app-config/app-config.constant';
-import { AppConfigService } from 'src/commons/config/app-config/app-config.service';
+import { ENV_KEY } from '@src/commons/config/app-config/app-config.constant';
+import { AppConfigService } from '@src/commons/config/app-config/app-config.service';
+import nodemailer from 'nodemailer';
 
 @Injectable()
 export class MailService {

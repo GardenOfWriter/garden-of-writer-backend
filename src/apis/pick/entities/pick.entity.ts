@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Board } from 'src/apis/board/entities/board.entity';
-import { FictionBoard } from 'src/apis/fiction_board/entities/fiction_board.entity';
-import { User } from 'src/apis/user/entities/user.entity';
+import { BoardEntity } from '@src/apis/board/entities/board.entity';
+import { FictionBoardEntity } from '@src/apis/fiction_board/entities/fiction_board.entity';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 import {
   CreateDateColumn,
   DeleteDateColumn,
@@ -12,22 +12,22 @@ import {
 
 @Entity()
 @ObjectType()
-export class Pick {
+export class PickEntity {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => String)
   id: string;
 
-  @ManyToOne(() => Board, { onDelete: 'CASCADE' })
-  @Field(() => Board)
-  board: Board;
+  @ManyToOne(() => BoardEntity, { onDelete: 'CASCADE' })
+  @Field(() => BoardEntity)
+  board: BoardEntity;
 
-  @ManyToOne(() => FictionBoard, { onDelete: 'CASCADE' })
-  @Field(() => FictionBoard)
-  fictionBoard: FictionBoard;
+  @ManyToOne(() => FictionBoardEntity, { onDelete: 'CASCADE' })
+  @Field(() => FictionBoardEntity)
+  fictionBoard: FictionBoardEntity;
 
-  @ManyToOne(() => User)
-  @Field(() => User)
-  user: User;
+  @ManyToOne(() => UserEntity)
+  @Field(() => UserEntity)
+  user: UserEntity;
 
   @CreateDateColumn()
   createdAt: Date;

@@ -1,5 +1,5 @@
 import { Resolver } from '@nestjs/graphql';
-import { AttendListService } from './attend_list.service';
+import { AttendListService } from '@src/apis/attend_list/attend_list.service';
 
 @Resolver()
 export class AttendListResolver {

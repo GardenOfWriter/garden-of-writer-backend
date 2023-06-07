@@ -1,21 +1,21 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CommentEntity } from '@src/apis/Comment/entities/comment.entity';
+import { NestedCommentEntity } from '@src/apis/nested_comment/entities/nested_comment.entity';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 import { Repository } from 'typeorm';
-import { Comment } from '../comment/entities/comment.entity';
-import { User } from '../user/entities/user.entity';
-import { NestedComment } from './entities/nested_comment.entity';
 
 @Injectable()
 export class NestedCommentService {
   constructor(
-    @InjectRepository(NestedComment)
-    private readonly nestedCommentRepository: Repository<NestedComment>,
+    @InjectRepository(NestedCommentEntity)
+    private readonly nestedCommentRepository: Repository<NestedCommentEntity>,
 
-    @InjectRepository(Comment)
-    private readonly commentRepository: Repository<Comment>,
+    @InjectRepository(CommentEntity)
+    private readonly commentRepository: Repository<CommentEntity>,
 
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
   ) {}
 
   async findAll({ commentId, page }) {

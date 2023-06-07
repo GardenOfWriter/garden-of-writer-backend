@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { ENV_KEY } from 'src/commons/config/app-config/app-config.constant';
-import { AppConfigService } from 'src/commons/config/app-config/app-config.service';
-import { UserService } from '../user/user.service';
 import {
   IAuthServiceGetAccessToken,
   IAuthServiceSetRefreshToken,
-} from './interface/auth-service.interface';
+} from '@src/apis/auth/interface/auth-service.interface';
+import { UserService } from '@src/apis/user/user.service';
+import { ENV_KEY } from '@src/commons/config/app-config/app-config.constant';
+import { AppConfigService } from '@src/commons/config/app-config/app-config.service';
 
 @Injectable()
 export class AuthService {

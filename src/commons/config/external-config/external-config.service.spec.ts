@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import * as redisStore from 'cache-manager-redis-store';
-import { AppConfigService } from '../app-config/app-config.service';
-import { ExternalConfigService } from './external-config.service';
+import { AppConfigService } from '@src/commons/config/app-config/app-config.service';
+import { ExternalConfigService } from '@src/commons/config/external-config/external-config.service';
+import redisStore from 'cache-manager-redis-store';
 
 class MockAppConfigService {
   get = jest.fn();

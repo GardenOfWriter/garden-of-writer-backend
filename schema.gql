@@ -2,36 +2,36 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type AttendList {
+type AttendListEntity {
   created_at: DateTime!
-  fictionBoard: FictionBoard!
+  fictionBoard: FictionBoardEntity!
   id: String!
   updatedAt: DateTime!
-  user: User!
+  user: UserEntity!
 }
 
-type Board {
+type BoardEntity {
   content: String!
   createdAt: DateTime!
   id: String!
   image: String
   like: Int!
-  pick: [Pick!]!
+  pick: [PickEntity!]!
   pickCount: Int!
   tag: String!
   title: String!
   updatedAt: DateTime!
-  user: User!
+  user: UserEntity!
 }
 
-type Comment {
-  board: Board!
+type CommentEntity {
+  board: BoardEntity!
   content: String!
   createdAt: DateTime!
-  fictionBoard: FictionBoard!
+  fictionBoard: FictionBoardEntity!
   id: String!
   updateAt: DateTime!
-  user: User!
+  user: UserEntity!
 }
 
 input CreateBoardInput {
@@ -68,58 +68,58 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type FictionBoard {
-  attendList: [AttendList!]!
+type FictionBoardEntity {
+  attendList: [AttendListEntity!]!
   attend_count: Int!
   content: String!
   createdAt: DateTime!
   deadline: String!
   genre: String!
   id: String!
-  image: [Image!]!
+  image: [ImageEntity!]!
   like: Int!
   notice: String!
-  pick: [Pick!]!
+  pick: [PickEntity!]!
   pickCount: Int!
-  tags: [Tag!]
+  tags: [TagEntity!]
   thumbnail: String!
   title: String!
   updatedAt: DateTime!
-  user: User!
+  user: UserEntity!
 }
 
-type FollowCount {
+type FollowCountEntity {
   followCount: Int!
   followerCount: Int!
   id: String!
-  user: User!
+  user: UserEntity!
 }
 
-type FollowerList {
+type FollowerListOutput {
   id: String!
-  user1: User!
+  user1: UserEntity!
 }
 
-type FollowingList {
+type FollowingListOutput {
   id: String!
-  user2: User!
+  user2: UserEntity!
 }
 
-type Image {
-  fictionBoard: FictionBoard!
+type ImageEntity {
+  fictionBoard: FictionBoardEntity!
   id: String!
   imgUrl: String!
-  user: User!
+  user: UserEntity!
 }
 
 type Mutation {
   checkNickName(nickname: String!): String!
   checkTokenEmail(email: String!, token: String!): String!
-  createBoard(createBoardInput: CreateBoardInput!): Board!
-  createComment(boardId: String!, comment: String!, fictionBoardId: String!): Comment!
-  createFictionBoard(createFictionBoardInput: CreateFictionBoardInput!): FictionBoard!
-  createNestedComment(commentId: String!, nestedComment: String!): NestedComment!
-  createUser(createUserInput: CreateUserInput!): User!
+  createBoard(createBoardInput: CreateBoardInput!): BoardEntity!
+  createComment(boardId: String!, comment: String!, fictionBoardId: String!): CommentEntity!
+  createFictionBoard(createFictionBoardInput: CreateFictionBoardInput!): FictionBoardEntity!
+  createNestedComment(commentId: String!, nestedComment: String!): NestedCommentEntity!
+  createUser(createUserInput: CreateUserInput!): UserEntity!
   deleteBoard(boardId: String!): Boolean!
   deleteComment(commentId: String!): Boolean!
   deleteFictionBoard(fictionBoardId: String!): Boolean!
@@ -133,56 +133,56 @@ type Mutation {
   pickFictionBoard(fictionBoardId: String!): String!
   restoreAccessToken: String!
   sendTokenToEmail(email: String!): String!
-  updateBoard(boardId: String!, updateBoardInput: UpdateBoardInput!): Board!
-  updateComment(commentId: String!, updateComment: String!): Comment!
-  updateFictionBoard(fictionBoardId: String!, updateFictionBoardInput: UpdateFictionBoardInput!): FictionBoard!
-  updateNestedComment(nestedCommentId: String!, updateNestedComment: String!): NestedComment!
+  updateBoard(boardId: String!, updateBoardInput: UpdateBoardInput!): BoardEntity!
+  updateComment(commentId: String!, updateComment: String!): CommentEntity!
+  updateFictionBoard(fictionBoardId: String!, updateFictionBoardInput: UpdateFictionBoardInput!): FictionBoardEntity!
+  updateNestedComment(nestedCommentId: String!, updateNestedComment: String!): NestedCommentEntity!
   updatePassword(password: String!, rePassword: String!): String!
-  updateUser(updateUserInput: UpdateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): UserEntity!
 }
 
-type NestedComment {
-  comment: Comment!
+type NestedCommentEntity {
+  comment: CommentEntity!
   content: String!
   createdAt: DateTime!
   id: String!
   updateAt: DateTime!
-  user: User!
+  user: UserEntity!
 }
 
-type Pick {
-  board: Board!
-  fictionBoard: FictionBoard!
+type PickEntity {
+  board: BoardEntity!
+  fictionBoard: FictionBoardEntity!
   id: String!
-  user: User!
+  user: UserEntity!
 }
 
 type Query {
-  fetchAllBoardWithLikeCount(page: Int): [Board!]!
-  fetchAllBoards(page: Int): [Board!]!
-  fetchAllFictionBoard(page: Int): [FictionBoard!]!
-  fetchAllFictionBoardWithLikeCount(page: Int): [FictionBoard!]!
-  fetchBoard(fictionBoardId: String!): FictionBoard!
-  fetchComments(boardId: String!, fictionBoardId: String!, page: Int): [Comment!]!
-  fetchFollowCount(userId: String!): FollowCount!
-  fetchFollower(page: Int! = 1, userId: String!): [FollowerList!]!
-  fetchFollowing(page: Int! = 1, userId: String!): [FollowingList!]!
-  fetchMyAllBoards(page: Int): [Board!]!
-  fetchMyAllFictionBoards(page: Int): [FictionBoard!]!
-  fetchMyBoard(boardId: String!): Board!
-  fetchMyFictionBoard(fictionBoardId: String!): FictionBoard!
-  fetchMyFollowCount: FollowCount!
-  fetchMyPickBoards(page: Int): [Pick!]!
-  fetchMyPickFictionBoard(page: Int): [Pick!]!
-  fetchNestedComments(commentId: String!, page: Int): [NestedComment!]!
-  fetchUser(userId: String!): User!
-  fetchUserLoggedIn: User!
-  fetchUsers(page: Int! = 1): [User!]!
-  searchBoards(page: Int! = 1, word: String!): [FictionBoard!]!
+  fetchAllBoardWithLikeCount(page: Int): [BoardEntity!]!
+  fetchAllBoards(page: Int): [BoardEntity!]!
+  fetchAllFictionBoard(page: Int): [FictionBoardEntity!]!
+  fetchAllFictionBoardWithLikeCount(page: Int): [FictionBoardEntity!]!
+  fetchBoard(fictionBoardId: String!): FictionBoardEntity!
+  fetchComments(boardId: String!, fictionBoardId: String!, page: Int): [CommentEntity!]!
+  fetchFollowCount(userId: String!): FollowCountEntity!
+  fetchFollower(page: Int! = 1, userId: String!): [FollowerListOutput!]!
+  fetchFollowing(page: Int! = 1, userId: String!): [FollowingListOutput!]!
+  fetchMyAllBoards(page: Int): [BoardEntity!]!
+  fetchMyAllFictionBoards(page: Int): [FictionBoardEntity!]!
+  fetchMyBoard(boardId: String!): BoardEntity!
+  fetchMyFictionBoard(fictionBoardId: String!): FictionBoardEntity!
+  fetchMyFollowCount: FollowCountEntity!
+  fetchMyPickBoards(page: Int): [PickEntity!]!
+  fetchMyPickFictionBoard(page: Int): [PickEntity!]!
+  fetchNestedComments(commentId: String!, page: Int): [NestedCommentEntity!]!
+  fetchUser(userId: String!): UserEntity!
+  fetchUserLoggedIn: UserEntity!
+  fetchUsers(page: Int! = 1): [UserEntity!]!
+  searchBoards(page: Int! = 1, word: String!): [FictionBoardEntity!]!
 }
 
-type Tag {
-  fictionBoards: [FictionBoard!]!
+type TagEntity {
+  fictionBoards: [FictionBoardEntity!]!
   id: String!
   name: String!
 }
@@ -213,12 +213,12 @@ input UpdateUserInput {
   phone_number: String
 }
 
-type User {
+type UserEntity {
   age: String!
   email: String!
   gender: String!
   id: String!
-  image: Image
+  image: ImageEntity
   name: String!
   nickname: String!
   phone_number: String!

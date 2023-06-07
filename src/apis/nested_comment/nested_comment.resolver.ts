@@ -1,9 +1,9 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { GqlAuthAccessGuard } from 'src/commons/auth/gql-auth.guard';
-import { IContext } from 'src/commons/types/context';
-import { NestedComment } from './entities/nested_comment.entity';
-import { NestedCommentService } from './nested_comment.service';
+import { NestedCommentEntity } from '@src/apis/nested_comment/entities/nested_comment.entity';
+import { NestedCommentService } from '@src/apis/nested_comment/nested_comment.service';
+import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
+import { IContext } from '@src/commons/types/context';
 
 @Resolver()
 export class NestedCommentResolver {
@@ -11,7 +11,7 @@ export class NestedCommentResolver {
     private readonly nestedCommentService: NestedCommentService, //
   ) {}
 
-  @Query(() => [NestedComment])
+  @Query(() => [NestedCommentEntity])
   fetchNestedComments(
     @Args('commentId') commentId: string, //
     @Args('page', { nullable: true, type: () => Int }) page: number,
@@ -20,7 +20,7 @@ export class NestedCommentResolver {
   }
 
   @UseGuards(GqlAuthAccessGuard)
-  @Mutation(() => NestedComment)
+  @Mutation(() => NestedCommentEntity)
   createNestedComment(
     @Args('commentId') commentId: string, //
     @Args('nestedComment') nestedComment: string,
@@ -45,7 +45,7 @@ export class NestedCommentResolver {
   }
 
   @UseGuards(GqlAuthAccessGuard)
-  @Mutation(() => NestedComment)
+  @Mutation(() => NestedCommentEntity)
   async updateNestedComment(
     @Context() context: IContext,
     @Args('nestedCommentId') nestedCommentId: string,
