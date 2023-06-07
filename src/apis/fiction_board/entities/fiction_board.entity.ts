@@ -1,26 +1,24 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { AttendList } from 'src/apis/attend_list/entities/attend_list.entity';
-import { Image } from 'src/apis/Image/entities/image.entity';
-import { Pick } from 'src/apis/pick/entities/pick.entity';
-import { Tag } from 'src/apis/tag/entities/tag.entity';
-import { User } from 'src/apis/user/entities/user.entity';
+import { ImageEntity } from '@src/apis/Image/entities/image.entity';
+import { AttendListEntity } from '@src/apis/attend_list/entities/attend_list.entity';
+import { PickEntity } from '@src/apis/pick/entities/pick.entity';
+import { TagEntity } from '@src/apis/tag/entities/tag.entity';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
 @ObjectType()
-export class FictionBoard {
+export class FictionBoardEntity {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => String)
   id: string;
@@ -73,26 +71,28 @@ export class FictionBoard {
   @Field(() => Date)
   updatedAt: Date;
 
-  @ManyToOne(() => User)
-  @Field(() => User)
-  user: User;
+  @ManyToOne(() => UserEntity)
+  @Field(() => UserEntity)
+  user: UserEntity;
 
   @JoinTable()
-  @Field(() => [Tag], { nullable: true })
-  @ManyToMany(() => Tag, (tag) => tag.fictionBoards)
-  tags: Tag[];
+  @Field(() => [TagEntity], { nullable: true })
+  @ManyToMany(() => TagEntity, (tag) => tag.fictionBoards)
+  tags: TagEntity[];
 
-  @OneToMany(() => AttendList, (attendList) => attendList.fictionBoard, {
+  @OneToMany(() => AttendListEntity, (attendList) => attendList.fictionBoard, {
     cascade: true,
   })
-  @Field(() => [AttendList])
-  attendList: AttendList[];
+  @Field(() => [AttendListEntity])
+  attendList: AttendListEntity[];
 
-  @OneToMany(() => Image, (Image) => Image.fictionBoard, { cascade: true })
-  @Field(() => [Image])
-  image: Image[];
+  @OneToMany(() => ImageEntity, (Image) => Image.fictionBoard, {
+    cascade: true,
+  })
+  @Field(() => [ImageEntity])
+  image: ImageEntity[];
 
-  @OneToMany(() => Pick, (pick) => pick.board, { cascade: true })
-  @Field(() => [Pick])
-  pick: Pick[];
+  @OneToMany(() => PickEntity, (pick) => pick.board, { cascade: true })
+  @Field(() => [PickEntity])
+  pick: PickEntity[];
 }

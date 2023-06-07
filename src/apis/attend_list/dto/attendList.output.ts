@@ -1,11 +1,9 @@
 import { ObjectType } from '@nestjs/graphql';
-import { User } from 'src/apis/user/entities/user.entity';
-import { Entity } from 'typeorm';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 
-@Entity()
 @ObjectType()
-export class AttendListAndUser {
+export class AttendListAndUserOutput {
   id: string;
 
-  user: User;
+  user: UserEntity;
 }

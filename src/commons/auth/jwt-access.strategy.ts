@@ -1,10 +1,10 @@
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Inject, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
+import { ENV_KEY } from '@src/commons/config/app-config/app-config.constant';
+import { AppConfigService } from '@src/commons/config/app-config/app-config.service';
 import { Cache } from 'cache-manager';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { ENV_KEY } from '../config/app-config/app-config.constant';
-import { AppConfigService } from '../config/app-config/app-config.service';
 
 export class JwtAccessStrategy extends PassportStrategy(Strategy, 'access') {
   constructor(

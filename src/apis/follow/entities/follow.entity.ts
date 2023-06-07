@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { User } from 'src/apis/user/entities/user.entity';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 import {
   CreateDateColumn,
   Entity,
@@ -10,18 +10,18 @@ import {
 
 @Entity()
 @ObjectType()
-export class Follow {
+export class FollowEntity {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => String)
   id: string;
 
-  @Field(() => User)
-  @ManyToOne(() => User)
-  user1: User;
+  @Field(() => UserEntity)
+  @ManyToOne(() => UserEntity)
+  user1: UserEntity;
 
-  @Field(() => User)
-  @ManyToOne(() => User)
-  user2: User;
+  @Field(() => UserEntity)
+  @ManyToOne(() => UserEntity)
+  user2: UserEntity;
 
   @CreateDateColumn()
   createdAt: Date;

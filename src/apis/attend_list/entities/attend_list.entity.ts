@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { FictionBoard } from 'src/apis/fiction_board/entities/fiction_board.entity';
-import { User } from 'src/apis/user/entities/user.entity';
+import { FictionBoardEntity } from '@src/apis/fiction_board/entities/fiction_board.entity';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 import {
   CreateDateColumn,
   Entity,
@@ -12,7 +12,7 @@ import {
 
 @Entity()
 @ObjectType()
-export class AttendList {
+export class AttendListEntity {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => String)
   id: string;
@@ -25,12 +25,12 @@ export class AttendList {
   @Field(() => Date)
   updatedAt: Date;
 
-  @ManyToOne(() => FictionBoard, { onDelete: 'CASCADE' })
-  @Field(() => FictionBoard)
-  fictionBoard: FictionBoard;
+  @ManyToOne(() => FictionBoardEntity, { onDelete: 'CASCADE' })
+  @Field(() => FictionBoardEntity)
+  fictionBoard: FictionBoardEntity;
 
   @JoinTable()
-  @ManyToOne(() => User)
-  @Field(() => User)
-  user: User;
+  @ManyToOne(() => UserEntity)
+  @Field(() => UserEntity)
+  user: UserEntity;
 }

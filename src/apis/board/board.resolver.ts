@@ -1,11 +1,11 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { IContext } from 'src/commons/types/context';
-import { GqlAuthAccessGuard } from 'src/commons/auth/gql-auth.guard';
-import { BoardService } from './board.service';
-import { CreateBoardInput } from './dto/createBoard.input';
-import { UpdateBoardInput } from './dto/updateBoard.input';
-import { Board } from './entities/board.entity';
+import { BoardService } from '@src/apis/board/board.service';
+import { CreateBoardInput } from '@src/apis/board/dto/createBoard.input';
+import { UpdateBoardInput } from '@src/apis/board/dto/updateBoard.input';
+import { BoardEntity } from '@src/apis/board/entities/board.entity';
+import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
+import { IContext } from '@src/commons/types/context';
 
 @Resolver()
 export class BoardResolver {
@@ -13,7 +13,7 @@ export class BoardResolver {
     private readonly boardService: BoardService, //
   ) {}
 
-  @Query(() => Board)
+  @Query(() => BoardEntity)
   fetchBoard(
     @Args('boardId') boardId: string, //
   ) {
@@ -21,7 +21,7 @@ export class BoardResolver {
   }
 
   @UseGuards(GqlAuthAccessGuard)
-  @Query(() => Board)
+  @Query(() => BoardEntity)
   fetchMyBoard(
     @Context() context: IContext, //
     @Args('boardId') boardId: string,
@@ -31,7 +31,7 @@ export class BoardResolver {
   }
 
   @UseGuards(GqlAuthAccessGuard)
-  @Query(() => [Board])
+  @Query(() => [BoardEntity])
   fetchMyAllBoards(
     @Context() context: IContext,
     @Args('page', { nullable: true, type: () => Int }) page: number,
@@ -40,21 +40,21 @@ export class BoardResolver {
     return this.boardService.findAllByMyUserId({ userId, page });
   }
 
-  @Query(() => [Board])
+  @Query(() => [BoardEntity])
   fetchAllBoards(
     @Args('page', { nullable: true, type: () => Int }) page: number,
   ) {
     return this.boardService.findAll({ page });
   }
 
-  @Query(() => [Board])
+  @Query(() => [BoardEntity])
   fetchAllBoardWithLikeCount(
     @Args('page', { nullable: true, type: () => Int }) page: number,
   ) {
     return this.boardService.findAllWithLikeCount({ page });
   }
 
-  @Query(() => [Board])
+  @Query(() => [BoardEntity])
   searchBoards(
     @Args('word') word: string, //
     @Args({ name: 'page', type: () => Int, defaultValue: 1 }) page: number,
@@ -63,7 +63,7 @@ export class BoardResolver {
   }
 
   @UseGuards(GqlAuthAccessGuard)
-  @Mutation(() => Board)
+  @Mutation(() => BoardEntity)
   async createBoard(
     @Context() context: IContext,
     @Args('createBoardInput') createBoardInput: CreateBoardInput,
@@ -78,7 +78,7 @@ export class BoardResolver {
   }
 
   @UseGuards(GqlAuthAccessGuard)
-  @Mutation(() => Board)
+  @Mutation(() => BoardEntity)
   async updateBoard(
     @Context() context: IContext,
     @Args('boardId') boardId: string,

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ExternalConfigService } from './external-config.service';
+import { ExternalConfigService } from '@src/commons/config/external-config/external-config.service';
 
 @Module({
   providers: [ExternalConfigService],

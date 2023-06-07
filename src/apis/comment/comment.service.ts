@@ -1,25 +1,25 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { BoardEntity } from '@src/apis/board/entities/board.entity';
+import { CommentEntity } from '@src/apis/comment/entities/comment.entity';
+import { FictionBoardEntity } from '@src/apis/fiction_board/entities/fiction_board.entity';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 import { Repository } from 'typeorm';
-import { Board } from '../board/entities/board.entity';
-import { FictionBoard } from '../fiction_board/entities/fiction_board.entity';
-import { User } from '../user/entities/user.entity';
-import { Comment } from './entities/comment.entity';
 
 @Injectable()
 export class CommentService {
   constructor(
-    @InjectRepository(Comment)
-    private readonly commentRepository: Repository<Comment>,
+    @InjectRepository(CommentEntity)
+    private readonly commentRepository: Repository<CommentEntity>,
 
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
 
-    @InjectRepository(Board)
-    private readonly boardRepository: Repository<Board>,
+    @InjectRepository(BoardEntity)
+    private readonly boardRepository: Repository<BoardEntity>,
 
-    @InjectRepository(FictionBoard)
-    private readonly fictionBoardRepository: Repository<FictionBoard>,
+    @InjectRepository(FictionBoardEntity)
+    private readonly fictionBoardRepository: Repository<FictionBoardEntity>,
   ) {}
 
   async findAll({ boardId, fictionBoardId, page }) {

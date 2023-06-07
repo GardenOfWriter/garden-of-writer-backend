@@ -1,25 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Board } from 'src/apis/board/entities/board.entity';
-import { User } from 'src/apis/user/entities/user.entity';
+import { BoardEntity } from '@src/apis/board/entities/board.entity';
+import { FictionBoardEntity } from '@src/apis/fiction_board/entities/fiction_board.entity';
+import { PickEntity } from '@src/apis/pick/entities/pick.entity';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 import { Repository } from 'typeorm';
-import { FictionBoard } from '../fiction_board/entities/fiction_board.entity';
-import { Pick } from './entities/pick.entity';
 
 @Injectable()
 export class PicksService {
   constructor(
-    @InjectRepository(Board)
-    private readonly boardsRepository: Repository<Board>,
+    @InjectRepository(BoardEntity)
+    private readonly boardsRepository: Repository<BoardEntity>,
 
-    @InjectRepository(FictionBoard)
-    private readonly fictionBoardRepository: Repository<FictionBoard>,
+    @InjectRepository(FictionBoardEntity)
+    private readonly fictionBoardRepository: Repository<FictionBoardEntity>,
 
-    @InjectRepository(User)
-    private readonly usersRepository: Repository<User>,
+    @InjectRepository(UserEntity)
+    private readonly usersRepository: Repository<UserEntity>,
 
-    @InjectRepository(Pick)
-    private readonly picksRepository: Repository<Pick>,
+    @InjectRepository(PickEntity)
+    private readonly picksRepository: Repository<PickEntity>,
   ) {}
 
   async findWithBoard({ userId, page }) {

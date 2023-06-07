@@ -1,5 +1,5 @@
 import { InputType, PartialType } from '@nestjs/graphql';
-import { CreateBoardInput } from './createBoard.input';
+import { CreateBoardInput } from '@src/apis/board/dto/createBoard.input';
 
 @InputType()
 export class UpdateBoardInput extends PartialType(CreateBoardInput) {}

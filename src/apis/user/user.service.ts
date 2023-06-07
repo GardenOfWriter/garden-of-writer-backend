@@ -4,26 +4,25 @@ import {
   Inject,
   Injectable,
   NotFoundException,
-  UnprocessableEntityException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ImageEntity } from '@src/apis/Image/entities/image.entity';
+import { MailService } from '@src/apis/mail/mail.service';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
+import bcrypt from 'bcrypt';
 import { Cache } from 'cache-manager';
 import { Repository } from 'typeorm';
-import { Image } from '../Image/entities/image.entity';
-import { User } from './entities/user.entity';
-import * as bcrypt from 'bcrypt';
-import { MailService } from 'src/apis/mail/mail.service';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly mailService: MailService,
 
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
 
-    @InjectRepository(Image)
-    private readonly imageRepository: Repository<Image>,
+    @InjectRepository(ImageEntity)
+    private readonly imageRepository: Repository<ImageEntity>,
 
     @Inject(CACHE_MANAGER)
     private readonly cacheManager: Cache,
@@ -60,7 +59,7 @@ export class UserService {
   }
 
   //모든 유저 찾기
-  async findAll({ page }): Promise<User[]> {
+  async findAll({ page }): Promise<UserEntity[]> {
     return await this.userRepository
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.image', 'image')
