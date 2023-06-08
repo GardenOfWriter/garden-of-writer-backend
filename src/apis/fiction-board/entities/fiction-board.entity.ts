@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { ImageEntity } from '@src/apis/image/entities/image.entity';
-import { AttendListEntity } from '@src/apis/attend_list/entities/attend_list.entity';
+import { AttendListEntity } from '@src/apis/attend-list/entities/attend-list.entity';
 import { PickEntity } from '@src/apis/pick/entities/pick.entity';
 import { TagEntity } from '@src/apis/tag/entities/tag.entity';
 import { UserEntity } from '@src/apis/user/entities/user.entity';

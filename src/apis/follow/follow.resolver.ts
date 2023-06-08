@@ -1,9 +1,9 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { FollowerListOutput } from '@src/apis/follow/dto/followerList.output';
-import { FollowingListOutput } from '@src/apis/follow/dto/followingList.output';
+import { FollowerListOutput } from '@src/apis/follow/dto/follower-list.output';
+import { FollowingListOutput } from '@src/apis/follow/dto/following-list.output';
 import { FollowService } from '@src/apis/follow/follow.service';
-import { FollowCountEntity } from '@src/apis/followCounts/followCount.entity';
+import { FollowCountEntity } from '@src/apis/follow-counts/follow-count.entity';
 import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
 import { IContext } from '@src/commons/types/context';
 
