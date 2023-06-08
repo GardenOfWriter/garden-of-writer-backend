@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AttendListEntity } from '@src/apis/attend_list/entities/attend_list.entity';
+import { AttendListEntity } from '@src/apis/attend-list/entities/attend-list.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

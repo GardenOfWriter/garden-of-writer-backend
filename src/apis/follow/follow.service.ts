@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FollowEntity } from '@src/apis/follow/entities/follow.entity';
-import { FollowCountEntity } from '@src/apis/followCounts/followCount.entity';
+import { FollowCountEntity } from '@src/apis/follow-counts/follow-count.entity';
 import { UserEntity } from '@src/apis/user/entities/user.entity';
 
 import { Repository } from 'typeorm';

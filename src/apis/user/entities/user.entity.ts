@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { ImageEntity } from '@src/apis/Image/entities/image.entity';
+import { ImageEntity } from '@src/apis/image/entities/image.entity';
 import {
   Column,
   CreateDateColumn,
