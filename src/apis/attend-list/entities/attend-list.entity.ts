@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { FictionBoardEntity } from '@src/apis/fiction_board/entities/fiction_board.entity';
+import { FictionBoardEntity } from '@src/apis/fiction-board/entities/fiction-board.entity';
 import { UserEntity } from '@src/apis/user/entities/user.entity';
 import {
   CreateDateColumn,

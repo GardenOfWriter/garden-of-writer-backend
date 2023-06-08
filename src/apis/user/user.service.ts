@@ -6,7 +6,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ImageEntity } from '@src/apis/Image/entities/image.entity';
+import { ImageEntity } from '@src/apis/image/entities/image.entity';
 import { MailService } from '@src/apis/mail/mail.service';
 import { UserEntity } from '@src/apis/user/entities/user.entity';
 import bcrypt from 'bcrypt';
