@@ -1,15 +1,13 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { ImageEntity } from '@src/apis/Image/entities/image.entity';
 import { AttendListEntity } from '@src/apis/attend_list/entities/attend_list.entity';
+import { FictionBoardTagLinkEntity } from '@src/apis/fiction_board/entities/fiction-board-tag-link.entity';
 import { PickEntity } from '@src/apis/pick/entities/pick.entity';
-import { TagEntity } from '@src/apis/tag/entities/tag.entity';
 import { UserEntity } from '@src/apis/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -75,10 +73,12 @@ export class FictionBoardEntity {
   @Field(() => UserEntity)
   user: UserEntity;
 
-  @JoinTable()
-  @Field(() => [TagEntity], { nullable: true })
-  @ManyToMany(() => TagEntity, (tag) => tag.fictionBoards)
-  tags: TagEntity[];
+  @OneToMany(
+    () => FictionBoardTagLinkEntity,
+    (fictionBoardTagLinkEntity) => fictionBoardTagLinkEntity.fictionBoardId,
+  )
+  @Field(() => [FictionBoardTagLinkEntity], { nullable: true })
+  fictionBoardTagLinks: FictionBoardTagLinkEntity[];
 
   @OneToMany(() => AttendListEntity, (attendList) => attendList.fictionBoard, {
     cascade: true,

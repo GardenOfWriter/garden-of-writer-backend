@@ -1,12 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { FictionBoardEntity } from '@src/apis/fiction_board/entities/fiction_board.entity';
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { FictionBoardTagLinkEntity } from '@src/apis/fiction_board/entities/fiction-board-tag-link.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'tag' })
 @ObjectType()
@@ -19,8 +13,10 @@ export class TagEntity {
   @Field(() => String)
   name: string;
 
-  @JoinTable()
-  @ManyToMany(() => FictionBoardEntity)
-  @Field(() => [FictionBoardEntity])
-  fictionBoards: FictionBoardEntity[];
+  @OneToMany(
+    () => FictionBoardTagLinkEntity,
+    (fictionBoardTagLinkEntity) => fictionBoardTagLinkEntity.tagId,
+  )
+  @Field(() => [FictionBoardTagLinkEntity], { nullable: true })
+  fictionBoardTagLinks: FictionBoardTagLinkEntity[];
 }
