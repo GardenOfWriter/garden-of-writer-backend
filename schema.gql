@@ -74,6 +74,7 @@ type FictionBoardEntity {
   content: String!
   createdAt: DateTime!
   deadline: String!
+  fictionBoardTagLinks: [FictionBoardTagLinkEntity!]
   genre: String!
   id: String!
   image: [ImageEntity!]!
@@ -81,11 +82,18 @@ type FictionBoardEntity {
   notice: String!
   pick: [PickEntity!]!
   pickCount: Int!
-  tags: [TagEntity!]
   thumbnail: String!
   title: String!
   updatedAt: DateTime!
   user: UserEntity!
+}
+
+type FictionBoardTagLinkEntity {
+  createdAt: DateTime!
+  fictionBoard: FictionBoardEntity!
+  id: String!
+  tag: TagEntity!
+  updatedAt: DateTime!
 }
 
 type FollowCountEntity {
@@ -182,7 +190,7 @@ type Query {
 }
 
 type TagEntity {
-  fictionBoards: [FictionBoardEntity!]!
+  fictionBoardTagLinks: [FictionBoardTagLinkEntity!]
   id: String!
   name: String!
 }
