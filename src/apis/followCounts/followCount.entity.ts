@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'follow_count' })
 @ObjectType()
 export class FollowCountEntity {
   @PrimaryGeneratedColumn('uuid')

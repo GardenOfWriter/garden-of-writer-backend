@@ -10,7 +10,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'nested_comment' })
 @ObjectType()
 export class NestedCommentEntity {
   @PrimaryGeneratedColumn('uuid')

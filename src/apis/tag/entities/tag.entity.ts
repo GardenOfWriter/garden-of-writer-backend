@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'tag' })
 @ObjectType()
 export class TagEntity {
   @PrimaryGeneratedColumn('uuid')

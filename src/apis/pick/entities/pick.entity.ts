@@ -10,7 +10,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'pick' })
 @ObjectType()
 export class PickEntity {
   @PrimaryGeneratedColumn('uuid')

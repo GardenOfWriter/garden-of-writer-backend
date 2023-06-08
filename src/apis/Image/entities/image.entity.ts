@@ -11,7 +11,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'image' })
 @ObjectType()
 export class ImageEntity {
   @PrimaryGeneratedColumn('uuid')

@@ -10,7 +10,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'attend_list' })
 @ObjectType()
 export class AttendListEntity {
   @PrimaryGeneratedColumn('uuid')

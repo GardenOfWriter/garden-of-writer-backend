@@ -16,7 +16,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'fiction_board' })
 @ObjectType()
 export class FictionBoardEntity {
   @PrimaryGeneratedColumn('uuid')

@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'follow' })
 @ObjectType()
 export class FollowEntity {
   @PrimaryGeneratedColumn('uuid')
