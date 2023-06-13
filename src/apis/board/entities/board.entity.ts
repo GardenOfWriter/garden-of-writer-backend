@@ -73,7 +73,7 @@ export class BoardEntity extends BaseEntity {
   })
   image: string | null;
 
-  @ManyToOne(() => UserEntity)
+  @ManyToOne(() => UserEntity, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
   @Field(() => UserEntity, {
     description: '게시글 작성한 유저',
   })
