@@ -2,30 +2,37 @@ import { Field, ObjectType } from '@nestjs/graphql';
 // import { Board } from '@src/apis/board/entities/board.entity';
 import { FictionBoardEntity } from '@src/apis/fiction_board/entities/fiction_board.entity';
 import { UserEntity } from '@src/apis/user/entities/user.entity';
-import {
-  Column,
-  DeleteDateColumn,
-  Entity,
-  ManyToOne,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { BaseEntity } from '@src/commons/libraries/base-entity';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 
 @Entity({ name: 'image' })
 @ObjectType()
-export class ImageEntity {
-  @PrimaryGeneratedColumn('uuid')
-  @Field(() => String)
-  id: string;
+export class ImageEntity extends BaseEntity {
+  @Column({
+    type: 'uuid',
+    name: 'userId',
+    comment: '유저 ID',
+  })
+  @Field(() => String, {
+    description: '유저 ID',
+  })
+  userId: string;
 
-  @Column()
-  @Field(() => String)
+  @Column({
+    name: 'img_url',
+    type: 'varchar',
+    length: '255',
+    comment: '이미지 url',
+  })
+  @Field(() => String, {
+    description: '이미지 url',
+  })
   imgUrl: string;
 
-  @DeleteDateColumn()
-  deletedAt: Date;
-
-  @ManyToOne(() => FictionBoardEntity, { onDelete: 'CASCADE' })
+  @ManyToOne(() => FictionBoardEntity, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
   @Field(() => FictionBoardEntity)
   fictionBoard: FictionBoardEntity;
 
@@ -33,7 +40,13 @@ export class ImageEntity {
   // @Field(() => Board)
   // board: Board;
 
-  @OneToOne(() => UserEntity)
-  @Field(() => UserEntity)
+  @OneToOne(() => UserEntity, (user) => user.id, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn([{ name: 'userId', referencedColumnName: 'id' }])
+  @Field(() => UserEntity, {
+    description: '유저',
+  })
   user: UserEntity;
 }
