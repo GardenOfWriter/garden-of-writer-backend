@@ -75,7 +75,7 @@ export class UserService {
       email,
       password,
       cPassword,
-      phone_number,
+      phoneNumber,
       nickname,
       image,
       ...user
@@ -86,7 +86,7 @@ export class UserService {
       where: { nickname },
     });
     const checkPhone = await this.userRepository.findOne({
-      where: { phone_number },
+      where: { phoneNumber },
     });
     const checkEmail = await this.userRepository.findOne({
       where: { email },
