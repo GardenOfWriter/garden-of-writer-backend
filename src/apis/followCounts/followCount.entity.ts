@@ -8,7 +8,7 @@ import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 export class FollowCountEntity extends BaseEntity {
   @Column({
     type: 'uuid',
-    name: 'userId',
+    name: 'user_id',
     comment: '유저 ID',
   })
   @Field(() => String, {
@@ -44,7 +44,7 @@ export class FollowCountEntity extends BaseEntity {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
-  @JoinColumn([{ name: 'userId', referencedColumnName: 'id' }])
+  @JoinColumn([{ name: 'user_id', referencedColumnName: 'id' }])
   @Field(() => UserEntity, {
     description: '유저',
   })
