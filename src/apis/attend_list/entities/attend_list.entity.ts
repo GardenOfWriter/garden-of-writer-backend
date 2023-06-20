@@ -7,11 +7,17 @@ import { Entity, ManyToOne } from 'typeorm';
 @Entity({ name: 'attend_list' })
 @ObjectType()
 export class AttendListEntity extends BaseEntity {
-  @ManyToOne(() => FictionBoardEntity, { onDelete: 'CASCADE' })
-  @Field(() => FictionBoardEntity)
+  @ManyToOne(() => FictionBoardEntity, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
+  @Field(() => FictionBoardEntity, {})
   fictionBoard: FictionBoardEntity;
 
-  @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
+  @ManyToOne(() => UserEntity, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
   @Field(() => UserEntity)
   user: UserEntity;
 }
