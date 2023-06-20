@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { FictionBoardTagLinkEntity } from '@src/apis/fiction_board/entities/fiction-board-tag-link.entity';
+import { FictionBoardTagLinkEntity } from '@src/apis/fiction-board/entities/fiction-board-tag-link.entity';
 import { BaseEntity } from '@src/commons/libraries/base-entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 

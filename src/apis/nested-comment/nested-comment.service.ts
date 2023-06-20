@@ -1,7 +1,7 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CommentEntity } from '@src/apis/Comment/entities/comment.entity';
-import { NestedCommentEntity } from '@src/apis/nested_comment/entities/nested_comment.entity';
+import { CommentEntity } from '@src/apis/comment/entities/comment.entity';
+import { NestedCommentEntity } from '@src/apis/nested-comment/entities/nested-comment.entity';
 import { UserEntity } from '@src/apis/user/entities/user.entity';
 import { Repository } from 'typeorm';
 

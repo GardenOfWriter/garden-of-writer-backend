@@ -1,9 +1,9 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { CreateFictionBoardInput } from '@src/apis/fiction_board/dto/createBoard.input';
-import { UpdateFictionBoardInput } from '@src/apis/fiction_board/dto/updateBoard.input';
-import { FictionBoardEntity } from '@src/apis/fiction_board/entities/fiction_board.entity';
-import { FictionBoardService } from '@src/apis/fiction_board/fiction_board.service';
+import { CreateFictionBoardInput } from '@src/apis/fiction-board/dto/create-board.input';
+import { UpdateFictionBoardInput } from '@src/apis/fiction-board/dto/update-board.input';
+import { FictionBoardEntity } from '@src/apis/fiction-board/entities/fiction-board.entity';
+import { FictionBoardService } from '@src/apis/fiction-board/fiction-board.service';
 import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
 import { IContext } from '@src/commons/types/context';
 

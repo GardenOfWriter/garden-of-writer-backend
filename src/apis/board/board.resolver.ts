@@ -1,8 +1,8 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { BoardService } from '@src/apis/board/board.service';
-import { CreateBoardInput } from '@src/apis/board/dto/createBoard.input';
-import { UpdateBoardInput } from '@src/apis/board/dto/updateBoard.input';
+import { CreateBoardInput } from '@src/apis/board/dto/create-board.input';
+import { UpdateBoardInput } from '@src/apis/board/dto/update-board.input';
 import { BoardEntity } from '@src/apis/board/entities/board.entity';
 import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
 import { IContext } from '@src/commons/types/context';

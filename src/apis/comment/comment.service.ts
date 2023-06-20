@@ -2,7 +2,7 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BoardEntity } from '@src/apis/board/entities/board.entity';
 import { CommentEntity } from '@src/apis/comment/entities/comment.entity';
-import { FictionBoardEntity } from '@src/apis/fiction_board/entities/fiction_board.entity';
+import { FictionBoardEntity } from '@src/apis/fiction-board/entities/fiction-board.entity';
 import { UserEntity } from '@src/apis/user/entities/user.entity';
 import { Repository } from 'typeorm';
 

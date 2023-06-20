@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { BoardAndUserOutput } from '@src/apis/board/dto/boardAndUser.output';
+import { BoardAndUserOutput } from '@src/apis/board/dto/board-and-user.output';
 import { UserEntity } from '@src/apis/user/entities/user.entity';
 
 @ObjectType()
