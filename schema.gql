@@ -2,6 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""참석자 리스트"""
 type AttendListEntity {
   """소설"""
   fictionBoard: FictionBoardEntity!
@@ -16,6 +17,7 @@ type AttendListEntity {
   userId: String!
 }
 
+"""게시글"""
 type BoardEntity {
   """본문"""
   content: String!
@@ -45,6 +47,7 @@ type BoardEntity {
   userId: String!
 }
 
+"""댓글"""
 type CommentEntity {
   """댓글이 달린 게시글"""
   board: BoardEntity!
@@ -100,6 +103,7 @@ input CreateUserInput {
   phone_number: String!
 }
 
+"""소설"""
 type FictionBoardEntity {
   """참석자 수"""
   attendCount: Int! @deprecated(reason: "설계 오류로 인해 deprecated 될 수 있습니다.")
@@ -147,6 +151,7 @@ type FictionBoardEntity {
   userId: String!
 }
 
+"""소설 태그 링크"""
 type FictionBoardTagLinkEntity {
   """소설"""
   fictionBoard: FictionBoardEntity!
@@ -161,6 +166,7 @@ type FictionBoardTagLinkEntity {
   tagId: String!
 }
 
+"""팔로우 집계"""
 type FollowCountEntity {
   """팔로워 총 수"""
   followerCount: Int!
@@ -185,6 +191,7 @@ type FollowingListOutput {
   user2: UserEntity!
 }
 
+"""이미지"""
 type ImageEntity {
   """소설"""
   fictionBoard: FictionBoardEntity!
@@ -231,6 +238,7 @@ type Mutation {
   updateUser(updateUserInput: UpdateUserInput!): UserEntity!
 }
 
+"""대댓글"""
 type NestedCommentEntity {
   """댓글"""
   comment: CommentEntity!
@@ -248,6 +256,7 @@ type NestedCommentEntity {
   userId: String!
 }
 
+"""찜"""
 type PickEntity {
   """게시글"""
   board: BoardEntity!
@@ -292,6 +301,7 @@ type Query {
   searchBoards(page: Int! = 1, word: String!): [FictionBoardEntity!]!
 }
 
+"""태그"""
 type TagEntity {
   """소설 태그 링크"""
   fictionBoardTagLinks: [FictionBoardTagLinkEntity!]!
@@ -326,6 +336,7 @@ input UpdateUserInput {
   phone_number: String
 }
 
+"""유저"""
 type UserEntity {
   """나이"""
   age: String! @deprecated(reason: "deprecated 되진 않지만 타입이 number 로 변경될 수 있습니다.")
