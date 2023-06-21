@@ -3,8 +3,17 @@
 # ------------------------------------------------------
 
 type AttendListEntity {
+  """소설"""
   fictionBoard: FictionBoardEntity!
+
+  """소설 게시글 고유 ID"""
+  fictionBoardId: String!
+
+  """유저"""
   user: UserEntity!
+
+  """유저 고유 ID"""
+  userId: String!
 }
 
 type BoardEntity {
@@ -15,7 +24,7 @@ type BoardEntity {
   image: String @deprecated(reason: "설계 오류로 인해 제거되거나 확장 될 예정")
 
   """좋아요 수"""
-  like: Int! @deprecated(reason: "설계 오류로 인해 제거되거나 확장 될 예정")
+  likeCount: Int! @deprecated(reason: "설계 오류로 인해 제거되거나 확장 될 예정")
 
   """찜 수"""
   pickCount: Int! @deprecated(reason: "설계 오류로 인해 제거되거나 확장 될 예정")
@@ -31,11 +40,17 @@ type BoardEntity {
 
   """게시글 작성한 유저"""
   user: UserEntity!
+
+  """유저 고유 ID"""
+  userId: String!
 }
 
 type CommentEntity {
   """댓글이 달린 게시글"""
   board: BoardEntity!
+
+  """유저 고유 ID"""
+  boardId: String!
 
   """댓글 본문"""
   content: String!
@@ -43,8 +58,17 @@ type CommentEntity {
   """댓글이 달린 소설 게시글"""
   fictionBoard: FictionBoardEntity!
 
+  """유저 고유 ID"""
+  fictionBoardId: String!
+
+  """대댓글"""
+  nestedComments: [NestedCommentEntity!]!
+
   """댓글을 작성한 유저"""
   user: UserEntity!
+
+  """유저 고유 ID"""
+  userId: String!
 }
 
 input CreateBoardInput {
@@ -76,36 +100,58 @@ input CreateUserInput {
   phone_number: String!
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type FictionBoardEntity {
-  attendList: [AttendListEntity!]!
-  attend_count: Int!
+  """참석자 수"""
+  attendCount: Int! @deprecated(reason: "설계 오류로 인해 deprecated 될 수 있습니다.")
+
+  """참석자"""
+  attendLists: [AttendListEntity!]!
+
+  """본문"""
   content: String!
-  createdAt: DateTime!
-  deadline: String!
+
+  """마감일"""
+  deadline: String! @deprecated(reason: "설계 오류로인해 변경될 수 있습니다.")
+
+  """소설 태그 링크"""
+  fictionBoardTagLinks: [FictionBoardTagLinkEntity!]!
+
+  """장르"""
   genre: String!
-  id: String!
-  image: [ImageEntity!]!
-  like: Int!
-  notice: String!
-  pick: [PickEntity!]!
-  pickCount: Int!
-  tags: [TagEntity!]
-  thumbnail: String!
+
+  """이미지"""
+  images: [ImageEntity!]!
+
+  """좋아요 개수"""
+  likeCount: Int! @deprecated(reason: "설계 오류로 인해 deprecated 될 수 있습니다.")
+
+  """공지사항"""
+  notice: String
+
+  """찜 개수"""
+  pickCount: Int! @deprecated(reason: "설계 오류로 인해 deprecated 될 수 있습니다.")
+
+  """찜"""
+  picks: [PickEntity!]!
+
+  """썸네일 url"""
+  thumbnail: String
+
+  """제목"""
   title: String!
-  updatedAt: DateTime!
+
+  """유저"""
   user: UserEntity!
+
+  """유저 고유 ID"""
+  userId: String!
 }
 
 type FictionBoardTagLinkEntity {
   """소설"""
   fictionBoard: FictionBoardEntity!
 
-  """소설 게시글 고유 ID"""
+  """소설 고유 ID"""
   fictionBoardId: String!
 
   """태그"""
@@ -116,16 +162,16 @@ type FictionBoardTagLinkEntity {
 }
 
 type FollowCountEntity {
-  """팔로우 총 수"""
-  followCount: Int!
-
   """팔로워 총 수"""
   followerCount: Int!
+
+  """팔로잉 총 수"""
+  followingCount: Int!
 
   """유저"""
   user: UserEntity!
 
-  """유저 ID"""
+  """유저 고유 ID"""
   userId: String!
 }
 
@@ -140,7 +186,11 @@ type FollowingListOutput {
 }
 
 type ImageEntity {
+  """소설"""
   fictionBoard: FictionBoardEntity!
+
+  """소설 고유 ID"""
+  fictionBoardId: String!
 
   """이미지 url"""
   imgUrl: String!
@@ -148,7 +198,7 @@ type ImageEntity {
   """유저"""
   user: UserEntity!
 
-  """유저 ID"""
+  """유저 고유 ID"""
   userId: String!
 }
 
@@ -185,7 +235,7 @@ type NestedCommentEntity {
   """댓글"""
   comment: CommentEntity!
 
-  """유저 ID"""
+  """댓글 고유 ID"""
   commentId: String!
 
   """댓글 내용"""
@@ -194,7 +244,7 @@ type NestedCommentEntity {
   """유저"""
   user: UserEntity!
 
-  """유저 ID"""
+  """유저 고유 ID"""
   userId: String!
 }
 
@@ -202,19 +252,19 @@ type PickEntity {
   """게시글"""
   board: BoardEntity!
 
-  """게시글 ID"""
+  """게시글 고유 ID"""
   boardId: String!
 
   """소설"""
   fictionBoard: FictionBoardEntity!
 
-  """소설 ID"""
+  """소설 고유 ID"""
   fictionBoardId: String!
 
   """유저"""
   user: UserEntity!
 
-  """유저 ID"""
+  """유저 고유 ID"""
   userId: String!
 }
 
@@ -280,8 +330,26 @@ type UserEntity {
   """나이"""
   age: String! @deprecated(reason: "deprecated 되진 않지만 타입이 number 로 변경될 수 있습니다.")
 
+  """참석자 리스트"""
+  attendLists: [AttendListEntity!]!
+
+  """게시글"""
+  boards: [BoardEntity!]!
+
+  """댓글"""
+  comments: [CommentEntity!]!
+
   """이메일"""
   email: String!
+
+  """소설"""
+  fictionBoards: [FictionBoardEntity!]!
+
+  """팔로워"""
+  followers: [CommentEntity!]!
+
+  """팔로잉"""
+  followings: [CommentEntity!]!
 
   """성별"""
   gender: String! @deprecated(reason: "deprecated 되진 않지만 enum 으로 관리될 예정입니다.")
@@ -289,15 +357,21 @@ type UserEntity {
   """이미지"""
   image: ImageEntity @deprecated(reason: "설계 오류로 인해 제거될 수 있습니다.")
 
-  """이미지 ID"""
+  """이미지 고유 ID"""
   imageId: String @deprecated(reason: "설계 오류로 인해 제거될 수 있습니다.")
 
   """이름"""
   name: String!
+
+  """대댓글"""
+  nestedComments: [NestedCommentEntity!]!
 
   """닉네임"""
   nickname: String!
 
   """핸드폰 번호"""
   phoneNumber: String!
+
+  """찜"""
+  picks: [PickEntity!]!
 }

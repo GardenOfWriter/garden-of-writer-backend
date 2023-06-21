@@ -61,7 +61,7 @@ export class BoardService {
   findAllWithLikeCount({ page }) {
     return this.boardRepository.find({
       relations: ['user'],
-      order: { like: 'DESC' },
+      order: { likeCount: 'DESC' },
       take: 10,
       skip: page ? (page - 1) * 10 : 0,
     });

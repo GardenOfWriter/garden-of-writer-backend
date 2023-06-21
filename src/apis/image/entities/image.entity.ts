@@ -6,17 +6,29 @@ import { BaseEntity } from '@src/commons/libraries/base-entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 
 @Entity({ name: 'image' })
-@ObjectType()
+@ObjectType({
+  description: '이미지',
+})
 export class ImageEntity extends BaseEntity {
   @Column({
     type: 'uuid',
     name: 'user_id',
-    comment: '유저 ID',
+    comment: '유저 고유 ID',
   })
   @Field(() => String, {
-    description: '유저 ID',
+    description: '유저 고유 ID',
   })
   userId: string;
+
+  @Column({
+    type: 'uuid',
+    name: 'fiction_board_id',
+    comment: '소설 고유 ID',
+  })
+  @Field(() => String, {
+    description: '소설 고유 ID',
+  })
+  fictionBoardId: string;
 
   @Column({
     name: 'img_url',
@@ -29,18 +41,7 @@ export class ImageEntity extends BaseEntity {
   })
   imgUrl: string;
 
-  @ManyToOne(() => FictionBoardEntity, {
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
-  @Field(() => FictionBoardEntity)
-  fictionBoard: FictionBoardEntity;
-
-  // @OneToOne(() => Board)
-  // @Field(() => Board)
-  // board: Board;
-
-  @OneToOne(() => UserEntity, (user) => user.id, {
+  @OneToOne(() => UserEntity, (user) => user.image, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
@@ -49,4 +50,18 @@ export class ImageEntity extends BaseEntity {
     description: '유저',
   })
   user: UserEntity;
+
+  @ManyToOne(() => FictionBoardEntity, (fictionBoard) => fictionBoard.images, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn([{ name: 'fiction_board_id', referencedColumnName: 'id' }])
+  @Field(() => FictionBoardEntity, {
+    description: '소설',
+  })
+  fictionBoard: FictionBoardEntity;
+
+  // @OneToOne(() => Board)
+  // @Field(() => Board)
+  // board: Board;
 }

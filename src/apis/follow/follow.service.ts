@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FollowEntity } from '@src/apis/follow/entities/follow.entity';
 import { FollowCountEntity } from '@src/apis/follow-counts/follow-count.entity';
+import { FollowEntity } from '@src/apis/follow/entities/follow.entity';
 import { UserEntity } from '@src/apis/user/entities/user.entity';
 
 import { Repository } from 'typeorm';
@@ -49,7 +49,7 @@ export class FollowService {
 
       await this.followCountRepository.update(
         { user: { id: followerId } },
-        { followCount: +1 },
+        { followingCount: +1 },
       );
 
       await this.followCountRepository.update(
@@ -64,7 +64,7 @@ export class FollowService {
       });
       await this.followCountRepository.update(
         { user: { id: followerId } },
-        { followCount: Math.max(followingUserCount.followCount - 1, 0) }, // 팔로우수가 0밑으로 못내려가게 방지
+        { followingCount: Math.max(followingUserCount.followingCount - 1, 0) }, // 팔로우수가 0밑으로 못내려가게 방지
       );
       await this.followCountRepository.update(
         { user: { id: followingId } },

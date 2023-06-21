@@ -1,9 +1,12 @@
 import { Field } from '@nestjs/graphql';
-import { CreateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { UpdateDateColumn } from 'typeorm/decorator/columns/UpdateDateColumn';
+import { Column } from 'typeorm';
 
 export class BaseEntity {
-  @PrimaryGeneratedColumn('uuid', {
+  @Column({
+    type: 'uuid',
+    primary: true,
+    name: 'id',
+    default: () => 'uuid_generate_v4()',
     comment: '고유 ID',
   })
   @Field(() => String, {
@@ -11,7 +14,9 @@ export class BaseEntity {
   })
   id: string;
 
-  @CreateDateColumn({
+  @Column({
+    type: 'timestamptz',
+    default: () => 'now()',
     name: 'created_at',
     comment: '생성일자',
   })
@@ -20,7 +25,9 @@ export class BaseEntity {
   })
   createdAt: Date;
 
-  @UpdateDateColumn({
+  @Column({
+    type: 'timestamptz',
+    default: () => 'now()',
     name: 'updated_at',
     comment: '수정일자',
   })

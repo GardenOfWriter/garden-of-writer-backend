@@ -4,7 +4,9 @@ import { BaseEntity } from '@src/commons/libraries/base-entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity({ name: 'tag' })
-@ObjectType()
+@ObjectType({
+  description: '태그',
+})
 export class TagEntity extends BaseEntity {
   @Column({
     name: 'name',
