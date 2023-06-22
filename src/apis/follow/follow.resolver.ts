@@ -1,11 +1,12 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { FollowerListOutput } from '@src/apis/follow/dto/follower-list.output';
 import { FollowingListOutput } from '@src/apis/follow/dto/following-list.output';
 import { FollowService } from '@src/apis/follow/follow.service';
 import { FollowCountEntity } from '@src/apis/follow-counts/follow-count.entity';
 import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
-import { IContext } from '@src/commons/types/context';
+import { User } from '@src/commons/decorators/user.decorator';
+import { UserEntity } from '../user/entities/user.entity';
 
 @Resolver()
 export class FollowResolver {
@@ -14,10 +15,10 @@ export class FollowResolver {
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => String)
   follow(
-    @Context() context: IContext,
+    @User() user: UserEntity, //
     @Args('followingId') followingId: string,
   ) {
-    const followerId = context.req.user.id;
+    const followerId = user.id;
     return this.followService.follow({ followerId, followingId });
   }
 
@@ -48,9 +49,9 @@ export class FollowResolver {
   @UseGuards(GqlAuthAccessGuard)
   @Query(() => FollowCountEntity)
   fetchMyFollowCount(
-    @Context() context: IContext, //
+    @User() user: UserEntity, //
   ) {
-    const userId = context.req.user.id;
+    const userId = user.id;
     return this.followService.findFollowCount({ userId });
   }
 }
