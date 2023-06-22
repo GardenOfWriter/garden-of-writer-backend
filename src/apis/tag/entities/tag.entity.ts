@@ -1,26 +1,30 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { FictionBoardEntity } from '@src/apis/fiction-board/entities/fiction-board.entity';
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { FictionBoardTagLinkEntity } from '@src/apis/fiction-board/entities/fiction-board-tag-link.entity';
+import { BaseEntity } from '@src/commons/libraries/base-entity';
+import { Column, Entity, OneToMany } from 'typeorm';
 
-@Entity()
-@ObjectType()
-export class TagEntity {
-  @PrimaryGeneratedColumn('uuid')
-  @Field(() => String)
-  id: string;
-
-  @Column()
-  @Field(() => String)
+@Entity({ name: 'tag' })
+@ObjectType({
+  description: '태그',
+})
+export class TagEntity extends BaseEntity {
+  @Column({
+    name: 'name',
+    type: 'varchar',
+    length: '255',
+    comment: '태그 명',
+  })
+  @Field(() => String, {
+    description: '태그 명',
+  })
   name: string;
 
-  @JoinTable()
-  @ManyToMany(() => FictionBoardEntity)
-  @Field(() => [FictionBoardEntity])
-  fictionBoards: FictionBoardEntity[];
+  @OneToMany(
+    () => FictionBoardTagLinkEntity,
+    (fictionBoardTagLinkEntity) => fictionBoardTagLinkEntity.tagId,
+  )
+  @Field(() => [FictionBoardTagLinkEntity], {
+    description: '소설 태그 링크',
+  })
+  fictionBoardTagLinks: FictionBoardTagLinkEntity[];
 }

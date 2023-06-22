@@ -66,7 +66,7 @@ export class FictionBoardService {
   findAllWithLikeCount({ page }) {
     return this.fictionBoardRepository.find({
       relations: ['user'],
-      order: { like: 'DESC' },
+      order: { likeCount: 'DESC' },
       take: 10,
       skip: page ? (page - 1) * 10 : 0,
     });
