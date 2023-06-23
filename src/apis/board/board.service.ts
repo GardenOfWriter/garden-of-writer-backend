@@ -1,17 +1,17 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { BoardEntity } from '@src/apis/board/entities/board.entity';
+import { UserEntity } from '@src/apis/user/entities/user.entity';
 import { Like, Repository } from 'typeorm';
-import { User } from '../user/entities/user.entity';
-import { Board } from './entities/board.entity';
 
 @Injectable()
 export class BoardService {
   constructor(
-    @InjectRepository(Board)
-    private readonly boardRepository: Repository<Board>,
+    @InjectRepository(BoardEntity)
+    private readonly boardRepository: Repository<BoardEntity>,
 
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
   ) {}
 
   async findOneById({ boardId }) {
@@ -61,7 +61,7 @@ export class BoardService {
   findAllWithLikeCount({ page }) {
     return this.boardRepository.find({
       relations: ['user'],
-      order: { like: 'DESC' },
+      order: { likeCount: 'DESC' },
       take: 10,
       skip: page ? (page - 1) * 10 : 0,
     });

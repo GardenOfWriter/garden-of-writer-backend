@@ -1,11 +1,14 @@
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Inject, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
+import { ENV_KEY } from '@src/commons/config/app-config/app-config.constant';
+import { AppConfigService } from '@src/commons/config/app-config/app-config.service';
 import { Cache } from 'cache-manager';
 import { Strategy } from 'passport-jwt';
 
 export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'refresh') {
   constructor(
+    private readonly appConfigService: AppConfigService,
     @Inject(CACHE_MANAGER)
     private readonly cacheManager: Cache,
   ) {
@@ -15,7 +18,7 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'refresh') {
         const refreshToken = cookie.replace('refreshToken=', '');
         return refreshToken;
       },
-      secretOrKey: process.env.JWT_REFRESH_KEY,
+      secretOrKey: appConfigService.get<string>(ENV_KEY.JWT_REFRESH_KEY),
       passReqToCallback: true,
     });
   }

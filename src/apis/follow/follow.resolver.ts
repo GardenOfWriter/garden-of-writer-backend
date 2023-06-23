@@ -1,11 +1,11 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { GqlAuthAccessGuard } from 'src/commons/auth/gql-auth.guard';
-import { IContext } from 'src/commons/types/context';
-import { FollowCount } from '../followCounts/followCount.entity';
-import { FollowerList } from './dto/followerList.output';
-import { FollowingList } from './dto/followingList.output';
-import { FollowService } from './follow.service';
+import { FollowerListOutput } from '@src/apis/follow/dto/follower-list.output';
+import { FollowingListOutput } from '@src/apis/follow/dto/following-list.output';
+import { FollowService } from '@src/apis/follow/follow.service';
+import { FollowCountEntity } from '@src/apis/follow-counts/follow-count.entity';
+import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
+import { IContext } from '@src/commons/types/context';
 
 @Resolver()
 export class FollowResolver {
@@ -22,7 +22,7 @@ export class FollowResolver {
   }
 
   @UseGuards(GqlAuthAccessGuard)
-  @Query(() => [FollowerList])
+  @Query(() => [FollowerListOutput])
   fetchFollower(
     @Args('userId') userId: string, //
     @Args({ name: 'page', type: () => Int, defaultValue: 1 }) page: number,
@@ -30,7 +30,7 @@ export class FollowResolver {
     return this.followService.findUserFollowing({ userId, page });
   }
 
-  @Query(() => [FollowingList])
+  @Query(() => [FollowingListOutput])
   fetchFollowing(
     @Args('userId') userId: string, //
     @Args({ name: 'page', type: () => Int, defaultValue: 1 }) page: number,
@@ -38,7 +38,7 @@ export class FollowResolver {
     return this.followService.findUserFollowing({ userId, page });
   }
 
-  @Query(() => FollowCount)
+  @Query(() => FollowCountEntity)
   fetchFollowCount(
     @Args('userId') userId: string, //
   ) {
@@ -46,7 +46,7 @@ export class FollowResolver {
   }
 
   @UseGuards(GqlAuthAccessGuard)
-  @Query(() => FollowCount)
+  @Query(() => FollowCountEntity)
   fetchMyFollowCount(
     @Context() context: IContext, //
   ) {

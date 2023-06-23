@@ -4,15 +4,18 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Cache } from 'cache-manager';
 import { Strategy } from 'passport-google-oauth20';
 
+/**
+ * @todo Oauth key 발급 후 super 부분 환경변수 및 유효한 값으로
+ */
 export class JwtGoogleStrategy extends PassportStrategy(Strategy, 'google') {
   constructor(
     @Inject(CACHE_MANAGER)
     private readonly cacheManager: Cache,
   ) {
     super({
-      clientID: '',
-      clientSecret: '',
-      callbackURL: '',
+      clientID: 'temp',
+      clientSecret: 'temp',
+      callbackURL: 'temp',
       scope: ['email', 'profile'],
     });
   }

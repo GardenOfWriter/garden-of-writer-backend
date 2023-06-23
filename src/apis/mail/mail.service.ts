@@ -1,8 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import * as nodemailer from 'nodemailer';
+import { ENV_KEY } from '@src/commons/config/app-config/app-config.constant';
+import { AppConfigService } from '@src/commons/config/app-config/app-config.service';
+import nodemailer from 'nodemailer';
 
 @Injectable()
 export class MailService {
+  constructor(private readonly appConfigService: AppConfigService) {}
+
   checkEmail({ email }) {
     const check =
       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -51,14 +55,14 @@ export class MailService {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_SENDER,
-        pass: process.env.EMAIL_PASS,
+        user: this.appConfigService.get<string>(ENV_KEY.EMAIL_SENDER),
+        pass: this.appConfigService.get<string>(ENV_KEY.EMAIL_PASS),
       },
     });
 
     const result = await transporter
       .sendMail({
-        from: process.env.EMAIL_SENDER,
+        from: this.appConfigService.get<string>(ENV_KEY.EMAIL_SENDER),
         to: email,
         subject: `${comment}`,
         html: authTemplate,

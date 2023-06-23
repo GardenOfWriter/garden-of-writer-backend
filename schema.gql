@@ -1,0 +1,388 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""참석자 리스트"""
+type AttendListEntity {
+  """소설"""
+  fictionBoard: FictionBoardEntity!
+
+  """소설 게시글 고유 ID"""
+  fictionBoardId: String!
+
+  """유저"""
+  user: UserEntity!
+
+  """유저 고유 ID"""
+  userId: String!
+}
+
+"""게시글"""
+type BoardEntity {
+  """본문"""
+  content: String!
+
+  """이미지 버퍼"""
+  image: String @deprecated(reason: "설계 오류로 인해 제거되거나 확장 될 예정")
+
+  """좋아요 수"""
+  likeCount: Int! @deprecated(reason: "설계 오류로 인해 제거되거나 확장 될 예정")
+
+  """찜 수"""
+  pickCount: Int! @deprecated(reason: "설계 오류로 인해 제거되거나 확장 될 예정")
+
+  """게시글 찜 목록"""
+  picks: [PickEntity!]!
+
+  """태그"""
+  tag: String! @deprecated(reason: "설계오류로 인해 제거되거나 확장 될 예정")
+
+  """제목"""
+  title: String!
+
+  """게시글 작성한 유저"""
+  user: UserEntity!
+
+  """유저 고유 ID"""
+  userId: String!
+}
+
+"""댓글"""
+type CommentEntity {
+  """댓글이 달린 게시글"""
+  board: BoardEntity!
+
+  """유저 고유 ID"""
+  boardId: String!
+
+  """댓글 본문"""
+  content: String!
+
+  """댓글이 달린 소설 게시글"""
+  fictionBoard: FictionBoardEntity!
+
+  """유저 고유 ID"""
+  fictionBoardId: String!
+
+  """대댓글"""
+  nestedComments: [NestedCommentEntity!]!
+
+  """댓글을 작성한 유저"""
+  user: UserEntity!
+
+  """유저 고유 ID"""
+  userId: String!
+}
+
+input CreateBoardInput {
+  content: String!
+  image: String
+  tag: [String!]!
+  title: String!
+}
+
+input CreateFictionBoardInput {
+  content: String!
+  deadline: String!
+  genre: String!
+  image: String
+  notice: String
+  tag: [String!]
+  title: String!
+}
+
+input CreateUserInput {
+  age: String!
+  cPassword: String!
+  email: String!
+  gender: String!
+  image: String
+  name: String!
+  nickname: String!
+  password: String!
+  phone_number: String!
+}
+
+"""소설"""
+type FictionBoardEntity {
+  """참석자 수"""
+  attendCount: Int! @deprecated(reason: "설계 오류로 인해 deprecated 될 수 있습니다.")
+
+  """참석자"""
+  attendLists: [AttendListEntity!]!
+
+  """본문"""
+  content: String!
+
+  """마감일"""
+  deadline: String! @deprecated(reason: "설계 오류로인해 변경될 수 있습니다.")
+
+  """소설 태그 링크"""
+  fictionBoardTagLinks: [FictionBoardTagLinkEntity!]!
+
+  """장르"""
+  genre: String!
+
+  """이미지"""
+  images: [ImageEntity!]!
+
+  """좋아요 개수"""
+  likeCount: Int! @deprecated(reason: "설계 오류로 인해 deprecated 될 수 있습니다.")
+
+  """공지사항"""
+  notice: String
+
+  """찜 개수"""
+  pickCount: Int! @deprecated(reason: "설계 오류로 인해 deprecated 될 수 있습니다.")
+
+  """찜"""
+  picks: [PickEntity!]!
+
+  """썸네일 url"""
+  thumbnail: String
+
+  """제목"""
+  title: String!
+
+  """유저"""
+  user: UserEntity!
+
+  """유저 고유 ID"""
+  userId: String!
+}
+
+"""소설 태그 링크"""
+type FictionBoardTagLinkEntity {
+  """소설"""
+  fictionBoard: FictionBoardEntity!
+
+  """소설 고유 ID"""
+  fictionBoardId: String!
+
+  """태그"""
+  tag: TagEntity!
+
+  """소설 태그 고유 ID"""
+  tagId: String!
+}
+
+"""팔로우 집계"""
+type FollowCountEntity {
+  """팔로워 총 수"""
+  followerCount: Int!
+
+  """팔로잉 총 수"""
+  followingCount: Int!
+
+  """유저"""
+  user: UserEntity!
+
+  """유저 고유 ID"""
+  userId: String!
+}
+
+type FollowerListOutput {
+  id: String!
+  user1: UserEntity!
+}
+
+type FollowingListOutput {
+  id: String!
+  user2: UserEntity!
+}
+
+"""이미지"""
+type ImageEntity {
+  """소설"""
+  fictionBoard: FictionBoardEntity!
+
+  """소설 고유 ID"""
+  fictionBoardId: String!
+
+  """이미지 url"""
+  imgUrl: String!
+
+  """유저"""
+  user: UserEntity!
+
+  """유저 고유 ID"""
+  userId: String!
+}
+
+type Mutation {
+  checkNickName(nickname: String!): String!
+  checkTokenEmail(email: String!, token: String!): String!
+  createBoard(createBoardInput: CreateBoardInput!): BoardEntity!
+  createComment(boardId: String!, comment: String!, fictionBoardId: String!): CommentEntity!
+  createFictionBoard(createFictionBoardInput: CreateFictionBoardInput!): FictionBoardEntity!
+  createNestedComment(commentId: String!, nestedComment: String!): NestedCommentEntity!
+  createUser(createUserInput: CreateUserInput!): UserEntity!
+  deleteBoard(boardId: String!): Boolean!
+  deleteComment(commentId: String!): Boolean!
+  deleteFictionBoard(fictionBoardId: String!): Boolean!
+  deleteNestedComment(nestedCommentId: String!): Boolean!
+  deleteUser: Boolean!
+  findUserPassword(email: String!): String!
+  follow(followingId: String!): String!
+  login(email: String!, password: String!): String!
+  logout: String!
+  pickBoard(boardId: String!): String!
+  pickFictionBoard(fictionBoardId: String!): String!
+  restoreAccessToken: String!
+  sendTokenToEmail(email: String!): String!
+  updateBoard(boardId: String!, updateBoardInput: UpdateBoardInput!): BoardEntity!
+  updateComment(commentId: String!, updateComment: String!): CommentEntity!
+  updateFictionBoard(fictionBoardId: String!, updateFictionBoardInput: UpdateFictionBoardInput!): FictionBoardEntity!
+  updateNestedComment(nestedCommentId: String!, updateNestedComment: String!): NestedCommentEntity!
+  updatePassword(password: String!, rePassword: String!): String!
+  updateUser(updateUserInput: UpdateUserInput!): UserEntity!
+}
+
+"""대댓글"""
+type NestedCommentEntity {
+  """댓글"""
+  comment: CommentEntity!
+
+  """댓글 고유 ID"""
+  commentId: String!
+
+  """댓글 내용"""
+  content: String!
+
+  """유저"""
+  user: UserEntity!
+
+  """유저 고유 ID"""
+  userId: String!
+}
+
+"""찜"""
+type PickEntity {
+  """게시글"""
+  board: BoardEntity!
+
+  """게시글 고유 ID"""
+  boardId: String!
+
+  """소설"""
+  fictionBoard: FictionBoardEntity!
+
+  """소설 고유 ID"""
+  fictionBoardId: String!
+
+  """유저"""
+  user: UserEntity!
+
+  """유저 고유 ID"""
+  userId: String!
+}
+
+type Query {
+  fetchAllBoardWithLikeCount(page: Int): [BoardEntity!]!
+  fetchAllBoards(page: Int): [BoardEntity!]!
+  fetchAllFictionBoard(page: Int): [FictionBoardEntity!]!
+  fetchAllFictionBoardWithLikeCount(page: Int): [FictionBoardEntity!]!
+  fetchBoard(fictionBoardId: String!): FictionBoardEntity!
+  fetchComments(boardId: String!, fictionBoardId: String!, page: Int): [CommentEntity!]!
+  fetchFollowCount(userId: String!): FollowCountEntity!
+  fetchFollower(page: Int! = 1, userId: String!): [FollowerListOutput!]!
+  fetchFollowing(page: Int! = 1, userId: String!): [FollowingListOutput!]!
+  fetchMyAllBoards(page: Int): [BoardEntity!]!
+  fetchMyAllFictionBoards(page: Int): [FictionBoardEntity!]!
+  fetchMyBoard(boardId: String!): BoardEntity!
+  fetchMyFictionBoard(fictionBoardId: String!): FictionBoardEntity!
+  fetchMyFollowCount: FollowCountEntity!
+  fetchMyPickBoards(page: Int): [PickEntity!]!
+  fetchMyPickFictionBoard(page: Int): [PickEntity!]!
+  fetchNestedComments(commentId: String!, page: Int): [NestedCommentEntity!]!
+  fetchUser(userId: String!): UserEntity!
+  fetchUserLoggedIn: UserEntity!
+  fetchUsers(page: Int! = 1): [UserEntity!]!
+  searchBoards(page: Int! = 1, word: String!): [FictionBoardEntity!]!
+}
+
+"""태그"""
+type TagEntity {
+  """소설 태그 링크"""
+  fictionBoardTagLinks: [FictionBoardTagLinkEntity!]!
+
+  """태그 명"""
+  name: String!
+}
+
+input UpdateBoardInput {
+  content: String
+  image: String
+  tag: [String!]
+  title: String
+}
+
+input UpdateFictionBoardInput {
+  content: String
+  deadline: String
+  genre: String
+  image: String
+  notice: String
+  tag: [String!]
+  title: String
+}
+
+input UpdateUserInput {
+  age: String
+  gender: String
+  image: String
+  name: String
+  nickname: String
+  phone_number: String
+}
+
+"""유저"""
+type UserEntity {
+  """나이"""
+  age: String! @deprecated(reason: "deprecated 되진 않지만 타입이 number 로 변경될 수 있습니다.")
+
+  """참석자 리스트"""
+  attendLists: [AttendListEntity!]!
+
+  """게시글"""
+  boards: [BoardEntity!]!
+
+  """댓글"""
+  comments: [CommentEntity!]!
+
+  """이메일"""
+  email: String!
+
+  """소설"""
+  fictionBoards: [FictionBoardEntity!]!
+
+  """팔로워"""
+  followers: [CommentEntity!]!
+
+  """팔로잉"""
+  followings: [CommentEntity!]!
+
+  """성별"""
+  gender: String! @deprecated(reason: "deprecated 되진 않지만 enum 으로 관리될 예정입니다.")
+
+  """이미지"""
+  image: ImageEntity @deprecated(reason: "설계 오류로 인해 제거될 수 있습니다.")
+
+  """이미지 고유 ID"""
+  imageId: String @deprecated(reason: "설계 오류로 인해 제거될 수 있습니다.")
+
+  """이름"""
+  name: String!
+
+  """대댓글"""
+  nestedComments: [NestedCommentEntity!]!
+
+  """닉네임"""
+  nickname: String!
+
+  """핸드폰 번호"""
+  phoneNumber: String!
+
+  """찜"""
+  picks: [PickEntity!]!
+}
