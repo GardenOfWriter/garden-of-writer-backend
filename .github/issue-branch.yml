@@ -11,10 +11,10 @@ branches:
   - label: modify
     prefix: modify/
   - label: refactor
-    prefix: refactor
+    prefix: refactor/
   - label: delete
     prefix: delete/
   - label: doc
     prefix: doc/
   - label: test
-    prefix: test
+    prefix: test/
