@@ -4,6 +4,10 @@ import { NovelEntity } from 'entities/novel.entity';
 import { UserEntity } from 'entities/user.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
+/**
+ * 댓글 확정되면 담당자가 고도화
+ * nested 구조는 담당자가 설계
+ */
 @Entity({ name: 'novel_comment' })
 @ObjectType({
   description: '소설 댓글',

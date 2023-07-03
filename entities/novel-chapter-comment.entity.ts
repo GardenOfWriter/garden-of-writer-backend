@@ -4,6 +4,10 @@ import { NovelChapterEntity } from 'entities/novel-chapter.entity';
 import { UserEntity } from 'entities/user.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
+/**
+ * 댓글 확정되면 담당자가 고도화
+ * nested 구조는 담당자가 설계
+ */
 @Entity({ name: 'novel_chapter_comment' })
 @ObjectType({
   description: '소설 챕터 댓글',
@@ -23,13 +27,13 @@ export class NovelChapterCommentEntity extends BaseEntity {
   @Column({
     type: 'int',
     unsigned: true,
-    name: 'novel_id',
+    name: 'novel_chapter_id',
     comment: '소설 고유 ID',
   })
   @Field(() => Number, {
     description: '소설 고유 ID',
   })
-  novelId: number;
+  novelChapterId: number;
 
   /**
    * @description 기획에 따라 text 로 변경될 수 있음

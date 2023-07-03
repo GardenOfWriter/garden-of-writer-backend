@@ -1,18 +1,12 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { AttendListEntity } from '@src/apis/attend-list/entities/attend-list.entity';
-import { BoardEntity } from '@src/apis/board/entities/board.entity';
-import { CommentEntity } from '@src/apis/comment/entities/comment.entity';
-import { FictionBoardEntity } from '@src/apis/fiction-board/entities/fiction-board.entity';
-import { FollowEntity } from '@src/apis/follow/entities/follow.entity';
-import { NestedCommentEntity } from '@src/apis/nested-comment/entities/nested-comment.entity';
-import { PickEntity } from '@src/apis/pick/entities/pick.entity';
-import { BaseEntity } from '@src/commons/libraries/base-entity';
+import { BaseEntity } from 'entities/base.entity';
 import { NovelChapterCommentEntity } from 'entities/novel-chapter-comment.entity';
 import { NovelCommentEntity } from 'entities/novel-comment.entity';
 import { NovelLikeEntity } from 'entities/novel-like.entity';
 import { NovelRecruitEntity } from 'entities/novel-recruit.entity';
 import { NovelTagEntity } from 'entities/novel-tag.entity';
 import { NovelWriterEntity } from 'entities/novel-writer.entity';
+import { NovelUserLink } from 'entities/user-novel-link.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity({ name: 'user' })
@@ -31,7 +25,6 @@ export class UserEntity extends BaseEntity {
   })
   name: string;
 
-  // 중복해제(2단계 인증 느낌?)
   @Column({
     name: 'nickname',
     unique: true,
@@ -81,6 +74,12 @@ export class UserEntity extends BaseEntity {
   })
   thumbnailUrl: string | null;
 
+  @OneToMany(() => NovelUserLink, (novelUserLink) => novelUserLink.user)
+  @Field(() => [NovelUserLink], {
+    description: '유저 소설 링크',
+  })
+  novelUserLinks: NovelUserLink[];
+
   @OneToMany(() => NovelLikeEntity, (novelLike) => novelLike.user)
   @Field(() => [NovelLikeEntity], {
     description: '소설 좋아요 링크',
@@ -99,66 +98,15 @@ export class UserEntity extends BaseEntity {
   })
   novelWriters: NovelWriterEntity[];
 
-  @OneToMany(() => NovelRecruitEntity, (novelAttend) => novelAttend.user)
+  @OneToMany(() => NovelRecruitEntity, (novelRecruit) => novelRecruit.user)
   @Field(() => [NovelRecruitEntity], {
     description: '소설 모집 리스트',
   })
   novelRecruits: NovelRecruitEntity[];
 
-  @OneToMany(() => AttendListEntity, (attendList) => attendList.user)
-  @Field(() => [AttendListEntity], {
-    description: '참석자 리스트',
-  })
-  attendLists: AttendListEntity[];
-
-  @OneToMany(() => BoardEntity, (board) => board.user)
-  @Field(() => [BoardEntity], {
-    description: '게시글',
-  })
-  boards: BoardEntity[];
-
-  @OneToMany(() => CommentEntity, (comment) => comment.user)
-  @Field(() => [CommentEntity], {
-    description: '댓글',
-  })
-  comments: CommentEntity[];
-
-  @OneToMany(() => FictionBoardEntity, (fictionBoard) => fictionBoard.user)
-  @Field(() => [FictionBoardEntity], {
-    description: '소설',
-  })
-  fictionBoards: FictionBoardEntity[];
-
-  @OneToMany(() => FollowEntity, (follow) => follow.user1)
-  @Field(() => [CommentEntity], {
-    description: '팔로워',
-  })
-  followers: FollowEntity[];
-
-  @OneToMany(() => FollowEntity, (follow) => follow.user2)
-  @Field(() => [CommentEntity], {
-    description: '팔로잉',
-  })
-  followings: FollowEntity[];
-
-  @OneToMany(
-    () => NestedCommentEntity,
-    (nestedCommentEntity) => nestedCommentEntity.user,
-  )
-  @Field(() => [NestedCommentEntity], {
-    description: '대댓글',
-  })
-  nestedComments: NestedCommentEntity[];
-
-  @OneToMany(() => PickEntity, (pick) => pick.user)
-  @Field(() => [PickEntity], {
-    description: '찜',
-  })
-  picks: PickEntity[];
-
   @OneToMany(() => NovelCommentEntity, (novelComment) => novelComment.user)
   @Field(() => [NovelCommentEntity], {
-    description: '찜',
+    description: '소설 댓글 리스트',
   })
   novelComments: NovelCommentEntity[];
 
@@ -167,7 +115,7 @@ export class UserEntity extends BaseEntity {
     (novelChapterComment) => novelChapterComment.user,
   )
   @Field(() => [NovelChapterCommentEntity], {
-    description: '찜',
+    description: '소설 챕터 댓글 리스트',
   })
   novelChapterComments: NovelChapterCommentEntity[];
 }

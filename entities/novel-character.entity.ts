@@ -3,6 +3,9 @@ import { BaseEntity } from 'entities/base.entity';
 import { NovelEntity } from 'entities/novel.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
+/**
+ * @description 기획에 따라 담당자가 고도화
+ */
 @Entity({ name: 'novel_character' })
 @ObjectType({
   description: '소설 캐릭터',

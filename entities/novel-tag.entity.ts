@@ -16,10 +16,10 @@ export class NovelTagEntity extends BaseEntity {
     type: 'int',
     unsigned: true,
     name: 'user_id',
-    comment: '유저 고유 ID (소설 소유자)',
+    comment: '유저 고유 ID',
   })
   @Field(() => Number, {
-    description: '소설 소유자 고유 ID (유저 고유ID 입니다.)',
+    description: '유저 고유 ID',
   })
   userId: number;
 
@@ -27,10 +27,10 @@ export class NovelTagEntity extends BaseEntity {
     type: 'int',
     unsigned: true,
     name: 'novel_tag_id',
-    comment: '소설 태그 고유 ID',
+    comment: '소설 고유 ID',
   })
   @Field(() => Number, {
-    description: '소설 태그 고유 ID',
+    description: '소설 고유 ID',
   })
   novelId: number;
 

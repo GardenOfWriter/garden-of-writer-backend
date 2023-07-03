@@ -16,7 +16,7 @@ export class NovelLikeEntity extends BaseEntity {
     comment: '유저 고유 ID',
   })
   @Field(() => Number, {
-    description: '소설 소유자 고유 ID',
+    description: '유저 고유 ID',
   })
   userId: number;
 

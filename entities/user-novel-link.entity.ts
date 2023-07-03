@@ -4,18 +4,11 @@ import { NovelEntity } from 'entities/novel.entity';
 import { UserEntity } from 'entities/user.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-enum NovelRecruitStatus {
-  Pending = 'pending',
-  Approve = 'approve',
-  Reject = 'reject',
-  Drop = 'drop',
-}
-
-@Entity({ name: 'novel_recruit' })
+@Entity({ name: 'novel_user_link' })
 @ObjectType({
-  description: '소설 모집',
+  description: '유저 소설 링크',
 })
-export class NovelRecruitEntity extends BaseEntity {
+export class NovelUserLink extends BaseEntity {
   @Column({
     type: 'int',
     unsigned: true,
@@ -34,22 +27,11 @@ export class NovelRecruitEntity extends BaseEntity {
     comment: '소설 고유 ID',
   })
   @Field(() => Number, {
-    description: '소설고유 ID',
+    description: '소설 고유 ID',
   })
   novelId: number;
 
-  @Column({
-    type: 'enum',
-    name: 'status',
-    comment: '소설 모집 상태',
-    enum: NovelRecruitStatus,
-  })
-  @Field(() => NovelRecruitStatus, {
-    description: '소설 모집 상태',
-  })
-  status: NovelRecruitStatus;
-
-  @ManyToOne(() => UserEntity, (user) => user.novelRecruits, {
+  @ManyToOne(() => UserEntity, (user) => user.novelUserLinks, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
@@ -59,9 +41,9 @@ export class NovelRecruitEntity extends BaseEntity {
   })
   user: UserEntity;
 
-  @ManyToOne(() => NovelEntity, (novel) => novel.novelRecruits, {
-    onUpdate: 'CASCADE',
+  @ManyToOne(() => NovelEntity, (novel) => novel.novelUserLinks, {
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   })
   @JoinColumn([{ name: 'novel_id', referencedColumnName: 'id' }])
   @Field(() => NovelEntity, {

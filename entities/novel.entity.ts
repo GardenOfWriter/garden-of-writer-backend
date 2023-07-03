@@ -1,6 +1,5 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { UserEntity } from '@src/apis/user/entities/user.entity';
-import { BaseEntity } from '@src/commons/libraries/base-entity';
+import { BaseEntity } from 'entities/base.entity';
 import { NovelCategoryLinkEntity } from 'entities/novel-category-link.entity';
 import { NovelChapterEntity } from 'entities/novel-chapter.entity';
 import { NovelCharacterEntity } from 'entities/novel-character.entity';
@@ -9,7 +8,8 @@ import { NovelLikeEntity } from 'entities/novel-like.entity';
 import { NovelRecruitEntity } from 'entities/novel-recruit.entity';
 import { NovelTagEntity } from 'entities/novel-tag.entity';
 import { NovelWriterEntity } from 'entities/novel-writer.entity';
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import { NovelUserLink } from 'entities/user-novel-link.entity';
+import { Column, Entity, OneToMany } from 'typeorm';
 
 /**
  * @todo 기획과 논의
@@ -20,9 +20,6 @@ enum NovelStatus {
   Posting = 'posting',
 }
 
-/**
- * @todo 댓글 => 미정
- */
 @Entity({ name: 'novel' })
 @ObjectType({
   description: '소설',
@@ -137,15 +134,11 @@ export class NovelEntity extends BaseEntity {
   })
   hit: number;
 
-  @ManyToOne(() => UserEntity, (user) => user.fictionBoards, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
+  @OneToMany(() => NovelUserLink, (novelUserLink) => novelUserLink.novel)
+  @Field(() => [NovelUserLink], {
+    description: '유저 소설 링크',
   })
-  @JoinColumn([{ name: 'user_id', referencedColumnName: 'id' }])
-  @Field(() => UserEntity, {
-    description: '유저',
-  })
-  user: UserEntity;
+  novelUserLinks: NovelUserLink[];
 
   @OneToMany(() => NovelTagEntity, (novelTag) => novelTag.novel)
   @Field(() => [NovelTagEntity], {
