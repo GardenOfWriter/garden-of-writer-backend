@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { BaseEntity } from '@src/commons/libraries/base-entity';
+import { BaseEntity } from 'entities/base.entity';
 import { NovelCategoryEntity } from 'entities/novel-category.entity';
 import { NovelEntity } from 'entities/novel.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
