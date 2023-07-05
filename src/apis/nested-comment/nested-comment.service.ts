@@ -28,13 +28,13 @@ export class NestedCommentService {
     });
   }
 
-  async create({ user, commentId, nestedComment }) {
+  async create({ userId, commentId, nestedComment }) {
     const findId = await this.commentRepository.findOne({
       where: { id: commentId },
     });
 
     const findUser = await this.userRepository.findOne({
-      where: { id: user },
+      where: { id: userId },
     });
 
     return await this.nestedCommentRepository.save({
@@ -44,9 +44,9 @@ export class NestedCommentService {
     });
   }
 
-  async delete({ nestedCommentId, user }) {
+  async delete({ nestedCommentId, userId }) {
     const findUser = await this.userRepository.findOne({
-      where: { id: user },
+      where: { id: userId },
     });
 
     const findNestedComment = await this.nestedCommentRepository.findOne({
@@ -63,9 +63,9 @@ export class NestedCommentService {
     return result.affected ? true : false;
   }
 
-  async update({ nestedCommentId, updateNestedComment, user }) {
+  async update({ nestedCommentId, updateNestedComment, userId }) {
     const findUser = await this.userRepository.findOne({
-      where: { id: user },
+      where: { id: userId },
     });
 
     const findNestedComment = await this.nestedCommentRepository.findOne({
@@ -73,7 +73,7 @@ export class NestedCommentService {
       relations: ['user', 'comment'],
     });
 
-    if (user !== findNestedComment.user.id)
+    if (userId !== findNestedComment.user.id)
       throw new ConflictException('수정 권한이 없습니다.');
 
     return await this.nestedCommentRepository.save({

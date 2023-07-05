@@ -1,9 +1,10 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CommentService } from '@src/apis/comment/comment.service';
 import { CommentEntity } from '@src/apis/comment/entities/comment.entity';
 import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
-import { IContext } from '@src/commons/types/context';
+import { User } from '@src/commons/decorators/user.decorator';
+import { UserEntity } from '../user/entities/user.entity';
 
 @Resolver()
 export class CommentResolver {
@@ -26,11 +27,11 @@ export class CommentResolver {
     @Args('boardId') boardId: string, //
     @Args('fictionBoardId') fictionBoardId: string,
     @Args('comment') comment: string,
-    @Context() context: IContext,
+    @User() user: UserEntity,
   ) {
-    const user = context.req.user.id;
+    const userId = user.id;
     return this.commentService.create({
-      user,
+      userId,
       boardId,
       fictionBoardId,
       comment,
@@ -42,14 +43,14 @@ export class CommentResolver {
   async updateComment(
     @Args('commentId') commentId: string,
     @Args('updateComment') updateComment: string,
-    @Context() context: IContext,
+    @User() user: UserEntity,
   ) {
-    const user = context.req.user.id;
+    const userId = user.id;
 
     return this.commentService.update({
       commentId,
       updateComment,
-      user,
+      userId,
     });
   }
 
@@ -57,9 +58,9 @@ export class CommentResolver {
   @Mutation(() => Boolean)
   deleteComment(
     @Args('commentId') commentId: string,
-    @Context() context: IContext,
+    @User() user: UserEntity,
   ) {
-    const user = context.req.user.id;
-    return this.commentService.delete({ commentId, user });
+    const userId = user.id;
+    return this.commentService.delete({ commentId, userId });
   }
 }

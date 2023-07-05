@@ -1,12 +1,12 @@
 import { BadRequestException, UseGuards } from '@nestjs/common';
-import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { MailService } from '@src/apis/mail/mail.service';
 import { CreateUserInput } from '@src/apis/user/dto/create-user.input';
 import { UpdateUserInput } from '@src/apis/user/dto/update-board.input';
 import { UserEntity } from '@src/apis/user/entities/user.entity';
 import { UserService } from '@src/apis/user/user.service';
 import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
-import { IContext } from '@src/commons/types/context';
+import { User } from '@src/commons/decorators/user.decorator';
 
 @Resolver()
 export class UserResolver {
@@ -44,9 +44,9 @@ export class UserResolver {
   @UseGuards(GqlAuthAccessGuard)
   @Query(() => UserEntity)
   fetchUserLoggedIn(
-    @Context() context: IContext, //
+    @User() user: UserEntity, //
   ) {
-    const userId = context.req.user.id;
+    const userId = user.id;
     return this.userService.findMe({ userId });
   }
 
@@ -58,14 +58,26 @@ export class UserResolver {
     return this.userService.createUser({ createUserInput });
   }
 
-  //회원정보 수정
+  // //회원정보 수정
+  // @UseGuards(GqlAuthAccessGuard)
+  // @Mutation(() => UserEntity)
+  // async updateUser(
+  //   @Context() context: IContext, //
+  //   @Args('updateUserInput') updateUserInput: UpdateUserInput,
+  // ) {
+  //   const userId = context.req.user.id;
+
+  //   return this.userService.update({ userId, updateUserInput });
+  // }
+
+  //회원정보 수정(유저 데코레이터 )
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => UserEntity)
   async updateUser(
-    @Context() context: IContext, //
+    @User() user: UserEntity, //
     @Args('updateUserInput') updateUserInput: UpdateUserInput,
   ) {
-    const userId = context.req.user.id;
+    const userId = user.id;
 
     return this.userService.update({ userId, updateUserInput });
   }
@@ -74,9 +86,9 @@ export class UserResolver {
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => Boolean)
   async deleteUser(
-    @Context() context: IContext, //
+    @User() user: UserEntity, //
   ) {
-    const userId = context.req.user.id;
+    const userId = user.id;
 
     return await this.userService.delete({ userId });
   }
@@ -93,11 +105,11 @@ export class UserResolver {
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => String)
   updatePassword(
-    @Context() context: IContext, //
+    @User() user: UserEntity, //
     @Args('password') password: string,
     @Args('rePassword') rePassword: string,
   ) {
-    const userId = context.req.user.id;
+    const userId = user.id;
     if (password !== rePassword)
       throw new BadRequestException('비밀번호를 다시 확인 해주세요.');
 
