@@ -42,10 +42,10 @@ export class NovelChapterCommentEntity extends BaseEntity {
     type: 'varchar',
     length: '255',
     name: 'description',
-    comment: '소설 댓글',
+    comment: '소설 챕터 댓글',
   })
   @Field(() => String, {
-    description: '소설 댓글',
+    description: '소설 챕터 댓글',
   })
   description: string;
 

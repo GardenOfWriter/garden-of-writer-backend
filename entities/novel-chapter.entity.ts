@@ -9,7 +9,9 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
  * @todo 논의에 따라 게시일 필요한지
  */
 enum NovelChapterStatus {
+  /** 작성중 */
   Writing = 'writing',
+  /** 게시중 */
   Posting = 'posting',
 }
 

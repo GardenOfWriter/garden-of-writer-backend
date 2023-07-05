@@ -16,7 +16,9 @@ import { Column, Entity, OneToMany } from 'typeorm';
  * @todo 논의에 따라 게시일 필요한지
  */
 enum NovelStatus {
+  /** 작성 중 */
   Writing = 'writing',
+  /** 게시 중 */
   Posting = 'posting',
 }
 

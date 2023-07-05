@@ -5,9 +5,13 @@ import { UserEntity } from 'entities/user.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 enum NovelRecruitStatus {
+  /** 대기중 (신청상태) */
   Pending = 'pending',
+  /** 승인 */
   Approve = 'approve',
+  /** 거절 */
   Reject = 'reject',
+  /** 추방 */
   Drop = 'drop',
 }
 
