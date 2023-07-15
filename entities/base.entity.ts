@@ -1,5 +1,5 @@
 import { Field } from '@nestjs/graphql';
-import { Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 export class BaseEntity {
   @PrimaryGeneratedColumn({
@@ -24,9 +24,11 @@ export class BaseEntity {
   })
   createdAt: Date;
 
-  @Column({
+  /**
+   * update 시 값 바뀌는지 확인 필요
+   */
+  @UpdateDateColumn({
     type: 'timestamptz',
-    default: () => 'now()',
     name: 'updated_at',
     comment: '수정일자',
   })

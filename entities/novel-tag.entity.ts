@@ -26,7 +26,7 @@ export class NovelTagEntity extends BaseEntity {
   @Column({
     type: 'int',
     unsigned: true,
-    name: 'novel_tag_id',
+    name: 'novel_id',
     comment: '소설 고유 ID',
   })
   @Field(() => Number, {

@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { BaseEntity } from 'entities/base.entity';
 import { NovelChapterCommentEntity } from 'entities/novel-chapter-comment.entity';
 import { NovelEntity } from 'entities/novel.entity';
@@ -14,6 +14,19 @@ enum NovelChapterStatus {
   /** 게시중 */
   Posting = 'posting',
 }
+
+registerEnumType(NovelChapterStatus, {
+  name: 'NovelChapterStatus',
+  description: '노벨 챕터 상태',
+  valuesMap: {
+    Writing: {
+      description: '작성중',
+    },
+    Posting: {
+      description: '게시중',
+    },
+  },
+});
 
 @Entity({ name: 'novel_chapter' })
 @ObjectType({
