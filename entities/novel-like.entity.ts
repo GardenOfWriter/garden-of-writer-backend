@@ -45,7 +45,7 @@ export class NovelLikeEntity extends BaseEntity {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
-  @JoinColumn([{ name: 'user_id', referencedColumnName: 'id' }])
+  @JoinColumn([{ name: 'novel_id', referencedColumnName: 'id' }])
   @Field(() => NovelEntity, {
     description: '소설',
   })
