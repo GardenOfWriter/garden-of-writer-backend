@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { BaseEntity } from 'entities/base.entity';
 import { NovelEntity } from 'entities/novel.entity';
 import { UserEntity } from 'entities/user.entity';
@@ -14,6 +14,25 @@ enum NovelRecruitStatus {
   /** 추방 */
   Drop = 'drop',
 }
+
+registerEnumType(NovelRecruitStatus, {
+  name: 'NovelRecruitStatus',
+  description: '소설 신청 상태',
+  valuesMap: {
+    Pending: {
+      description: '대기중',
+    },
+    Approve: {
+      description: '승인',
+    },
+    Reject: {
+      description: '거절',
+    },
+    Drop: {
+      description: '추방',
+    },
+  },
+});
 
 @Entity({ name: 'novel_recruit' })
 @ObjectType({
