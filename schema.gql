@@ -92,15 +92,20 @@ input CreateFictionBoardInput {
 }
 
 input CreateUserInput {
-  age: String!
+  Portfolio: String
+
+  """비밀번호체크"""
   cPassword: String!
+
+  """이메일"""
   email: String!
-  gender: String!
-  image: String
-  name: String!
+
+  """닉네임"""
   nickname: String!
+
+  """비밀번호"""
   password: String!
-  phone_number: String!
+  phone_number: String
 }
 
 """소설"""
@@ -328,19 +333,12 @@ input UpdateFictionBoardInput {
 }
 
 input UpdateUserInput {
-  age: String
-  gender: String
-  image: String
-  name: String
-  nickname: String
-  phone_number: String
+  """닉네임"""
+  nickname: String!
 }
 
 """유저"""
 type UserEntity {
-  """나이"""
-  age: String! @deprecated(reason: "deprecated 되진 않지만 타입이 number 로 변경될 수 있습니다.")
-
   """참석자 리스트"""
   attendLists: [AttendListEntity!]!
 
@@ -362,17 +360,11 @@ type UserEntity {
   """팔로잉"""
   followings: [CommentEntity!]!
 
-  """성별"""
-  gender: String! @deprecated(reason: "deprecated 되진 않지만 enum 으로 관리될 예정입니다.")
-
   """이미지"""
   image: ImageEntity @deprecated(reason: "설계 오류로 인해 제거될 수 있습니다.")
 
   """이미지 고유 ID"""
   imageId: String @deprecated(reason: "설계 오류로 인해 제거될 수 있습니다.")
-
-  """이름"""
-  name: String!
 
   """대댓글"""
   nestedComments: [NestedCommentEntity!]!
@@ -385,4 +377,7 @@ type UserEntity {
 
   """찜"""
   picks: [PickEntity!]!
+
+  """포트폴리오"""
+  portfolio: String!
 }

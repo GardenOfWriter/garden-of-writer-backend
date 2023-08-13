@@ -22,16 +22,17 @@ export class FollowEntity extends BaseEntity {
   })
   user1Id: string;
 
-  @Column({
-    type: 'uuid',
-    name: 'user2_id',
-    comment: '팔로잉하는 유저 고유 ID',
-  })
-  @Field(() => String, {
-    description: '팔로잉하는 유저 고유 ID',
-    deprecationReason: '필드명이 변경 될 예정입니다.',
-  })
-  user2Id: string;
+  // 서버 킬 때마다 주석했다, 풀었다 해야하는지?
+  // @Column({
+  //   type: 'uuid',
+  //   name: 'user2_id',
+  //   comment: '팔로잉하는 유저 고유 ID',
+  // })
+  // @Field(() => String, {
+  //   description: '팔로잉하는 유저 고유 ID',
+  //   deprecationReason: '필드명이 변경 될 예정입니다.',
+  // })
+  // user2Id: string;
 
   @ManyToOne(() => UserEntity, (user) => user.followers, {
     onDelete: 'CASCADE',

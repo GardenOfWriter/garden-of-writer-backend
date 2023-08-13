@@ -28,16 +28,16 @@ export class UserEntity extends BaseEntity {
   })
   imageId: string | null;
 
-  @Column({
-    name: 'name',
-    type: 'varchar',
-    length: '255',
-    comment: '이름',
-  })
-  @Field(() => String, {
-    description: '이름',
-  })
-  name: string;
+  // @Column({
+  //   name: 'name',
+  //   type: 'varchar',
+  //   length: '255',
+  //   comment: '이름',
+  // })
+  // @Field(() => String, {
+  //   description: '이름',
+  // })
+  // name: string;
 
   // 중복해제(2단계 인증 느낌?)
   @Column({
@@ -76,33 +76,33 @@ export class UserEntity extends BaseEntity {
   /**
    * @todo enum 으로 관리
    */
-  @Column({
-    name: 'gender',
-    type: 'varchar',
-    length: '255',
-    comment: '성별',
-  })
-  @Field(() => String, {
-    description: '성별',
-    deprecationReason: 'deprecated 되진 않지만 enum 으로 관리될 예정입니다.',
-  })
-  gender: string;
+  // @Column({
+  //   name: 'gender',
+  //   type: 'varchar',
+  //   length: '255',
+  //   comment: '성별',
+  // })
+  // @Field(() => String, {
+  //   description: '성별',
+  //   deprecationReason: 'deprecated 되진 않지만 enum 으로 관리될 예정입니다.',
+  // })
+  // gender: string;
 
   /**
    * 왜 string?
    */
-  @Column({
-    name: 'age',
-    type: 'varchar',
-    length: '255',
-    comment: '나이',
-  })
-  @Field(() => String, {
-    description: '나이',
-    deprecationReason:
-      'deprecated 되진 않지만 타입이 number 로 변경될 수 있습니다.',
-  })
-  age: string;
+  // @Column({
+  //   name: 'age',
+  //   type: 'varchar',
+  //   length: '255',
+  //   comment: '나이',
+  // })
+  // @Field(() => String, {
+  //   description: '나이',
+  //   deprecationReason:
+  //     'deprecated 되진 않지만 타입이 number 로 변경될 수 있습니다.',
+  // })
+  // age: string;
 
   @Column({
     name: 'phone_number',
@@ -110,11 +110,20 @@ export class UserEntity extends BaseEntity {
     length: '255',
     unique: true,
     comment: '핸드폰 번호',
+    nullable: true,
   })
   @Field(() => String, {
     description: '핸드폰 번호',
   })
   phoneNumber: string;
+
+  @Column({
+    nullable: true,
+  })
+  @Field(() => String, {
+    description: '포트폴리오',
+  })
+  portfolio: string;
 
   /**
    * @todo thumbnail 필드로 관리되도 좋을듯합니다.
