@@ -76,9 +76,8 @@ export class UserService {
 
   async createUser({ createUserInput }) {
     const {
-      email,
+      email, //
       password,
-      cPassword,
       phoneNumber,
       nickname,
       image,
@@ -106,10 +105,6 @@ export class UserService {
     //비밀번호 형식
     if (PASSWORD_REG_EXP.test(createUserInput.password) === false) {
       throw new BadRequestException(PASSWORD_REG_EXP_ERROR_MESSAGE);
-    }
-
-    if (createUserInput.password !== createUserInput.cPassword) {
-      throw new BadRequestException('비밀번호가 일치하지 않습니다.');
     }
 
     const hashedPassword = await bcrypt.hash(createUserInput.password, 10);

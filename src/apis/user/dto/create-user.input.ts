@@ -13,11 +13,6 @@ export class CreateUserInput {
   password: string;
 
   @Field(() => String, {
-    description: '비밀번호체크',
-  })
-  cPassword: string;
-
-  @Field(() => String, {
     description: '닉네임',
   })
   nickname: string;

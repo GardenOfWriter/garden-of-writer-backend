@@ -92,9 +92,6 @@ input CreateFictionBoardInput {
 }
 
 input CreateUserInput {
-  """비밀번호체크"""
-  cPassword: String!
-
   """이메일"""
   email: String!
 
