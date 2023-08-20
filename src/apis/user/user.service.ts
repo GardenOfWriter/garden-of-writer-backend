@@ -86,25 +86,20 @@ export class UserService {
     const checkNickName = await this.userRepository.findOne({
       where: { nickname },
     });
-    // const checkPhone = await this.userRepository.findOne({
-    //   where: { phoneNumber },
-    // });
+
     const checkEmail = await this.userRepository.findOne({
       where: { email },
     });
     if (checkNickName) {
       throw new ConflictException('중복된 닉네임이 존재합니다.');
-    } else if (checkEmail)
+    }
+    if (checkEmail) {
       throw new ConflictException('중복된 이메일 계정이 존재합니다.');
-
-    // if (checkPhone) {
-    //   throw new NotFoundException('이미 사용 중인 휴대폰 번호입니다.');
-    // }
-
+    }
     //이메일 인증이 안되었을 때
-    if (isValid !== true || !isValid)
+    if (isValid !== true || !isValid) {
       throw new BadRequestException('인증이 완료되지 않은 이메일입니다.');
-
+    }
     //비밀번호 형식
     const passwordRule =
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;

@@ -22,9 +22,9 @@ export class CreateUserInput {
   })
   nickname: string;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String, { nullable: true, description: '휴대폰번호' })
   phoneNumber: string;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String, { nullable: true, description: '포트폴리오' })
   portfolio: string;
 }
