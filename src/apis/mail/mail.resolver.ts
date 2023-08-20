@@ -44,7 +44,7 @@ export class MailResolver {
   ) {
     const cacheTokenEmail = await this.cacheManager.get(email);
     if (cacheTokenEmail === token) {
-      await this.cacheManager.set(email, true, { ttl: 800 });
+      await this.cacheManager.set(email, true, { ttl: 600 });
       return '인증번호가 일치합니다.';
     } else if (cacheTokenEmail !== token) {
       throw new NotFoundException('인증번호를 재 확인해 주세요.');
