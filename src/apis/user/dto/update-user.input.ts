@@ -6,9 +6,4 @@ export class UpdateUserInput {
     description: '닉네임',
   })
   nickname: string;
-
-  @Field(() => Image, {
-    description: '이미지 url',
-  })
-  imgUrl: string;
 }

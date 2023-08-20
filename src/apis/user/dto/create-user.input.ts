@@ -23,8 +23,8 @@ export class CreateUserInput {
   nickname: string;
 
   @Field(() => String, { nullable: true })
-  phone_number: string;
+  phoneNumber: string;
 
   @Field(() => String, { nullable: true })
-  Portfolio: string;
+  portfolio: string;
 }
