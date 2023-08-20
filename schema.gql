@@ -92,8 +92,6 @@ input CreateFictionBoardInput {
 }
 
 input CreateUserInput {
-  Portfolio: String
-
   """비밀번호체크"""
   cPassword: String!
 
@@ -105,7 +103,12 @@ input CreateUserInput {
 
   """비밀번호"""
   password: String!
-  phone_number: String
+
+  """휴대폰번호"""
+  phoneNumber: String
+
+  """포트폴리오"""
+  portfolio: String
 }
 
 """소설"""
