@@ -16,27 +16,21 @@ export class UserResolver {
   ) {}
 
   //닉네임 체크
-  @Mutation(() => String)
+  @Mutation(() => Boolean)
   async checkNickname(
     @Args('nickname') nickname: string, //
   ) {
-    const findNickname = await this.userService.findOne({ nickname });
-    if (findNickname) {
-      return false;
-    }
-    return true;
+    const user = await this.userService.findOne({ nickname });
+    return user ? false : true;
   }
 
   //이메일 체크
-  @Mutation(() => String)
+  @Mutation(() => Boolean)
   async checkEmail(
     @Args('email') email: string, //
   ) {
-    const findEmail = await this.userService.findOne({ email });
-    if (findEmail) {
-      return false;
-    }
-    return true;
+    const user = await this.userService.findOne({ email });
+    return user ? false : true;
   }
 
   //모든 유저 조회

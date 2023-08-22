@@ -215,8 +215,8 @@ type ImageEntity {
 }
 
 type Mutation {
-  checkEmail(email: String!): String!
-  checkNickname(nickname: String!): String!
+  checkEmail(email: String!): Boolean!
+  checkNickname(nickname: String!): Boolean!
   checkTokenEmail(email: String!, token: String!): String!
   createBoard(createBoardInput: CreateBoardInput!): BoardEntity!
   createComment(boardId: String!, comment: String!, fictionBoardId: String!): CommentEntity!
