@@ -2,7 +2,7 @@ import { BadRequestException, UseGuards } from '@nestjs/common';
 import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { MailService } from '@src/apis/mail/mail.service';
 import { CreateUserInput } from '@src/apis/user/dto/create-user.input';
-import { UpdateUserInput } from '@src/apis/user/dto/update-board.input';
+import { UpdateUserInput } from '@src/apis/user/dto/update-user.input';
 import { UserEntity } from '@src/apis/user/entities/user.entity';
 import { UserService } from '@src/apis/user/user.service';
 import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
@@ -16,14 +16,21 @@ export class UserResolver {
   ) {}
 
   //닉네임 체크
-  @Mutation(() => String)
-  async checkNickName(
+  @Mutation(() => Boolean)
+  async checkNickname(
     @Args('nickname') nickname: string, //
   ) {
-    const findNickName = await this.userService.findOne({ nickname });
-    if (findNickName) {
-      return false;
-    } else return true;
+    const user = await this.userService.findOne({ nickname });
+    return user ? false : true;
+  }
+
+  //이메일 체크
+  @Mutation(() => Boolean)
+  async checkEmail(
+    @Args('email') email: string, //
+  ) {
+    const user = await this.userService.findOne({ email });
+    return user ? false : true;
   }
 
   //모든 유저 조회

@@ -22,6 +22,7 @@ export class FollowEntity extends BaseEntity {
   })
   user1Id: string;
 
+  // 서버 킬 때마다 주석했다, 풀었다 해야하는지?
   @Column({
     type: 'uuid',
     name: 'user2_id',
