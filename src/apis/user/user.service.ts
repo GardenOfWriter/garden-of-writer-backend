@@ -1,14 +1,18 @@
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import {
   BadRequestException,
+  ConflictException,
   Inject,
   Injectable,
-  NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ImageEntity } from '@src/apis/image/entities/image.entity';
 import { MailService } from '@src/apis/mail/mail.service';
 import { UserEntity } from '@src/apis/user/entities/user.entity';
+import {
+  PASSWORD_REG_EXP,
+  PASSWORD_REG_EXP_ERROR_MESSAGE,
+} from '@src/commons/reg-exp/reg-exp';
 import bcrypt from 'bcrypt';
 import { Cache } from 'cache-manager';
 import { Repository } from 'typeorm';
@@ -72,9 +76,8 @@ export class UserService {
 
   async createUser({ createUserInput }) {
     const {
-      email,
+      email, //
       password,
-      cPassword,
       phoneNumber,
       nickname,
       image,
@@ -85,26 +88,23 @@ export class UserService {
     const checkNickName = await this.userRepository.findOne({
       where: { nickname },
     });
-    const checkPhone = await this.userRepository.findOne({
-      where: { phoneNumber },
-    });
+
     const checkEmail = await this.userRepository.findOne({
       where: { email },
     });
     if (checkNickName) {
-      throw new NotFoundException('이미 사용 중인 닉네임 입니다.');
-    } else if (checkEmail)
-      throw new NotFoundException('이미 사용 중인 이메일 입니다.');
-
-    if (checkPhone) {
-      throw new NotFoundException('이미 사용 중인 휴대폰 번호입니다.');
+      throw new ConflictException('중복된 닉네임이 존재합니다.');
     }
-
-    if (isValid !== true || !isValid)
-      throw new BadRequestException('인증이 완료되지 않았습니다.');
-
-    if (createUserInput.password !== createUserInput.cPassword) {
-      throw new NotFoundException('비밀번호가 일치하지 않습니다.');
+    if (checkEmail) {
+      throw new ConflictException('중복된 이메일 계정이 존재합니다.');
+    }
+    //이메일 인증이 안되었을 때
+    if (isValid !== true || !isValid) {
+      throw new BadRequestException('인증이 완료되지 않은 이메일입니다.');
+    }
+    //비밀번호 형식
+    if (PASSWORD_REG_EXP.test(createUserInput.password) === false) {
+      throw new BadRequestException(PASSWORD_REG_EXP_ERROR_MESSAGE);
     }
 
     const hashedPassword = await bcrypt.hash(createUserInput.password, 10);

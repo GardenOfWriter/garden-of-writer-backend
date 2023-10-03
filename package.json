@@ -45,6 +45,7 @@
     "bcrypt": "^5.1.0",
     "cache-manager": "^4.1.0",
     "cache-manager-redis-store": "2.0.0",
+    "class-validator": "^0.14.0",
     "cookie-parser": "^1.4.6",
     "graphql": "^16.6.0",
     "graphql-upload": "^13.0.0",
