@@ -1,15 +1,18 @@
 import { UserEntity } from '@src/apis/user/entities/user.entity';
-import { IAuthUserItem } from '@src/commons/types/context';
-import { Request, Response } from 'express';
+import { IAuthUserItem, IContext } from '@src/commons/types/context';
 
-export interface IAuthServiceGetAccessToken {
+export interface IUserAuthLoginService {
+  email: string;
+  password: string;
+  context: IContext;
+}
+
+export interface IUserAuthServiceGetAccessToken {
   user: UserEntity | IAuthUserItem;
 }
 
-export interface IAuthServiceSetRefreshToken {
-  user: UserEntity;
-  res: Response;
-  req: Request;
+export interface IUserAuthServiceLogout {
+  context: IContext;
 }
 
 export interface IOAuthUser {
@@ -20,4 +23,8 @@ export interface IOAuthUser {
     address: string;
     phone_number: string;
   };
+}
+
+export interface TokenPayload {
+  userId: number;
 }

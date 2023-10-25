@@ -1,5 +1,5 @@
 import { BadRequestException, UseGuards } from '@nestjs/common';
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { MailService } from '@src/apis/mail/mail.service';
 import { CreateUserInput } from '@src/apis/user/dto/create-user.input';
 import { UpdateUserInput } from '@src/apis/user/dto/update-user.input';
@@ -7,6 +7,7 @@ import { UserEntity } from '@src/apis/user/entities/user.entity';
 import { UserService } from '@src/apis/user/user.service';
 import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
 import { User } from '@src/commons/decorators/user.decorator';
+import { IContext } from '@src/commons/types/context';
 
 @Resolver()
 export class UserResolver {
@@ -51,9 +52,9 @@ export class UserResolver {
   @UseGuards(GqlAuthAccessGuard)
   @Query(() => UserEntity)
   fetchUserLoggedIn(
-    @User() user: UserEntity, //
+    @Context() context: IContext, //
   ) {
-    const userId = user.id;
+    const userId = context.req.user.id;
     return this.userService.findMe({ userId });
   }
 
