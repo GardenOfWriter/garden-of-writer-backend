@@ -32,7 +32,7 @@ export class CommentService {
     });
   }
 
-  async create({ user, boardId, fictionBoardId, comment }) {
+  async create({ userId, boardId, fictionBoardId, comment }) {
     const findId = await this.boardRepository.findOne({
       where: { id: boardId },
     });
@@ -42,7 +42,7 @@ export class CommentService {
     });
 
     const findUser = await this.userRepository.findOne({
-      where: { id: user },
+      where: { id: userId },
     });
 
     return await this.commentRepository.save({
@@ -53,9 +53,9 @@ export class CommentService {
     });
   }
 
-  async delete({ commentId, user }) {
+  async delete({ commentId, userId }) {
     const findUser = await this.userRepository.findOne({
-      where: { id: user },
+      where: { id: userId },
     });
 
     const findComment = await this.commentRepository.findOne({
@@ -72,9 +72,9 @@ export class CommentService {
     return result.affected ? true : false;
   }
 
-  async update({ commentId, updateComment, user }) {
+  async update({ commentId, updateComment, userId }) {
     const findUser = await this.userRepository.findOne({
-      where: { id: user },
+      where: { id: userId },
     });
 
     const findComment = await this.commentRepository.findOne({
@@ -82,7 +82,7 @@ export class CommentService {
       relations: ['user', 'board', 'fictionBoard'],
     });
 
-    if (user !== findComment.user.id)
+    if (userId !== findComment.user.id)
       throw new ConflictException('수정 권한이 없습니다.');
 
     return await this.commentRepository.save({

@@ -27,7 +27,7 @@ export class ExternalConfigService
       password: this.appConfigService.get<string>(ENV_KEY.DATABASE_PASSWORD),
       database: this.appConfigService.get<string>(ENV_KEY.DATABASE_DATABASE),
       entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: false,
+      synchronize: true,
       logging: true,
     };
   }

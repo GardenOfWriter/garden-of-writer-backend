@@ -1,11 +1,12 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateFictionBoardInput } from '@src/apis/fiction-board/dto/create-board.input';
 import { UpdateFictionBoardInput } from '@src/apis/fiction-board/dto/update-board.input';
 import { FictionBoardEntity } from '@src/apis/fiction-board/entities/fiction-board.entity';
 import { FictionBoardService } from '@src/apis/fiction-board/fiction-board.service';
 import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
-import { IContext } from '@src/commons/types/context';
+import { User } from '@src/commons/decorators/user.decorator';
+import { UserEntity } from '../user/entities/user.entity';
 
 @Resolver()
 export class FictionBoardResolver {
@@ -23,20 +24,20 @@ export class FictionBoardResolver {
   @UseGuards(GqlAuthAccessGuard)
   @Query(() => FictionBoardEntity)
   fetchMyFictionBoard(
-    @Context() context: IContext, //
+    @User() user: UserEntity, //
     @Args('fictionBoardId') fictionBoardId: string,
   ) {
-    const userId = context.req.user.id;
+    const userId = user.id;
     return this.fictionBoardService.findByMyUserId({ userId, fictionBoardId });
   }
 
   @UseGuards(GqlAuthAccessGuard)
   @Query(() => [FictionBoardEntity])
   fetchMyAllFictionBoards(
-    @Context() context: IContext,
+    @User() user: UserEntity,
     @Args('page', { nullable: true, type: () => Int }) page: number,
   ) {
-    const userId = context.req.user.id;
+    const userId = user.id;
     return this.fictionBoardService.findAllByMyUserId({ userId, page });
   }
 
@@ -64,11 +65,11 @@ export class FictionBoardResolver {
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => FictionBoardEntity)
   async createFictionBoard(
-    @Context() context: IContext,
+    @User() user: UserEntity,
     @Args('createFictionBoardInput')
     createFictionBoardInput: CreateFictionBoardInput,
   ) {
-    const userId = context.req.user.id;
+    const userId = user.id;
 
     const result = await this.fictionBoardService.create({
       userId,
@@ -80,12 +81,12 @@ export class FictionBoardResolver {
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => FictionBoardEntity)
   async updateFictionBoard(
-    @Context() context: IContext,
+    @User() user: UserEntity,
     @Args('fictionBoardId') fictionBoardId: string,
     @Args('updateFictionBoardInput')
     updateFictionBoardInput: UpdateFictionBoardInput,
   ) {
-    const userId = context.req.user.id;
+    const userId = user.id;
 
     const result = await this.fictionBoardService.update({
       fictionBoardId,
@@ -98,10 +99,10 @@ export class FictionBoardResolver {
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => Boolean)
   deleteFictionBoard(
-    @Context() context: IContext, //
+    @User() user: UserEntity, //
     @Args('fictionBoardId') fictionBoardId: string,
   ) {
-    const userId = context.req.user.id;
+    const userId = user.id;
     return this.fictionBoardService.delete({ userId, fictionBoardId });
   }
 }

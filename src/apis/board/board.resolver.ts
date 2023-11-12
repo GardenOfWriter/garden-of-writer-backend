@@ -1,11 +1,12 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { BoardService } from '@src/apis/board/board.service';
 import { CreateBoardInput } from '@src/apis/board/dto/create-board.input';
 import { UpdateBoardInput } from '@src/apis/board/dto/update-board.input';
 import { BoardEntity } from '@src/apis/board/entities/board.entity';
 import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
-import { IContext } from '@src/commons/types/context';
+import { User } from '@src/commons/decorators/user.decorator';
+import { UserEntity } from '../user/entities/user.entity';
 
 @Resolver()
 export class BoardResolver {
@@ -23,20 +24,20 @@ export class BoardResolver {
   @UseGuards(GqlAuthAccessGuard)
   @Query(() => BoardEntity)
   fetchMyBoard(
-    @Context() context: IContext, //
+    @User() user: UserEntity, //
     @Args('boardId') boardId: string,
   ) {
-    const userId = context.req.user.id;
+    const userId = user.id;
     return this.boardService.findByMyUserId({ userId, boardId });
   }
 
   @UseGuards(GqlAuthAccessGuard)
   @Query(() => [BoardEntity])
   fetchMyAllBoards(
-    @Context() context: IContext,
+    @User() user: UserEntity,
     @Args('page', { nullable: true, type: () => Int }) page: number,
   ) {
-    const userId = context.req.user.id;
+    const userId = user.id;
     return this.boardService.findAllByMyUserId({ userId, page });
   }
 
@@ -65,10 +66,10 @@ export class BoardResolver {
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => BoardEntity)
   async createBoard(
-    @Context() context: IContext,
+    @User() user: UserEntity,
     @Args('createBoardInput') createBoardInput: CreateBoardInput,
   ) {
-    const userId = context.req.user.id;
+    const userId = user.id;
 
     const result = await this.boardService.create({
       userId,
@@ -80,11 +81,11 @@ export class BoardResolver {
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => BoardEntity)
   async updateBoard(
-    @Context() context: IContext,
+    @User() user: UserEntity,
     @Args('boardId') boardId: string,
     @Args('updateBoardInput') updateBoardInput: UpdateBoardInput,
   ) {
-    const userId = context.req.user.id;
+    const userId = user.id;
 
     const result = await this.boardService.update({
       boardId,
@@ -97,10 +98,10 @@ export class BoardResolver {
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => Boolean)
   deleteBoard(
-    @Context() context: IContext, //
+    @User() user: UserEntity, //
     @Args('boardId') boardId: string,
   ) {
-    const userId = context.req.user.id;
+    const userId = user.id;
     return this.boardService.delete({ userId, boardId });
   }
 }

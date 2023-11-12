@@ -1,9 +1,10 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PickEntity } from '@src/apis/pick/entities/pick.entity';
 import { PicksService } from '@src/apis/pick/picks.service';
 import { GqlAuthAccessGuard } from '@src/commons/auth/gql-auth.guard';
-import { IContext } from '@src/commons/types/context';
+import { User } from '@src/commons/decorators/user.decorator';
+import { UserEntity } from '../user/entities/user.entity';
 
 @Resolver()
 export class PicksResolver {
@@ -14,20 +15,20 @@ export class PicksResolver {
   @UseGuards(GqlAuthAccessGuard)
   @Query(() => [PickEntity])
   fetchMyPickBoards(
-    @Context() context: IContext,
+    @User() user: UserEntity,
     @Args('page', { nullable: true, type: () => Int }) page: number,
   ) {
-    const userId = context.req.user.id;
+    const userId = user.id;
     return this.picksService.findWithBoard({ userId, page });
   }
 
   @UseGuards(GqlAuthAccessGuard)
   @Query(() => [PickEntity])
   fetchMyPickFictionBoard(
-    @Context() context: IContext,
+    @User() user: UserEntity,
     @Args('page', { nullable: true, type: () => Int }) page: number,
   ) {
-    const userId = context.req.user.id;
+    const userId = user.id;
     return this.picksService.findWithFictionBoard({ userId, page });
   }
 
@@ -35,9 +36,9 @@ export class PicksResolver {
   @Mutation(() => String)
   pickBoard(
     @Args('boardId') boardId: string, //
-    @Context() context: IContext,
+    @User() user: UserEntity,
   ) {
-    const userId = context.req.user.id;
+    const userId = user.id;
     return this.picksService.pickBoard({ boardId, userId });
   }
 
@@ -45,9 +46,9 @@ export class PicksResolver {
   @Mutation(() => String)
   pickFictionBoard(
     @Args('fictionBoardId') fictionBoardId: string, //
-    @Context() context: IContext,
+    @User() user: UserEntity,
   ) {
-    const userId = context.req.user.id;
+    const userId = user.id;
     return this.picksService.pickFictionBoard({ fictionBoardId, userId });
   }
 }
